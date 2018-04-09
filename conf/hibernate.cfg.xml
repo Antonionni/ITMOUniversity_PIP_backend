@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.PostgreSQLDialect
+        </property>
+        <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="hibernate.default_schema">public</property>
+        <mapping class="com.iadptu.RowEntity"/>
+        <mapping class="models.AnswerEntity"/>
+        <mapping class="models.ContentEntity"/>
+        <mapping class="models.CoursePeriodEntity"/>
+        <mapping class="models.CourseEntity"/>
+        <mapping class="models.LessonEntity"/>
+        <mapping class="models.MaterialEntity"/>
+        <mapping class="models.PassageEntity"/>
+        <mapping class="models.PassageHasAnswersEntity"/>
+        <mapping class="models.QuestionEntity"/>
+        <mapping class="models.TestEntity"/>
+        <mapping class="models.UserHasCourseEntity"/>
+        <mapping class="models.UserRolesHasUsersEntity"/>
+        <mapping class="models.UserEntity"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,14 +1,8 @@
 package data;
 
-import akka.NotUsed;
-import akka.stream.javadsl.Source;
-import models.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.jetbrains.annotations.NotNull;
-import play.db.ebean.EbeanConfig;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton

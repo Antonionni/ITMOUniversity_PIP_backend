@@ -3,7 +3,6 @@ package controllers;
 import akka.stream.javadsl.Source;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.User;
 import domain.UserInteractor;
 import org.jetbrains.annotations.NotNull;
 import play.Logger;

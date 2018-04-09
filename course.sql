@@ -242,3 +242,6 @@ CREATE TRIGGER check_id BEFORE INSERT OR UPDATE ON tests
 
 CREATE TRIGGER check_id BEFORE INSERT OR UPDATE ON content
     FOR EACH ROW EXECUTE PROCEDURE check_id();
+
+
+ALTER TABLE public.course_period ADD CONSTRAINT course_period_coursesid_pk PRIMARY KEY (coursesid);

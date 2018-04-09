@@ -4,7 +4,6 @@ import akka.NotUsed;
 import akka.japi.pf.PFBuilder;
 import akka.stream.javadsl.Source;
 import data.UserRepository;
-import models.User;
 import models.ApiResponse;
 import org.jetbrains.annotations.NotNull;
 import play.Logger;
