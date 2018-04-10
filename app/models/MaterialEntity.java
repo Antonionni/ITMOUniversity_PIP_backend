@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,7 @@ public class MaterialEntity {
     private Timestamp updatedat;
     private int lessonid;
     private LessonEntity lessonByLessonid;
+    private Collection<ContentEntity> materialContent;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -90,5 +92,17 @@ public class MaterialEntity {
 
     public void setLessonByLessonid(LessonEntity lessonByLessonid) {
         this.lessonByLessonid = lessonByLessonid;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "materials_has_content",
+            joinColumns = @JoinColumn(name = "materialid", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "contentid", referencedColumnName = "id"))
+    public Collection<ContentEntity> getMaterialContent() {
+        return materialContent;
+    }
+
+    public void setMaterialContent(Collection<ContentEntity> materialContent) {
+        this.materialContent = materialContent;
     }
 }

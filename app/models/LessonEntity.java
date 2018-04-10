@@ -12,6 +12,7 @@ public class LessonEntity {
     private String title;
     private CourseEntity coursesByCoursesid;
     private Collection<MaterialEntity> materialsById;
+    private Collection<TestEntity> lessonTests;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -76,5 +77,17 @@ public class LessonEntity {
 
     public void setMaterialsById(Collection<MaterialEntity> materialsById) {
         this.materialsById = materialsById;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "lesson_has_tests",
+    joinColumns = @JoinColumn(name = "lessonid", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "testsid", referencedColumnName = "id"))
+    public Collection<TestEntity> getLessonTests() {
+        return lessonTests;
+    }
+
+    public void setLessonTests(Collection<TestEntity> lessonTests) {
+        this.lessonTests = lessonTests;
     }
 }

@@ -16,6 +16,7 @@ public class CourseEntity {
     private Timestamp updatedat;
     private Collection<CoursePeriodEntity> coursePeriodsById;
     private Collection<LessonEntity> lessonsById;
+    private Collection<UserEntity> courseTeachers;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -112,5 +113,18 @@ public class CourseEntity {
 
     public void setLessonsById(Collection<LessonEntity> lessonsById) {
         this.lessonsById = lessonsById;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name="courses_has_teachers",
+            joinColumns=@JoinColumn(name="coursesid", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="userid", referencedColumnName="id"))
+    public Collection<UserEntity> getCourseTeachers() {
+        return courseTeachers;
+    }
+
+    public void setCourseTeachers(Collection<UserEntity> courseTeachers) {
+        this.courseTeachers = courseTeachers;
     }
 }

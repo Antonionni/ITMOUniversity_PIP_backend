@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,7 @@ public class UserEntity {
     private String secondname;
     private Timestamp createdat;
     private Timestamp updatedat;
+    private Collection<CourseEntity> teacherCourses;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -103,5 +105,14 @@ public class UserEntity {
     public int hashCode() {
 
         return Objects.hash(id, email, password, firstname, secondname, createdat, updatedat);
+    }
+
+    @ManyToMany(mappedBy = "courseTeachers")
+    public Collection<CourseEntity> getTeacherCourses() {
+        return teacherCourses;
+    }
+
+    public void setTeacherCourses(Collection<CourseEntity> teacherCourses) {
+        this.teacherCourses = teacherCourses;
     }
 }

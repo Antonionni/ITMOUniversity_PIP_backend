@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 import javax.inject.Singleton;
 
 @Singleton
-public class UserRepository {
+public class HibernateUtils {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
