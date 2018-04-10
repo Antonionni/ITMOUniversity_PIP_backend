@@ -7,11 +7,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "answers", schema = "public", catalog = "postgres")
 public class AnswerEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * answer which user chose
+     */
     private String useranswer;
+    /**
+     * date when answer was created
+     */
     private Timestamp createdat;
+    /**
+     * date when answer was updated
+     */
     private Timestamp updatedat;
+    /**
+     * id of {@link QuestionEntity}
+     */
     private int questionid;
+    /**
+     * instans of {@link QuestionEntity}
+     */
     private QuestionEntity questionsByQuestionid;
 
     @Id

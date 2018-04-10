@@ -8,13 +8,37 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class UserEntity {
+    /**
+     * use unique identificator
+     */
     private int id;
+    /**
+     * user Email
+     */
     private String email;
+    /**
+     * secret password
+     */
     private String password;
+    /**
+     * Name
+     */
     private String firstname;
+    /**
+     * Family Name
+     */
     private String secondname;
+    /**
+     * date and time when user was created
+     */
     private Timestamp createdat;
+    /**
+     * date and time when user was update his profile
+     */
     private Timestamp updatedat;
+    /**
+     * List of courses which student try to pass
+     */
     private Collection<CourseEntity> teacherCourses;
 
     @Id

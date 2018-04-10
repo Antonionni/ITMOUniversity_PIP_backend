@@ -8,11 +8,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "tests", schema = "public", catalog = "postgres")
 public class TestEntity {
+    /**
+     * test unique identificator
+     */
     private int id;
+    /**
+     * title of test
+     */
     private String title;
+    /**
+     * minimal score to pass the test
+     */
     private int threshold;
+    /**
+     * date and time when test created
+     */
     private Timestamp createdat;
+    /**
+     * date and time when test updated
+     */
     private Timestamp updatedat;
+    /**
+     * List of questions
+     */
     private Collection<QuestionEntity> questionsById;
 
     @Id

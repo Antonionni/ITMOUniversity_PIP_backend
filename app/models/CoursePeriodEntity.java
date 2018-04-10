@@ -7,8 +7,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "course_period", schema = "public", catalog = "postgres")
 public class CoursePeriodEntity {
+    /**
+     * unique identificator
+     */
     private int coursesid;
+    /**
+     * date when course started
+     */
     private Timestamp startdate;
+    /**
+     * date when course was end
+     */
     private Timestamp enddate;
 
     @Id

@@ -7,10 +7,25 @@ import java.util.Objects;
 @Entity
 @Table(name = "passages_has_answers", schema = "public", catalog = "postgres")
 public class PassageHasAnswersEntity {
+    /**
+     * uniqe identificator
+     */
     private int id;
+    /**
+     * date and time when
+     */
     private Timestamp passagesstartdate;
+    /**
+     * id of {@link AnswerEntity}
+     */
     private int answerid;
+    /**
+     * reference to {@link PassageEntity}
+     */
     private PassageEntity passages;
+    /**
+     * reference to {@link AnswerEntity}
+     */
     private AnswerEntity answersByAnswerid;
 
     @Id

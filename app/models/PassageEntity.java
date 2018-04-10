@@ -8,12 +8,33 @@ import java.util.Objects;
 @Table(name = "passages", schema = "public", catalog = "postgres")
 @IdClass(PassageEntityPK.class)
 public class PassageEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * date and time when student start pass the test
+     */
     private Timestamp startdate;
+    /**
+     * date and time when student end pass the test
+     */
     private Timestamp enddate;
+    /**
+     * reference of {@link TestEntity}
+     */
     private int testid;
+    /**
+     * result score
+     */
     private int result;
+    /**
+     * is student pass the test
+     */
     private boolean isRight;
+    /**
+     * refernce to {@link UserEntity}
+     */
     private UserEntity usersById;
 
     @Id

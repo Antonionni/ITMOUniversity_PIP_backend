@@ -8,12 +8,33 @@ import java.util.Objects;
 @Entity
 @Table(name = "materials", schema = "public", catalog = "postgres")
 public class MaterialEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * title of material
+     */
     private String title;
+    /**
+     * date and time when material created
+     */
     private Timestamp createdat;
+    /**
+     * date and time when materials updated
+     */
     private Timestamp updatedat;
+    /**
+     * reference to ID of leson
+     */
     private int lessonid;
+    /**
+     * reference of {@link LessonEntity}
+     */
     private LessonEntity lessonByLessonid;
+    /**
+     * List of content which used in this materials
+     */
     private Collection<ContentEntity> materialContent;
 
     @Id

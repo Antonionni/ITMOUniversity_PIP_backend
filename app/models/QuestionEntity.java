@@ -9,13 +9,38 @@ import java.util.Objects;
 @Entity
 @Table(name = "questions", schema = "public", catalog = "postgres")
 public class QuestionEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * text of question
+     */
     private String textquestion;
+    /**
+     * id of {@link TestEntity}
+     */
     private int testid;
+    /**
+     * count of right answers
+     */
     private int rightanswerid;
+    /**
+     * List of {@link AnswerEntity} which existing at this question
+     */
     private Collection<AnswerEntity> answersById;
+
+    /**
+     * reference tot {@link TestEntity}
+     */
     private TestEntity testsByTestid;
+    /**
+     * refernce to {@link AnswerEntity}
+     */
     private AnswerEntity answersByRightanswerid;
+    /**
+     * Enum of answer types
+     */
     private AnswerType answerType;
 
     @Id

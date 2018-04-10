@@ -7,11 +7,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "lesson", schema = "public", catalog = "postgres")
 public class LessonEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * reference to {@link CourseEntity}
+     */
     private int coursesid;
+    /**
+     * lesson title
+     */
     private String title;
+    /**
+     * reference of {@link CourseEntity}
+     */
     private CourseEntity coursesByCoursesid;
+    /**
+     * List of materials which used in this course
+     */
     private Collection<MaterialEntity> materialsById;
+    /**
+     * List of test which used in this course
+     */
     private Collection<TestEntity> lessonTests;
 
     @Id

@@ -8,8 +8,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "content", schema = "public", catalog = "postgres")
 public class ContentEntity {
+    /**
+     * unique indentificator
+     */
     private int id;
+    /**
+     *  name of content
+     */
     private String content;
+    /**
+     * reference to {@link MaterialEntity}
+     */
     private MaterialEntity attachedToMaterial;
 
     @Id
@@ -22,6 +31,9 @@ public class ContentEntity {
         this.id = id;
     }
 
+    /**
+     * Enum of content type
+     */
     private ContentType contentType;
 
     @Basic

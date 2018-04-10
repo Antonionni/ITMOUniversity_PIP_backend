@@ -7,11 +7,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "user_has_course", schema = "public", catalog = "postgres")
 public class UserHasCourseEntity {
+    /**
+     * date and time when this row was created
+     */
     private Timestamp createdat;
+    /**
+     * date and time when this row was updated
+     */
     private Timestamp updatedat;
+    /**
+     * id of {@link CourseEntity}
+     */
     private int courseid;
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * reference to {@link CourseEntity}
+     */
     private CourseEntity coursesByCourseid;
+    /**
+     * reference to {@link UserEntity}
+     */
     private UserEntity usersById;
 
     @Basic

@@ -9,9 +9,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "user_roles_has_users", schema = "public", catalog = "postgres")
 public class UserRolesHasUsersEntity {
+    /**
+     * unique identifiator
+     */
     private int id;
+    /**
+     * date and time when user get his role
+     */
     private Timestamp startdate;
+    /**
+     * date and time when user lose his role
+     */
     private Timestamp enddate;
+    /**
+     * Enum of roles
+     */
     private RoleType roleType;
 
     @Id

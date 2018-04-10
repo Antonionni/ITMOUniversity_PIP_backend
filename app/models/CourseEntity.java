@@ -8,14 +8,41 @@ import java.util.Objects;
 @Entity
 @Table(name = "courses", schema = "public", catalog = "postgres")
 public class CourseEntity {
+    /**
+     * unique identificator
+     */
     private int id;
+    /**
+     * title of course
+     */
     private String title;
+    /**
+     * education subject (for example Math, Philosophy e.t.c.)
+     */
     private String subject;
+    /**
+     * url for course image
+     */
     private String imageurl;
+    /**
+     * date when course was created
+     */
     private Timestamp createdat;
+    /**
+     * date when course was updated
+     */
     private Timestamp updatedat;
+    /**
+     * List of coruses periods
+     */
     private Collection<CoursePeriodEntity> coursePeriodsById;
+    /**
+     * List of course lessons
+     */
     private Collection<LessonEntity> lessonsById;
+    /**
+     * List of theachers who created course
+     */
     private Collection<UserEntity> courseTeachers;
 
     @Id
