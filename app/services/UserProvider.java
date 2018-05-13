@@ -20,23 +20,18 @@ public class UserProvider {
 
     private final PlayAuthenticate auth;
 
+    private final UserDAO userDao;
+
     @Inject
-    public UserProvider(final PlayAuthenticate auth) {
+    public UserProvider(final PlayAuthenticate auth, UserDAO userDao) {
         this.auth = auth;
+        this.userDao = userDao;
     }
 
     @Nullable
     public UserEntity getUser(Http.Session session) {
         final AuthUser currentAuthUser = this.auth.getUser(session);
-        Session dbSession = HibernateUtils.getSessionFactory().openSession();
-        CriteriaBuilder builder = dbSession.getCriteriaBuilder();
-        CriteriaQuery<UserEntity> cq = builder.createQuery(UserEntity.class);
-        Root<UserEntity> root = cq.from(UserEntity.class);
-        cq.select()
-                .where(builder.)
-        TypedQuery<UserEntity> query = dbSession.createQuery(builder);
-        final UserEntity localUser = UserEntity.findByAuthUserIdentity(currentAuthUser);
-        return localUser;
+        return userDao.findByAuthUserIdentity(currentAuthUser);
     }
 }
 

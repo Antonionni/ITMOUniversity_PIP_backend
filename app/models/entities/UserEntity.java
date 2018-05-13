@@ -7,6 +7,7 @@ import data.HibernateUtils;
 import io.ebean.ExpressionList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import services.UserDAO;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,6 +19,15 @@ import java.util.*;
 @Entity
 @Table(name = "users", catalog = "postgres")
 public class UserEntity {
+    public final UserDAO userDAO;
+
+    public UserEntity(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public UserEntity() {
+        userDAO = null;
+    }
     /**
      * use unique identificator
      */

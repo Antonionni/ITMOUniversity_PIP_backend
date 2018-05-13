@@ -11,6 +11,7 @@ import models.entities.UserEntity;
 import models.entities.UserRolesHasUsersEntity;
 import org.hibernate.Session;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -20,6 +21,15 @@ import java.sql.Timestamp;
 import java.util.*;
 
 public class UserDAO {
+
+    private final LinkedAccountDAO linkedAccountDAO;
+    private final TokenActionDAO tokenActionDAO;
+
+    @Inject
+    public UserDAO(LinkedAccountDAO linkedAccountDAO, TokenActionDAO tokenActionDAO) {
+        this.linkedAccountDAO = linkedAccountDAO;
+        this.tokenActionDAO = tokenActionDAO;
+    }
     private EntityManager entityManager = HibernateUtils.getSessionFactory().createEntityManager();
 
     public boolean existsByAuthUserIdentity(
@@ -78,21 +88,21 @@ public class UserDAO {
 
     public void merge(final UserEntity mainUser, final UserEntity otherUser) {
         for (final LinkedAccount acc : otherUser.getLinkedAccounts()) {
-            mainUser.getLinkedAccounts().add(LinkedAccount.create(acc));
+            mainUser.getLinkedAccounts().add(linkedAccountDAO.create(acc));
         }
         otherUser.setActive(false);
         entityManager.merge(mainUser);
         entityManager.merge(otherUser);
     }
 
-    public UserEntity create(final AuthUser authUser, RoleType roleType) {
+    public UserEntity create(final AuthUser authUser) {
         final UserEntity user = new UserEntity();
 
         // user.permissions = new ArrayList<UserPermission>();
         // user.permissions.add(UserPermission.findByValue("printers.edit"));
         user.setActive(true);
         user.setLastLogin(new Date());
-        user.setLinkedAccounts(Collections.singletonList(LinkedAccount
+        user.setLinkedAccounts(Collections.singletonList(linkedAccountDAO
                 .create(authUser)));
 
         if (authUser instanceof EmailIdentity) {
@@ -126,12 +136,11 @@ public class UserDAO {
 
         entityManager.persist(user);
         UserRolesHasUsersEntity role = new UserRolesHasUsersEntity();
-        role.setRoleType(roleType);
+        // TODO[ASh]: wtf.
+        role.setRoleType(RoleType.AuthenticatedUser);
         role.setUserId(user.getId());
         role.setStartdate(new Date());
         entityManager.persist(role);
-        // Ebean.saveManyToManyAssociations(user, "roles");
-        // Ebean.saveManyToManyAssociations(user, "permissions");
         return user;
     }
 
@@ -152,7 +161,7 @@ public class UserDAO {
     public void addLinkedAccount(final AuthUser oldUser,
                                         final AuthUser newUser) {
         final UserEntity u = findByAuthUserIdentity(oldUser);
-        u.getLinkedAccounts().add(LinkedAccount.create(newUser));
+        u.getLinkedAccounts().add(linkedAccountDAO.create(newUser));
         entityManager.merge(u);
     }
 
@@ -179,14 +188,14 @@ public class UserDAO {
     }
 
     public LinkedAccount getAccountByProvider(UserEntity userEntity, final String providerKey) {
-        return LinkedAccount.findByProviderKey(userEntity, providerKey);
+        return linkedAccountDAO.findByProviderKey(userEntity, providerKey);
     }
 
     public void verify(final UserEntity unverified) {
         // You might want to wrap this into a transaction
         unverified.setEmailValidated(true);
         entityManager.merge(unverified);
-        TokenAction.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
+        tokenActionDAO.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
     }
 
     public void changePassword(UserEntity userEntity, final UsernamePasswordAuthUser authUser,
@@ -194,7 +203,7 @@ public class UserDAO {
         LinkedAccount a = getAccountByProvider(userEntity, authUser.getProvider());
         if (a == null) {
             if (create) {
-                a = LinkedAccount.create(authUser);
+                a = linkedAccountDAO.create(authUser);
                 a.setUser(userEntity);
             } else {
                 throw new RuntimeException(
@@ -209,6 +218,6 @@ public class UserDAO {
                               final boolean create) {
         // You might want to wrap this into a transaction
         this.changePassword(userEntity, authUser, create);
-        TokenAction.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
+        tokenActionDAO.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
     }
 }

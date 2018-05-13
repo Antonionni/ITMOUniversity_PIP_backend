@@ -18,7 +18,8 @@ libraryDependencies ++= Seq(
   javaWs,
   "be.objectify"  %% "deadbolt-java"     % "2.5.0",
   "com.feth"      %% "play-authenticate" % "0.8.3",
-  "org.hibernate" % "hibernate-core" % "5.2.2.Final"
+  "org.hibernate" % "hibernate-core" % "5.2.2.Final",
+  guice
 )
 resolvers += Resolver.sonatypeRepo("snapshots")
 

@@ -2,12 +2,13 @@ package security;
 
 import be.objectify.deadbolt.java.AbstractDeadboltHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.models.Subject;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.user.AuthUserIdentity;
-import models.entities.UserEntity;
 import play.mvc.Http;
 import play.mvc.Result;
+import services.UserDAO;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -17,9 +18,12 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler {
 
     private final PlayAuthenticate auth;
 
-    public MyDeadboltHandler(final PlayAuthenticate auth, final ExecutionContextProvider exContextProvider) {
+    private final UserDAO userDao;
+
+    public MyDeadboltHandler(final PlayAuthenticate auth, final ExecutionContextProvider exContextProvider, final UserDAO userDao) {
         super(exContextProvider);
         this.auth = auth;
+        this.userDao = userDao;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler {
     public CompletionStage<Optional<? extends Subject>> getSubject(final Http.Context context) {
         final AuthUserIdentity u = this.auth.getUser(context);
         // Caching might be a good idea here
-        return CompletableFuture.completedFuture(Optional.ofNullable((Subject) UserEntity.findByAuthUserIdentity(u)));
+        return CompletableFuture.completedFuture(Optional.ofNullable((Subject) userDao.findByAuthUserIdentity(u)));
     }
 
     @Override

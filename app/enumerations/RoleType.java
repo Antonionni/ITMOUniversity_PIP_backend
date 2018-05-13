@@ -1,5 +1,5 @@
 package enumerations;
 
 public enum RoleType {
-    Student, Teacher, Admin
+    Student, Teacher, Admin, AuthenticatedUser
 }

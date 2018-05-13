@@ -1,16 +1,63 @@
-2018-04-30 18:37:10,996 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-5 - Configuration not found for database: No configuration setting found for key 'db'
-2018-04-30 18:37:12,192 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-5 - Using the following cache for assets configuration:
-	 enabledCaching = false
-	 enabledCacheControl = false
-	 defaultCacheControl = public, max-age=3600
-	 aggressiveCacheControl = public, max-age=31536000, immutable
-	 configuredCacheControl:
+2018-05-13 20:53:31,307 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-3 - Configuration not found for database: No configuration setting found for key 'db'
+2018-05-13 20:53:32,319 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-3 - 
 
-
-2018-04-30 18:37:12,424 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-
-2018-04-30 18:37:12,496 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev)
+! @780fpohcd - Internal server error, for (GET) [/] ->
+ 
+play.api.UnexpectedException: Unexpected exception[NoClassDefFoundError: play/api/libs/openid/OpenIdClient]
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1.reload(DevServerStart.scala:190)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1.get(DevServerStart.scala:124)
+	at play.core.server.AkkaHttpServer.play$core$server$AkkaHttpServer$$modelConversion(AkkaHttpServer.scala:184)
+	at play.core.server.AkkaHttpServer.play$core$server$AkkaHttpServer$$handleRequest(AkkaHttpServer.scala:190)
+	at play.core.server.AkkaHttpServer$$anonfun$4.apply(AkkaHttpServer.scala:107)
+	at play.core.server.AkkaHttpServer$$anonfun$4.apply(AkkaHttpServer.scala:107)
+	at akka.stream.impl.fusing.MapAsync$$anon$24.onPush(Ops.scala:1191)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:512)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:475)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:371)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:584)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:468)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:559)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:741)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:756)
+	at akka.actor.Actor$class.aroundReceive(Actor.scala:517)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:666)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:527)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:496)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NoClassDefFoundError: play/api/libs/openid/OpenIdClient
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)
+	at java.lang.Class.getDeclaredConstructors(Class.java:2020)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:245)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:100)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:661)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:885)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:808)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:285)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:217)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:893)
+	at com.google.inject.internal.FactoryProxy.notify(FactoryProxy.java:46)
+	at com.google.inject.internal.ProcessedBindingData.runCreationListeners(ProcessedBindingData.java:50)
+	at com.google.inject.internal.InternalInjectorCreator.initializeStatically(InternalInjectorCreator.java:134)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:107)
+	at com.google.inject.Guice.createInjector(Guice.java:99)
+	at com.google.inject.Guice.createInjector(Guice.java:84)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:185)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:137)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$1.apply(DevServerStart.scala:174)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$1.apply(DevServerStart.scala:171)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1.reload(DevServerStart.scala:171)
+	... 25 common frames omitted
+Caused by: java.lang.ClassNotFoundException: play.api.libs.openid.OpenIdClient
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 49 common frames omitted

@@ -4,6 +4,7 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.service.AbstractUserService;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
+import enumerations.RoleType;
 import models.entities.UserEntity;
 
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ public class UserService extends AbstractUserService {
     public Object save(final AuthUser authUser) {
         final boolean isLinked = userDao.existsByAuthUserIdentity(authUser);
         if (!isLinked) {
-            return userDao.create(authUser).id;
+            return userDao.create(authUser).getId();
         } else {
             // we have this user already, so return null
             return null;

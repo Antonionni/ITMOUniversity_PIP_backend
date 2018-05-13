@@ -4,10 +4,12 @@ import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import com.feth.play.module.pa.PlayAuthenticate;
 import models.entities.UserEntity;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import services.UserProvider;
+import views.html.*;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
@@ -59,7 +61,7 @@ public class Application extends Controller {
 
     public Result doLogin() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-        final Form<MyLogin> filledForm = this.provider.getLoginForm()
+        final Form<MyUsernamePasswordAuthProvider.MyLogin> filledForm = this.provider.getLoginForm()
                 .bindFromRequest();
         if (filledForm.hasErrors()) {
             // User did not fill everything properly
@@ -84,7 +86,7 @@ public class Application extends Controller {
 
     public Result doSignup() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-        final Form<MySignup> filledForm = this.provider.getSignupForm().bindFromRequest();
+        final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = this.provider.getSignupForm().bindFromRequest();
         if (filledForm.hasErrors()) {
             // User did not fill everything properly
             return badRequest(signup.render(this.auth, this.userProvider, filledForm));
