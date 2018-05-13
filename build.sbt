@@ -9,13 +9,17 @@ scalaVersion := "2.11.11"
 
 updateConfiguration in updateSbtClassifiers := (updateConfiguration in updateSbtClassifiers).value.withMissingOk(true)
 
-libraryDependencies += guice
 libraryDependencies ++= Seq(
+  "org.webjars" % "bootstrap" % "3.2.0",
   jdbc,
   "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
   cacheApi,
   evolutions,
-  javaWs
+  javaWs,
+  "be.objectify"  %% "deadbolt-java"     % "2.5.0",
+  "com.feth"      %% "play-authenticate" % "0.8.3",
+  "org.hibernate" % "hibernate-core" % "5.2.2.Final"
 )
-libraryDependencies += "com.google.code.gson" % "gson" % "1.7.1"
-libraryDependencies += "org.hibernate" % "hibernate" % "3.2.0.cr5"
+resolvers += Resolver.sonatypeRepo("snapshots")
+
+
