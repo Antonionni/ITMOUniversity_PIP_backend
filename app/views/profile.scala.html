@@ -21,7 +21,7 @@
             Your first name is @localUser.getFirstname and your last name is @localUser.getSecondname
             <br/>
         }
-    @defining(localUser.userDAO.getProviders(localUser)) { providers =>
+    @defining(localUser.IUserDAO.getProviders(localUser)) { providers =>
         @if(providers.size() > 0) {
         @if(providers.size() ==1) {
             @Messages("playauthenticate.profile.providers_one")

@@ -11,22 +11,19 @@ import models.entities.LinkedAccount;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
 
-import play.Application;
 import play.Logger;
-import play.api.i18n.I18nSupport;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 import play.i18n.Lang;
-import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.inject.ApplicationLifecycle;
 import play.mvc.Call;
 import play.mvc.Http.Context;
+import services.IUserDAO;
 import services.TokenActionDAO;
-import services.UserDAO;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -49,7 +46,6 @@ public class MyUsernamePasswordAuthProvider
 
 	private static final String EMAIL_TEMPLATE_FALLBACK_LANGUAGE = "en";
 	private final MessagesApi messagesApi;
-	private final Application application;
 	private final TokenActionDAO tokenActionDAO;
 
 	@Override
@@ -139,20 +135,19 @@ public class MyUsernamePasswordAuthProvider
 
 	private final Form<MySignup> SIGNUP_FORM;
 	private final Form<MyLogin> LOGIN_FORM;
-	private final UserDAO userDao;
+	private final IUserDAO IUserDao;
 
 	@Inject
 	public MyUsernamePasswordAuthProvider(final PlayAuthenticate auth, final FormFactory formFactory,
 										  final ApplicationLifecycle lifecycle, MailerFactory mailerFactory,
-										  UserDAO userDao, MessagesApi messagesApi, Application application,
+										  IUserDAO IUserDao, MessagesApi messagesApi,
 										  TokenActionDAO tokenActionDAO) {
 		super(auth, lifecycle, mailerFactory);
 
 		this.SIGNUP_FORM = formFactory.form(MySignup.class);
 		this.LOGIN_FORM = formFactory.form(MyLogin.class);
-		this.userDao = userDao;
+		this.IUserDao = IUserDao;
 		this.messagesApi = messagesApi;
-		this.application = application;
 		this.tokenActionDAO = tokenActionDAO;
 	}
 
@@ -182,7 +177,7 @@ public class MyUsernamePasswordAuthProvider
 
 	@Override
 	protected SignupResult signupUser(final MyUsernamePasswordAuthUser user) {
-		final UserEntity u = userDao.findByUsernamePasswordIdentity(user);
+		final UserEntity u = IUserDao.findByUsernamePasswordIdentity(user);
 		if (u != null) {
 			if (u.isEmailValidated()) {
 				// This user exists, has its email validated and is active
@@ -195,7 +190,7 @@ public class MyUsernamePasswordAuthProvider
 		}
 		// The user either does not exist or is inactive - create a new one
 		@SuppressWarnings("unused")
-		final UserEntity newUser = userDao.create(user);
+		final UserEntity newUser = IUserDao.create(user);
 		// Usually the email should be verified before allowing login, however
 		// if you return
 		// return SignupResult.USER_CREATED;
@@ -206,7 +201,7 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected LoginResult loginUser(
 			final MyLoginUsernamePasswordAuthUser authUser) {
-		final UserEntity u = userDao.findByUsernamePasswordIdentity(authUser);
+		final UserEntity u = IUserDao.findByUsernamePasswordIdentity(authUser);
 		if (u == null) {
 			return LoginResult.NOT_FOUND;
 		} else {
@@ -265,13 +260,13 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected String getVerifyEmailMailingSubject(
 			final MyUsernamePasswordAuthUser user, final Context ctx) {
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		return messagesApi.get(lang, "playauthenticate.password.verify_signup.subject");
 	}
 
 	@Override
 	protected String onLoginUserNotFound(final Context context) {
-		final Lang lang = Lang.preferred(application, context.request().acceptLanguages());
+		final Lang lang = context.lang();
 		context.flash()
 				.put(controllers.Application.FLASH_ERROR_KEY,
 						messagesApi.get(lang, "playauthenticate.password.login.unknown_user_or_pw"));
@@ -287,7 +282,7 @@ public class MyUsernamePasswordAuthProvider
 		final String url = routes.Signup.verify(token).absoluteURL(
 				ctx.request(), isSecure);
 
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		final String langCode = lang.code();
 
 		final String html = getEmailTemplate(
@@ -307,7 +302,7 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected String generateVerificationRecord(
 			final MyUsernamePasswordAuthUser user) {
-		return generateVerificationRecord(userDao.findByAuthUserIdentity(user));
+		return generateVerificationRecord(IUserDao.findByAuthUserIdentity(user));
 	}
 
 	protected String generateVerificationRecord(final UserEntity user) {
@@ -325,7 +320,7 @@ public class MyUsernamePasswordAuthProvider
 
 	protected String getPasswordResetMailingSubject(final UserEntity user,
 			final Context ctx) {
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		return messagesApi.get(lang, "playauthenticate.password.reset_email.subject");
 	}
 
@@ -337,7 +332,7 @@ public class MyUsernamePasswordAuthProvider
 		final String url = routes.Signup.resetPassword(token).absoluteURL(
 				ctx.request(), isSecure);
 
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		final String langCode = lang.code();
 
 		final String html = getEmailTemplate(
@@ -364,7 +359,7 @@ public class MyUsernamePasswordAuthProvider
 
 	protected String getVerifyEmailMailingSubjectAfterSignup(final UserEntity user,
 			final Context ctx) {
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		return messagesApi.get(lang, "playauthenticate.password.verify_email.subject");
 	}
 
@@ -419,7 +414,7 @@ public class MyUsernamePasswordAuthProvider
 		final String url = routes.Signup.verify(token).absoluteURL(
 				ctx.request(), isSecure);
 
-		final Lang lang = Lang.preferred(application, ctx.request().acceptLanguages());
+		final Lang lang = ctx.lang();
 		final String langCode = lang.code();
 
 		final String html = getEmailTemplate(

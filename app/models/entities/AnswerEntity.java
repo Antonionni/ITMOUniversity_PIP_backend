@@ -101,7 +101,7 @@ public class AnswerEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public QuestionEntity getQuestionsByQuestionid() {
         return questionsByQuestionid;
     }

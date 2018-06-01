@@ -124,7 +124,7 @@ public class CourseEntity {
         return Objects.hash(id, title, subject, imageurl, createdat, updatedat);
     }
 
-    @OneToMany(mappedBy = "coursesByCoursesid")
+    @OneToMany(mappedBy = "coursesid")
     public Collection<CoursePeriodEntity> getCoursePeriodsById() {
         return coursePeriodsById;
     }

@@ -3,30 +3,41 @@ package services;
 import data.HibernateUtils;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
+import play.db.jpa.JPAApi;
+import play.db.jpa.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 
 public class TokenActionDAO {
-    private EntityManager entityManager = HibernateUtils.getSessionFactory().createEntityManager();
+    private final JPAApi JpAApi;
 
+    @Inject
+    public TokenActionDAO(JPAApi jpaApi) {
+        JpAApi = jpaApi;
+    }
+
+    @Transactional
     public TokenAction findByToken(final String token, final TokenAction.Type type) {
-        TypedQuery<TokenAction> query = entityManager
+        TypedQuery<TokenAction> query = JpAApi.em()
                 .createQuery("select TokenAction from TokenAction where token=:token and type=:type", TokenAction.class);
         query.setParameter("token", token);
         query.setParameter("type", type);
         return query.getSingleResult();
     }
 
+    @Transactional
     public void deleteByUser(final UserEntity u, final TokenAction.Type type) {
-        Query query = entityManager.createQuery("delete from TokenAction where targetUser.id=:userId and type=:type");
+        Query query = JpAApi.em().createQuery("delete from TokenAction where targetUser.id=:userId and type=:type");
         query.setParameter("userId", u.getId());
         query.setParameter("type", type);
         query.executeUpdate();
     }
 
+    @Transactional
     public TokenAction create(final TokenAction.Type type, final String token,
                                      final UserEntity targetUser) {
         final TokenAction ua = new TokenAction();
@@ -36,7 +47,7 @@ public class TokenActionDAO {
         final Date created = new Date();
         ua.created = created;
         ua.expires = new Date(created.getTime() + TokenAction.VERIFICATION_TIME * 1000);
-        entityManager.persist(ua);
+        JpAApi.em().persist(ua);
         return ua;
     }
 }

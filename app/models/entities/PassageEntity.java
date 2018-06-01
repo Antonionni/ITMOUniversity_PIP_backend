@@ -117,7 +117,7 @@ public class PassageEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public UserEntity getUsersById() {
         return usersById;
     }

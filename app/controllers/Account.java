@@ -11,15 +11,14 @@ import play.data.FormFactory;
 import play.data.format.Formats.NonEmpty;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
-import play.i18n.Messages;
+import play.db.jpa.Transactional;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthUser;
-import services.UserDAO;
+import services.IUserDAO;
 import services.UserProvider;
-import views.html.account.*;
 import views.html.account.link;
 
 import javax.inject.Inject;
@@ -81,32 +80,34 @@ public class Account extends Controller {
 	private final PlayAuthenticate auth;
 	private final UserProvider userProvider;
 	private final MyUsernamePasswordAuthProvider myUsrPaswProvider;
-	private final UserDAO userDAO;
+	private final IUserDAO IUserDAO;
 
 	private final MessagesApi msg;
 
 	@Inject
 	public Account(final PlayAuthenticate auth, final UserProvider userProvider,
 				   final MyUsernamePasswordAuthProvider myUsrPaswProvider,
-				   final FormFactory formFactory, final MessagesApi msg, final UserDAO userDAO) {
+				   final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO) {
 		this.auth = auth;
 		this.userProvider = userProvider;
 		this.myUsrPaswProvider = myUsrPaswProvider;
 
 		this.ACCEPT_FORM = formFactory.form(Accept.class);
 		this.PASSWORD_CHANGE_FORM = formFactory.form(PasswordChange.class);
-		this.userDAO = userDAO;
+		this.IUserDAO = IUserDAO;
 
 		this.msg = msg;
 	}
 
 	@SubjectPresent
+	@Transactional
 	public Result link() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(link.render(this.userProvider, this.auth));
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
+	@Transactional
 	public Result verifyEmail() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final UserEntity user = this.userProvider.getUser(session());
@@ -128,6 +129,7 @@ public class Account extends Controller {
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
+	@Transactional
 	public Result changePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final UserEntity u = this.userProvider.getUser(session());
@@ -140,6 +142,7 @@ public class Account extends Controller {
 	}
 
 	@Restrict(@Group(Application.USER_ROLE))
+	@Transactional
 	public Result doChangePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<PasswordChange> filledForm = PASSWORD_CHANGE_FORM
@@ -150,7 +153,7 @@ public class Account extends Controller {
 		} else {
 			final UserEntity user = this.userProvider.getUser(session());
 			final String newPassword = filledForm.get().password;
-			userDAO.changePassword(user, new MyUsernamePasswordAuthUser(newPassword),
+			IUserDAO.changePassword(user, new MyUsernamePasswordAuthUser(newPassword),
 					true);
 			flash(Application.FLASH_MESSAGE_KEY,
 					this.msg.preferred(request()).at("playauthenticate.change_password.success"));
@@ -159,6 +162,7 @@ public class Account extends Controller {
 	}
 
 	@SubjectPresent
+	@Transactional
 	public Result askLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final AuthUser u = this.auth.getLinkUser(session());
@@ -170,6 +174,7 @@ public class Account extends Controller {
 	}
 
 	@SubjectPresent
+	@Transactional
 	public Result doLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final AuthUser u = this.auth.getLinkUser(session());
@@ -194,6 +199,7 @@ public class Account extends Controller {
 	}
 
 	@SubjectPresent
+	@Transactional
 	public Result askMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		// this is the currently logged in user
@@ -212,6 +218,7 @@ public class Account extends Controller {
 	}
 
 	@SubjectPresent
+	@Transactional
 	public Result doMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		// this is the currently logged in user

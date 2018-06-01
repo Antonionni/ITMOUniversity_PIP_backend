@@ -4,6 +4,7 @@ import models.entities.TokenAction;
 import models.entities.UserEntity;
 import play.data.Form;
 import play.data.FormFactory;
+import play.db.jpa.Transactional;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,17 +12,14 @@ import providers.MyLoginUsernamePasswordAuthUser;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyIdentity;
 import providers.MyUsernamePasswordAuthUser;
+import services.IUserDAO;
 import services.TokenActionDAO;
-import services.UserDAO;
 import services.UserProvider;
-import views.html.account.signup.*;
 
 import com.feth.play.module.pa.PlayAuthenticate;
 import views.html.account.signup.exists;
 
 import javax.inject.Inject;
-
-import static controllers.routes.Account;
 
 public class Signup extends Controller {
 
@@ -59,28 +57,30 @@ public class Signup extends Controller {
 
 	private final MessagesApi msg;
 
-	private final UserDAO userDAO;
+	private final IUserDAO IUserDAO;
 
 	@Inject
 	public Signup(final PlayAuthenticate auth, final UserProvider userProvider,
-				  final MyUsernamePasswordAuthProvider userPaswAuthProvider,
-				  final FormFactory formFactory, final MessagesApi msg, final UserDAO userDAO, final TokenActionDAO tokenActionDAO) {
+                  final MyUsernamePasswordAuthProvider userPaswAuthProvider,
+                  final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO, final TokenActionDAO tokenActionDAO) {
 		this.auth = auth;
 		this.userProvider = userProvider;
 		this.userPaswAuthProvider = userPaswAuthProvider;
 		this.PASSWORD_RESET_FORM = formFactory.form(PasswordReset.class);
 		this.FORGOT_PASSWORD_FORM = formFactory.form(MyIdentity.class);
-		this.userDAO = userDAO;
+		this.IUserDAO = IUserDAO;
 		this.tokenActionDAO = tokenActionDAO;
 
 		this.msg = msg;
 	}
 
+	@Transactional
 	public Result unverified() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(views.html.account.signup.unverified.render(this.userProvider));
 	}
 
+	@Transactional
 	public Result forgotPassword(final String email) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		Form<MyIdentity> form = FORGOT_PASSWORD_FORM;
@@ -90,6 +90,7 @@ public class Signup extends Controller {
 		return ok(views.html.account.signup.password_forgot.render(this.userProvider, form));
 	}
 
+	@Transactional
 	public Result doForgotPassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<MyIdentity> filledForm = FORGOT_PASSWORD_FORM
@@ -112,7 +113,7 @@ public class Signup extends Controller {
 							"playauthenticate.reset_password.message.instructions_sent",
 							email));
 
-			final UserEntity user = userDAO.findByEmail(email);
+			final UserEntity user = IUserDAO.findByEmail(email);
 			if (user != null) {
 				// yep, we have a user with this email that is active - we do
 				// not know if the user owning that account has requested this
@@ -161,6 +162,7 @@ public class Signup extends Controller {
 		return ret;
 	}
 
+	@Transactional
 	public Result resetPassword(final String token) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final TokenAction ta = tokenIsValid(token, TokenAction.Type.PASSWORD_RESET);
@@ -173,6 +175,7 @@ public class Signup extends Controller {
 		);
 	}
 
+	@Transactional
 	public Result doResetPassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<PasswordReset> filledForm = PASSWORD_RESET_FORM
@@ -192,7 +195,7 @@ public class Signup extends Controller {
 				// Pass true for the second parameter if you want to
 				// automatically create a password and the exception never to
 				// happen
-				userDAO.resetPassword(u, new MyUsernamePasswordAuthUser(newPassword),
+				IUserDAO.resetPassword(u, new MyUsernamePasswordAuthUser(newPassword),
 						false);
 			} catch (final RuntimeException re) {
 				flash(Application.FLASH_MESSAGE_KEY,
@@ -215,16 +218,19 @@ public class Signup extends Controller {
 		}
 	}
 
+	@Transactional
 	public Result oAuthDenied(final String getProviderKey) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(views.html.account.signup.oAuthDenied.render(this.userProvider, getProviderKey));
 	}
 
+	@Transactional
 	public Result exists() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(exists.render(this.userProvider));
 	}
 
+	@Transactional
 	public Result verify(final String token) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final TokenAction ta = tokenIsValid(token, TokenAction.Type.EMAIL_VERIFICATION);
@@ -232,7 +238,7 @@ public class Signup extends Controller {
 			return badRequest(views.html.account.signup.no_token_or_invalid.render(this.userProvider));
 		}
 		final String email = ta.targetUser.getEmail();
-		userDAO.verify(ta.targetUser);
+		IUserDAO.verify(ta.targetUser);
 		flash(Application.FLASH_MESSAGE_KEY,
 				this.msg.preferred(request()).at("playauthenticate.verify_email.success", email));
 		if (this.userProvider.getUser(session()) != null) {

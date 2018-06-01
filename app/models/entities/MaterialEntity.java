@@ -105,7 +105,7 @@ public class MaterialEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public LessonEntity getLessonByLessonid() {
         return lessonByLessonid;
     }

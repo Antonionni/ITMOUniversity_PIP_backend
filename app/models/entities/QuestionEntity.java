@@ -120,7 +120,7 @@ public class QuestionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TestEntity getTestsByTestid() {
         return testsByTestid;
     }
@@ -130,7 +130,7 @@ public class QuestionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public AnswerEntity getAnswersByRightanswerid() {
         return answersByRightanswerid;
     }

@@ -1,32 +1,22 @@
 package models.entities;
 
-import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
-import com.feth.play.module.pa.user.AuthUser;
-import com.feth.play.module.pa.user.AuthUserIdentity;
-import data.HibernateUtils;
-import io.ebean.ExpressionList;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import services.UserDAO;
+import services.IUserDAO;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
-@Table(name = "users", catalog = "postgres")
+@Table(name = "users")
 public class UserEntity {
-    public final UserDAO userDAO;
+    public final IUserDAO IUserDAO;
 
-    public UserEntity(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserEntity(IUserDAO IUserDAO) {
+        this.IUserDAO = IUserDAO;
     }
 
     public UserEntity() {
-        userDAO = null;
+        IUserDAO = null;
     }
     /**
      * use unique identificator
@@ -161,7 +151,7 @@ public class UserEntity {
         this.roles = roles;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public Collection<LinkedAccount> getLinkedAccounts() {
         return linkedAccounts;
     }

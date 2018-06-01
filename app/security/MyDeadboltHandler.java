@@ -8,7 +8,7 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.user.AuthUserIdentity;
 import play.mvc.Http;
 import play.mvc.Result;
-import services.UserDAO;
+import services.IUserDAO;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -18,12 +18,12 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler {
 
     private final PlayAuthenticate auth;
 
-    private final UserDAO userDao;
+    private final IUserDAO IUserDao;
 
-    public MyDeadboltHandler(final PlayAuthenticate auth, final ExecutionContextProvider exContextProvider, final UserDAO userDao) {
+    public MyDeadboltHandler(final PlayAuthenticate auth, final ExecutionContextProvider exContextProvider, final IUserDAO IUserDao) {
         super(exContextProvider);
         this.auth = auth;
-        this.userDao = userDao;
+        this.IUserDao = IUserDao;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler {
     public CompletionStage<Optional<? extends Subject>> getSubject(final Http.Context context) {
         final AuthUserIdentity u = this.auth.getUser(context);
         // Caching might be a good idea here
-        return CompletableFuture.completedFuture(Optional.ofNullable((Subject) userDao.findByAuthUserIdentity(u)));
+        return CompletableFuture.completedFuture(Optional.ofNullable((Subject) IUserDao.findByAuthUserIdentity(u)));
     }
 
     @Override

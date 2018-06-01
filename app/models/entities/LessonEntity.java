@@ -79,7 +79,7 @@ public class LessonEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public CourseEntity getCoursesByCoursesid() {
         return coursesByCoursesid;
     }

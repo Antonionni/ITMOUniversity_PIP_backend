@@ -51,7 +51,7 @@ public class UserRolesHasUsersEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name="userId", nullable=false)
+    @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
     public UserEntity getUser() {
         return user;
     }

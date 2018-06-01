@@ -5,6 +5,7 @@ import be.objectify.deadbolt.java.actions.Restrict;
 import com.feth.play.module.pa.PlayAuthenticate;
 import models.entities.UserEntity;
 import play.data.Form;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
@@ -39,26 +40,31 @@ public class Application extends Controller {
         this.userProvider = userProvider;
     }
 
+    @Transactional
     public Result index() {
         return ok(index.render(this.userProvider));
     }
 
+    @Transactional
     @Restrict(@Group(Application.USER_ROLE))
     public Result restricted() {
         final UserEntity localUser = this.userProvider.getUser(session());
         return ok(restricted.render(this.userProvider, localUser));
     }
 
+    @Transactional
     @Restrict(@Group(Application.USER_ROLE))
     public Result profile() {
         final UserEntity localUser = userProvider.getUser(session());
         return ok(profile.render(this.auth, this.userProvider, localUser));
     }
 
+    @Transactional
     public Result login() {
         return ok(login.render(this.auth, this.userProvider,  this.provider.getLoginForm()));
     }
 
+    @Transactional
     public Result doLogin() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
         final Form<MyUsernamePasswordAuthProvider.MyLogin> filledForm = this.provider.getLoginForm()
@@ -72,10 +78,12 @@ public class Application extends Controller {
         }
     }
 
+    @Transactional
     public Result signup() {
         return ok(signup.render(this.auth, this.userProvider, this.provider.getSignupForm()));
     }
 
+    @Transactional
     public Result jsRoutes() {
         return ok(
                 play.routing.JavaScriptReverseRouter.create("jsRoutes",
@@ -84,6 +92,7 @@ public class Application extends Controller {
 
     }
 
+    @Transactional
     public Result doSignup() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
         final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = this.provider.getSignupForm().bindFromRequest();

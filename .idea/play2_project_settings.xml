@@ -17,6 +17,13 @@
             </ProjectSettingsEntry>
           </value>
         </entry>
+        <entry key="play-authenticate-hibernate">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.5.1.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
@@ -24,12 +31,6 @@
               <option name="confDir" value="C:\Users\orkes\Documents\ITMOUniversity_PIP_backend\app" />
               <option name="templateImports">
                 <list>
-                  <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
-                  <option value="_root_.play.twirl.api.TwirlHelperImports._" />
-                  <option value="_root_.play.twirl.api.Html" />
-                  <option value="_root_.play.twirl.api.JavaScript" />
-                  <option value="_root_.play.twirl.api.Txt" />
-                  <option value="_root_.play.twirl.api.Xml" />
                   <option value="models._" />
                   <option value="controllers._" />
                   <option value="play.api.i18n._" />
@@ -37,13 +38,13 @@
                   <option value="play.api.templates.PlayMagic._" />
                   <option value="java.lang._" />
                   <option value="java.util._" />
+                  <option value="scala.collection.JavaConversions._" />
                   <option value="scala.collection.JavaConverters._" />
                   <option value="play.core.j.PlayMagicForJava._" />
                   <option value="play.mvc._" />
+                  <option value="play.data._" />
                   <option value="play.api.data.Field" />
                   <option value="play.mvc.Http.Context.Implicit._" />
-                  <option value="play.data._" />
-                  <option value="play.core.j.PlayFormsMagicForJava._" />
                 </list>
               </option>
               <option name="routesImports">
