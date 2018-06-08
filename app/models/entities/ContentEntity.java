@@ -11,19 +11,21 @@ public class ContentEntity {
     /**
      * unique indentificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      *  name of content
      */
+    @Basic
+    @Column(name = "content", nullable = false, columnDefinition = "VARCHAR")
     private String content;
     /**
      * reference to {@link MaterialEntity}
      */
     //private MaterialEntity attachedToMaterial;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -35,10 +37,10 @@ public class ContentEntity {
     /**
      * Enum of content type
      */
+    @Enumerated
+    @Column(name = "contenttype", nullable = false)
     private ContentType contentType;
 
-    @Basic
-    @Column(name = "content", nullable = false, columnDefinition = "VARCHAR")
     public String getContent() {
         return content;
     }
@@ -47,8 +49,6 @@ public class ContentEntity {
         this.content = content;
     }
 
-    @Enumerated
-    @Column(name = "contenttype", nullable = false)
     public ContentType getContentType() {
         return contentType;
     }

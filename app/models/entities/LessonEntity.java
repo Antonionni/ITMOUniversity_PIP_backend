@@ -10,31 +10,42 @@ public class LessonEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * reference to {@link CourseEntity}
      */
+    @Basic
+    @Column(name = "coursesid", nullable = false)
     private int coursesid;
     /**
      * lesson title
      */
+    @Basic
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     private String title;
     /**
      * reference of {@link CourseEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private CourseEntity coursesByCoursesid;
     /**
      * List of materials which used in this course
      */
-    //private Collection<MaterialEntity> materialsById;
+    @OneToMany(mappedBy = "lessonByLessonid")
+    private Collection<MaterialEntity> materialsById;
     /**
      * List of test which used in this course
      */
+    @ManyToMany
+    @JoinTable(name = "lesson_has_tests",
+            joinColumns = @JoinColumn(name = "lessonid", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "testsid", referencedColumnName = "id"))
     private Collection<TestEntity> lessonTests;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -43,8 +54,6 @@ public class LessonEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "coursesid", nullable = false)
     public int getCoursesid() {
         return coursesid;
     }
@@ -53,8 +62,6 @@ public class LessonEntity {
         this.coursesid = coursesid;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
@@ -79,8 +86,6 @@ public class LessonEntity {
         return Objects.hash(id, coursesid, title);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public CourseEntity getCoursesByCoursesid() {
         return coursesByCoursesid;
     }
@@ -89,19 +94,14 @@ public class LessonEntity {
         this.coursesByCoursesid = coursesByCoursesid;
     }
 
-  /*  @OneToMany(mappedBy = "lessonByLessonid")
     public Collection<MaterialEntity> getMaterialsById() {
         return materialsById;
     }
 
     public void setMaterialsById(Collection<MaterialEntity> materialsById) {
         this.materialsById = materialsById;
-    }*/
+    }
 
-    @ManyToMany
-    @JoinTable(name = "lesson_has_tests",
-    joinColumns = @JoinColumn(name = "lessonid", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "testsid", referencedColumnName = "id"))
     public Collection<TestEntity> getLessonTests() {
         return lessonTests;
     }

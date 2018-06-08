@@ -11,43 +11,60 @@ public class CourseEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * title of course
      */
+    @Basic
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     private String title;
     /**
      * education subject (for example Math, Philosophy e.t.c.)
      */
+    @Basic
+    @Column(name = "subject", nullable = false, columnDefinition = "VARCHAR")
     private String subject;
     /**
      * url for course image
      */
+    @Basic
+    @Column(name = "imageurl", nullable = false, columnDefinition = "VARCHAR")
     private String imageurl;
     /**
      * date when course was created
      */
+    @Basic
+    @Column(name = "createdat", nullable = true)
     private Timestamp createdat;
     /**
      * date when course was updated
      */
+    @Basic
+    @Column(name = "updatedat", nullable = true)
     private Timestamp updatedat;
     /**
      * List of coruses periods
      */
+    @OneToMany(mappedBy = "coursesid")
     private Collection<CoursePeriodEntity> coursePeriodsById;
     /**
      * List of course lessons
      */
+    @OneToMany(mappedBy = "coursesByCoursesid")
     private Collection<LessonEntity> lessonsById;
     /**
      * List of theachers who created course
      */
+    @ManyToMany
+    @JoinTable(
+            name="courses_has_teachers",
+            joinColumns=@JoinColumn(name="coursesid", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="userid", referencedColumnName="id"))
     private Collection<UserEntity> courseTeachers;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -56,8 +73,6 @@ public class CourseEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
@@ -66,8 +81,6 @@ public class CourseEntity {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "subject", nullable = false, columnDefinition = "VARCHAR")
     public String getSubject() {
         return subject;
     }
@@ -76,8 +89,6 @@ public class CourseEntity {
         this.subject = subject;
     }
 
-    @Basic
-    @Column(name = "imageurl", nullable = false, columnDefinition = "VARCHAR")
     public String getImageurl() {
         return imageurl;
     }
@@ -86,8 +97,6 @@ public class CourseEntity {
         this.imageurl = imageurl;
     }
 
-    @Basic
-    @Column(name = "createdat", nullable = true)
     public Timestamp getCreatedat() {
         return createdat;
     }
@@ -96,8 +105,6 @@ public class CourseEntity {
         this.createdat = createdat;
     }
 
-    @Basic
-    @Column(name = "updatedat", nullable = true)
     public Timestamp getUpdatedat() {
         return updatedat;
     }
@@ -125,7 +132,6 @@ public class CourseEntity {
         return Objects.hash(id, title, subject, imageurl, createdat, updatedat);
     }
 
-    @OneToMany(mappedBy = "coursesid")
     public Collection<CoursePeriodEntity> getCoursePeriodsById() {
         return coursePeriodsById;
     }
@@ -134,7 +140,6 @@ public class CourseEntity {
         this.coursePeriodsById = coursePeriodsById;
     }
 
-    @OneToMany(mappedBy = "coursesByCoursesid")
     public Collection<LessonEntity> getLessonsById() {
         return lessonsById;
     }
@@ -143,11 +148,6 @@ public class CourseEntity {
         this.lessonsById = lessonsById;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name="courses_has_teachers",
-            joinColumns=@JoinColumn(name="coursesid", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="userid", referencedColumnName="id"))
     public Collection<UserEntity> getCourseTeachers() {
         return courseTeachers;
     }

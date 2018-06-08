@@ -10,31 +10,41 @@ public class AnswerEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * answer which user chose
      */
+    @Basic
+    @Column(name = "useranswer", nullable = false, columnDefinition = "VARCHAR")
     private String useranswer;
     /**
      * date when answer was created
      */
+    @Basic
+    @Column(name = "createdat", nullable = true)
     private Timestamp createdat;
     /**
      * date when answer was updated
      */
+    @Basic
+    @Column(name = "updatedat", nullable = true)
     private Timestamp updatedat;
     /**
      * id of {@link QuestionEntity}
      */
+    @Basic
+    @Column(name = "questionid", nullable = false)
     private int questionid;
     /**
      * instans of {@link QuestionEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private QuestionEntity questionsByQuestionid;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -43,8 +53,6 @@ public class AnswerEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "useranswer", nullable = false, columnDefinition = "VARCHAR")
     public String getUseranswer() {
         return useranswer;
     }
@@ -53,8 +61,6 @@ public class AnswerEntity {
         this.useranswer = useranswer;
     }
 
-    @Basic
-    @Column(name = "createdat", nullable = true)
     public Timestamp getCreatedat() {
         return createdat;
     }
@@ -63,8 +69,6 @@ public class AnswerEntity {
         this.createdat = createdat;
     }
 
-    @Basic
-    @Column(name = "updatedat", nullable = true)
     public Timestamp getUpdatedat() {
         return updatedat;
     }
@@ -73,8 +77,6 @@ public class AnswerEntity {
         this.updatedat = updatedat;
     }
 
-    @Basic
-    @Column(name = "questionid", nullable = false)
     public int getQuestionid() {
         return questionid;
     }
@@ -101,8 +103,6 @@ public class AnswerEntity {
         return Objects.hash(id, useranswer, createdat, updatedat, questionid);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public QuestionEntity getQuestionsByQuestionid() {
         return questionsByQuestionid;
     }

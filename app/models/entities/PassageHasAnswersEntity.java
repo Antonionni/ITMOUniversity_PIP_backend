@@ -6,31 +6,39 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "passages_has_answers", catalog = "postgres")
+@IdClass(PasssageHasAnswersPK.class)
 public class PassageHasAnswersEntity {
     /**
      * uniqe identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     /**
      * date and time when
      */
+    @Column(name = "passagesstartdate", nullable = true)
     private Timestamp passagesstartdate;
     /**
      * id of {@link AnswerEntity}
      */
+    @Id
+    @Column(name = "answerid")
     private Integer answerid;
     /**
      * reference to {@link PassageEntity}
      */
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "passagesstartdate", referencedColumnName = "startdate", insertable = false, updatable = false)})
     private PassageEntity passages;
     /**
      * reference to {@link AnswerEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "answerid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private AnswerEntity answersByAnswerid;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     public Integer getId() {
         return id;
     }
@@ -39,7 +47,6 @@ public class PassageHasAnswersEntity {
         this.id = id;
     }
 
-    @Column(name = "passagesstartdate", nullable = true)
     public Timestamp getPassagesstartdate() {
         return passagesstartdate;
     }
@@ -48,8 +55,6 @@ public class PassageHasAnswersEntity {
         this.passagesstartdate = passagesstartdate;
     }
 
-    //TODO kek eto primary key
-    @Column(name = "answerid", nullable = false)
     public Integer getAnswerid() {
         return answerid;
     }
@@ -74,8 +79,6 @@ public class PassageHasAnswersEntity {
         return Objects.hash(id, passagesstartdate, answerid);
     }
 
-    @ManyToOne
-    @JoinColumns({@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "passagesstartdate", referencedColumnName = "startdate", insertable = false, updatable = false)})
     public PassageEntity getPassages() {
         return passages;
     }
@@ -84,8 +87,6 @@ public class PassageHasAnswersEntity {
         this.passages = passages;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "answerid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AnswerEntity getAnswersByAnswerid() {
         return answersByAnswerid;
     }

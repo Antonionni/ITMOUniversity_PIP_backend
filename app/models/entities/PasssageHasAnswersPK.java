@@ -8,34 +8,32 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class PassageEntityPK implements Serializable {
-    private int id;
-    private Timestamp startdate;
+public class PasssageHasAnswersPK implements Serializable {
+    private Integer id;
+    /**
+     * id of {@link AnswerEntity}
+     */
+    private Integer answerid;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Timestamp getStartdate() {
-        return startdate;
+    public Integer getAnswerid() {
+        return answerid;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PassageEntityPK that = (PassageEntityPK) o;
-        return id == that.id &&
-                Objects.equals(startdate, that.startdate);
+        PasssageHasAnswersPK that = (PasssageHasAnswersPK) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(answerid, that.answerid);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, startdate);
+        return Objects.hash(id, answerid);
     }
 }

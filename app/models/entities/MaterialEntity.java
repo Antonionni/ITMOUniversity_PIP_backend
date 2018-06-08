@@ -11,35 +11,49 @@ public class MaterialEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * title of material
      */
+    @Basic
+    @Column(name = "title", nullable = true)
     private String title;
     /**
      * date and time when material created
      */
+    @Basic
+    @Column(name = "createdat", nullable = true)
     private Timestamp createdat;
     /**
      * date and time when materials updated
      */
+    @Basic
+    @Column(name = "updatedat", nullable = true)
     private Timestamp updatedat;
     /**
      * reference to ID of leson
      */
+    @Basic
+    @Column(name = "lessonid", nullable = false)
     private int lessonid;
     /**
      * reference of {@link LessonEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     private LessonEntity lessonByLessonid;
     /**
      * List of content which used in this materials
      */
+    @ManyToMany
+    @JoinTable(name = "materials_has_content",
+            joinColumns = @JoinColumn(name = "materialid", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "contentid", referencedColumnName = "id"))
     private Collection<ContentEntity> materialContent;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -48,8 +62,6 @@ public class MaterialEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title", nullable = true)
     public String getTitle() {
         return title;
     }
@@ -58,8 +70,6 @@ public class MaterialEntity {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "createdat", nullable = true)
     public Timestamp getCreatedat() {
         return createdat;
     }
@@ -68,8 +78,6 @@ public class MaterialEntity {
         this.createdat = createdat;
     }
 
-    @Basic
-    @Column(name = "updatedat", nullable = true)
     public Timestamp getUpdatedat() {
         return updatedat;
     }
@@ -78,8 +86,6 @@ public class MaterialEntity {
         this.updatedat = updatedat;
     }
 
-    @Basic
-    @Column(name = "lessonid", nullable = false)
     public int getLessonid() {
         return lessonid;
     }
@@ -105,8 +111,6 @@ public class MaterialEntity {
         return Objects.hash(id, title, createdat, updatedat, lessonid);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public LessonEntity getLessonByLessonid() {
         return lessonByLessonid;
     }
@@ -115,10 +119,6 @@ public class MaterialEntity {
         this.lessonByLessonid = lessonByLessonid;
     }
 
-    @ManyToMany
-    @JoinTable(name = "materials_has_content",
-            joinColumns = @JoinColumn(name = "materialid", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "contentid", referencedColumnName = "id"))
     public Collection<ContentEntity> getMaterialContent() {
         return materialContent;
     }

@@ -10,8 +10,9 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
-@Table(name = "users", catalog = "postgres")
+@Table(name = "users", catalog = "postgres", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class UserEntity implements Subject {
+    @Transient
     public final IUserDAO IUserDAO;
 
     public UserEntity(IUserDAO IUserDAO) {
@@ -24,10 +25,15 @@ public class UserEntity implements Subject {
     /**
      * use unique identificator
      */
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     /**
      * user Email
      */
+    @Basic
+    @Column(name = "email", nullable = false, length = 400)
     private String email;
 //    /**
 //     * secret password
@@ -36,39 +42,51 @@ public class UserEntity implements Subject {
     /**
      * Name
      */
+    @Basic
+    @Column(name = "firstname")
     private String firstname;
     /**
      * Family Name
      */
+    @Basic
+    @Column(name = "secondname")
     private String secondname;
     /**
      * date and time when user was created
      */
+    @Basic
+    @Column(name = "createdat", nullable = true)
     private Timestamp createdat;
     /**
      * date and time when user was update his profile
      */
+    @Basic
+    @Column(name = "updatedat", nullable = true)
     private Timestamp updatedat;
     /**
      * List of courses which student try to pass
      */
+    @ManyToMany(mappedBy = "courseTeachers")
     private Collection<CourseEntity> teacherCourses;
 
+    @OneToMany(mappedBy = "user")
     private Collection<UserRolesHasUsersEntity> userRoles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<LinkedAccount> linkedAccounts;
 
+    @Column(name = "emailValidated")
     private boolean emailValidated;
 
+    @Column(name = "isActive")
     private boolean active;
 
+    @Column(name = "lastLogin")
     private Date lastLogin;
 
+    @Column(name = "name")
     private String name;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -77,8 +95,6 @@ public class UserEntity implements Subject {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 400)
     public String getEmail() {
         return email;
     }
@@ -97,8 +113,6 @@ public class UserEntity implements Subject {
 //        this.password = password;
 //    }
 
-    @Basic
-    @Column(name = "firstname")
     public String getFirstname() {
         return firstname;
     }
@@ -107,8 +121,6 @@ public class UserEntity implements Subject {
         this.firstname = firstname;
     }
 
-    @Basic
-    @Column(name = "secondname")
     public String getSecondname() {
         return secondname;
     }
@@ -117,8 +129,6 @@ public class UserEntity implements Subject {
         this.secondname = secondname;
     }
 
-    @Basic
-    @Column(name = "createdat", nullable = true)
     public Timestamp getCreatedat() {
         return createdat;
     }
@@ -127,8 +137,6 @@ public class UserEntity implements Subject {
         this.createdat = createdat;
     }
 
-    @Basic
-    @Column(name = "updatedat", nullable = true)
     public Timestamp getUpdatedat() {
         return updatedat;
     }
@@ -137,7 +145,6 @@ public class UserEntity implements Subject {
         this.updatedat = updatedat;
     }
 
-    @ManyToMany(mappedBy = "courseTeachers")
     public Collection<CourseEntity> getTeacherCourses() {
         return teacherCourses;
     }
@@ -146,7 +153,6 @@ public class UserEntity implements Subject {
         this.teacherCourses = teacherCourses;
     }
 
-    @OneToMany(mappedBy = "user")
     public Collection<UserRolesHasUsersEntity> getUserRoles() {
         return userRoles;
     }
@@ -173,7 +179,6 @@ public class UserEntity implements Subject {
         this.userRoles = userRoles;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Collection<LinkedAccount> getLinkedAccounts() {
         return linkedAccounts;
     }
@@ -182,7 +187,6 @@ public class UserEntity implements Subject {
         this.linkedAccounts = linkedAccounts;
     }
 
-    @Column(name = "emailValidated")
     public boolean isEmailValidated() {
         return emailValidated;
     }
@@ -191,7 +195,6 @@ public class UserEntity implements Subject {
         this.emailValidated = emailValidated;
     }
 
-    @Column(name = "isActive")
     public boolean isActive() {
         return active;
     }
@@ -200,7 +203,6 @@ public class UserEntity implements Subject {
         this.active = active;
     }
 
-    @Column(name = "lastLogin")
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -209,7 +211,6 @@ public class UserEntity implements Subject {
         this.lastLogin = lastLogin;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }

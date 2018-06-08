@@ -11,31 +11,40 @@ public class TestEntity {
     /**
      * test unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * title of test
      */
+    @Basic
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     private String title;
     /**
      * minimal score to pass the test
      */
+    @Basic
+    @Column(name = "threshold", nullable = false)
     private int threshold;
     /**
      * date and time when test created
      */
+    @Basic
+    @Column(name = "createdat", nullable = true)
     private Timestamp createdat;
     /**
      * date and time when test updated
      */
+    @Basic
+    @Column(name = "updateat", nullable = true)
     private Timestamp updatedat;
     /**
      * List of questions
      */
+    @OneToMany(mappedBy = "testsByTestid")
     private Collection<QuestionEntity> questionsById;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -44,8 +53,6 @@ public class TestEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
@@ -54,8 +61,6 @@ public class TestEntity {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "threshold", nullable = false)
     public int getThreshold() {
         return threshold;
     }
@@ -64,8 +69,6 @@ public class TestEntity {
         this.threshold = threshold;
     }
 
-    @Basic
-    @Column(name = "createdat", nullable = true)
     public Timestamp getCreatedat() {
         return createdat;
     }
@@ -74,8 +77,6 @@ public class TestEntity {
         this.createdat = createdat;
     }
 
-    @Basic
-    @Column(name = "updatedat", nullable = true)
     public Timestamp getUpdatedat() {
         return updatedat;
     }
@@ -102,7 +103,6 @@ public class TestEntity {
         return Objects.hash(id, title, threshold, createdat, updatedat);
     }
 
-    @OneToMany(mappedBy = "testsByTestid")
     public Collection<QuestionEntity> getQuestionsById() {
         return questionsById;
     }

@@ -10,19 +10,23 @@ public class CoursePeriodEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "coursesid", nullable = false)
     private int coursesid;
     /**
      * date when course started
      */
+    @Basic
+    @Column(name = "startdate", nullable = true)
     private Timestamp startdate;
     /**
      * date when course was end
      */
+    @Basic
+    @Column(name = "enddate", nullable = true)
     private Timestamp enddate;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "coursesid", nullable = false)
     public int getCoursesid() {
         return coursesid;
     }
@@ -31,8 +35,6 @@ public class CoursePeriodEntity {
         this.coursesid = coursesid;
     }
 
-    @Basic
-    @Column(name = "startdate", nullable = true)
     public Timestamp getStartdate() {
         return startdate;
     }
@@ -41,8 +43,6 @@ public class CoursePeriodEntity {
         this.startdate = startdate;
     }
 
-    @Basic
-    @Column(name = "enddate", nullable = true)
     public Timestamp getEnddate() {
         return enddate;
     }

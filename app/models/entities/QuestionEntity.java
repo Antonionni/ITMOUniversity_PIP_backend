@@ -12,40 +12,53 @@ public class QuestionEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * text of question
      */
+    @Basic
+    @Column(name = "textquestion", nullable = false, columnDefinition = "VARCHAR")
     private String textquestion;
     /**
      * id of {@link TestEntity}
      */
+    @Basic
+    @Column(name = "testid", nullable = false)
     private int testid;
     /**
      * count of right answers
      */
+    @Basic
+    @Column(name = "rightanswerid", nullable = false)
     private int rightanswerid;
     /**
      * List of {@link AnswerEntity} which existing at this question
      */
+    @OneToMany(mappedBy = "questionsByQuestionid")
     private Collection<AnswerEntity> answersById;
 
     /**
      * reference tot {@link TestEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private TestEntity testsByTestid;
     /**
      * refernce to {@link AnswerEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     private AnswerEntity answersByRightanswerid;
     /**
      * Enum of answer types
      */
+    @Enumerated
+    @Column(name = "answertype", nullable = false)
     private AnswerType answerType;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -54,8 +67,6 @@ public class QuestionEntity {
         this.id = id;
     }
 
-    @Enumerated
-    @Column(name = "answertype", nullable = false)
     public AnswerType getAnswerType() {
         return answerType;
     }
@@ -64,8 +75,6 @@ public class QuestionEntity {
         this.answerType = answerType;
     }
 
-    @Basic
-    @Column(name = "textquestion", nullable = false, columnDefinition = "VARCHAR")
     public String getTextquestion() {
         return textquestion;
     }
@@ -74,8 +83,6 @@ public class QuestionEntity {
         this.textquestion = textquestion;
     }
 
-    @Basic
-    @Column(name = "testid", nullable = false)
     public int getTestid() {
         return testid;
     }
@@ -84,8 +91,6 @@ public class QuestionEntity {
         this.testid = testid;
     }
 
-    @Basic
-    @Column(name = "rightanswerid", nullable = false)
     public int getRightanswerid() {
         return rightanswerid;
     }
@@ -111,7 +116,6 @@ public class QuestionEntity {
         return Objects.hash(id, textquestion, testid, rightanswerid);
     }
 
-    @OneToMany(mappedBy = "questionsByQuestionid")
     public Collection<AnswerEntity> getAnswersById() {
         return answersById;
     }
@@ -120,8 +124,6 @@ public class QuestionEntity {
         this.answersById = answersById;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TestEntity getTestsByTestid() {
         return testsByTestid;
     }
@@ -130,8 +132,6 @@ public class QuestionEntity {
         this.testsByTestid = testsByTestid;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public AnswerEntity getAnswersByRightanswerid() {
         return answersByRightanswerid;
     }

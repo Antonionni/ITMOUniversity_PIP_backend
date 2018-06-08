@@ -11,35 +11,46 @@ public class PassageEntity {
     /**
      * unique identificator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     /**
      * date and time when student start pass the test
      */
+    @Id
+    @Column(name = "startdate", nullable = false)
     private Timestamp startdate;
     /**
      * date and time when student end pass the test
      */
+    @Basic
+    @Column(name = "enddate", nullable = true)
     private Timestamp enddate;
     /**
      * reference of {@link TestEntity}
      */
+    @Basic
+    @Column(name = "testid", nullable = false)
     private int testid;
     /**
      * result score
      */
+    @Basic
+    @Column(name = "result", nullable = false)
     private int result;
     /**
      * is student pass the test
      */
+    @Basic
+    @Column(name = "is_right", nullable = false)
     private boolean isRight;
     /**
      * refernce to {@link UserEntity}
      */
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private UserEntity usersById;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -48,8 +59,6 @@ public class PassageEntity {
         this.id = id;
     }
 
-    @Id
-    @Column(name = "startdate", nullable = false)
     public Timestamp getStartdate() {
         return startdate;
     }
@@ -58,8 +67,6 @@ public class PassageEntity {
         this.startdate = startdate;
     }
 
-    @Basic
-    @Column(name = "enddate", nullable = true)
     public Timestamp getEnddate() {
         return enddate;
     }
@@ -68,8 +75,6 @@ public class PassageEntity {
         this.enddate = enddate;
     }
 
-    @Basic
-    @Column(name = "testid", nullable = false)
     public int getTestid() {
         return testid;
     }
@@ -78,8 +83,6 @@ public class PassageEntity {
         this.testid = testid;
     }
 
-    @Basic
-    @Column(name = "result", nullable = false)
     public int getResult() {
         return result;
     }
@@ -88,8 +91,6 @@ public class PassageEntity {
         this.result = result;
     }
 
-    @Basic
-    @Column(name = "is_right", nullable = false)
     public boolean isRight() {
         return isRight;
     }
@@ -117,8 +118,6 @@ public class PassageEntity {
         return Objects.hash(id, startdate, enddate, testid, result, isRight);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public UserEntity getUsersById() {
         return usersById;
     }

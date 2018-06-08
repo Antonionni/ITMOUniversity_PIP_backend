@@ -14,27 +14,36 @@ public class UserRolesHasUsersEntity implements Role {
     /**
      * unique identifiator
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
     /**
      * date and time when user get his role
      */
+    @Basic
+    @Column(name = "startdate", nullable = true)
     private Date startdate;
     /**
      * date and time when user lose his role
      */
+    @Basic
+    @Column(name = "enddate", nullable = true)
     private Date enddate;
     /**
      * Enum of roles
      */
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "role", nullable = false)
     private RoleType roleType;
 
+    @Column(name = "userId", nullable = false)
     private int userId;
 
+    @ManyToOne
+    @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
     private UserEntity user;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -43,7 +52,6 @@ public class UserRolesHasUsersEntity implements Role {
         this.id = id;
     }
 
-    @Column(name = "userId", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -52,8 +60,6 @@ public class UserRolesHasUsersEntity implements Role {
         this.userId = userId;
     }
 
-    @ManyToOne
-    @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
     public UserEntity getUser() {
         return user;
     }
@@ -62,8 +68,6 @@ public class UserRolesHasUsersEntity implements Role {
         this.user = user;
     }
 
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "role", nullable = false)
     public RoleType getRoleType() {
         return roleType;
     }
@@ -72,8 +76,6 @@ public class UserRolesHasUsersEntity implements Role {
         this.roleType = roleType;
     }
 
-    @Basic
-    @Column(name = "startdate", nullable = true)
     public Date getStartdate() {
         return startdate;
     }
@@ -82,8 +84,6 @@ public class UserRolesHasUsersEntity implements Role {
         this.startdate = startdate;
     }
 
-    @Basic
-    @Column(name = "enddate", nullable = true)
     public Date getEnddate() {
         return enddate;
     }
