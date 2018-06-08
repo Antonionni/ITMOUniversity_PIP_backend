@@ -1,2 +1,6 @@
 target/
 .idea/
+conf/META-INF/persistence.xml
+sampleDrop.ddl
+sampleCreate.ddl
+logs/application.log
