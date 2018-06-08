@@ -38,6 +38,7 @@ public class MaterialEntity {
     private Collection<ContentEntity> materialContent;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -48,7 +49,7 @@ public class MaterialEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title", nullable = true)
     public String getTitle() {
         return title;
     }
@@ -105,7 +106,7 @@ public class MaterialEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public LessonEntity getLessonByLessonid() {
         return lessonByLessonid;
     }

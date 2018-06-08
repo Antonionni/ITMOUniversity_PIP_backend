@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import java.io.Serializable;
 
 public class ORMHelper<T> {
-    public T GetById(Class entityClass, Serializable entityId) {
+    /*public T GetById(Class entityClass, Serializable entityId) {
         Session session = HibernateUtils.getSessionFactory().openSession();
         T entity = (T) session.get(entityClass, entityId);
         session.close();
@@ -23,5 +23,5 @@ public class ORMHelper<T> {
         Session session = HibernateUtils.getSessionFactory().openSession();
         session.saveOrUpdate(entity);
         session.close();
-    }
+    }*/
 }

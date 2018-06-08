@@ -26,13 +26,14 @@ public class LessonEntity {
     /**
      * List of materials which used in this course
      */
-    private Collection<MaterialEntity> materialsById;
+    //private Collection<MaterialEntity> materialsById;
     /**
      * List of test which used in this course
      */
     private Collection<TestEntity> lessonTests;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -53,7 +54,7 @@ public class LessonEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
@@ -79,7 +80,7 @@ public class LessonEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public CourseEntity getCoursesByCoursesid() {
         return coursesByCoursesid;
     }
@@ -88,14 +89,14 @@ public class LessonEntity {
         this.coursesByCoursesid = coursesByCoursesid;
     }
 
-    @OneToMany(mappedBy = "lessonByLessonid")
+  /*  @OneToMany(mappedBy = "lessonByLessonid")
     public Collection<MaterialEntity> getMaterialsById() {
         return materialsById;
     }
 
     public void setMaterialsById(Collection<MaterialEntity> materialsById) {
         this.materialsById = materialsById;
-    }
+    }*/
 
     @ManyToMany
     @JoinTable(name = "lesson_has_tests",

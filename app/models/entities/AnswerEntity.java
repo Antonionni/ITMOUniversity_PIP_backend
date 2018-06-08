@@ -33,6 +33,7 @@ public class AnswerEntity {
     private QuestionEntity questionsByQuestionid;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -43,7 +44,7 @@ public class AnswerEntity {
     }
 
     @Basic
-    @Column(name = "useranswer", nullable = false, length = -1)
+    @Column(name = "useranswer", nullable = false, columnDefinition = "VARCHAR")
     public String getUseranswer() {
         return useranswer;
     }
@@ -101,7 +102,7 @@ public class AnswerEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public QuestionEntity getQuestionsByQuestionid() {
         return questionsByQuestionid;
     }

@@ -1,6 +1,8 @@
 package models.entities;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,6 +14,7 @@ public class PassageEntityPK implements Serializable {
 
     @Column(name = "id", nullable = false)
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -20,8 +23,8 @@ public class PassageEntityPK implements Serializable {
         this.id = id;
     }
 
+    // TODO  eto primarykey
     @Column(name = "startdate", nullable = false)
-    @Id
     public Timestamp getStartdate() {
         return startdate;
     }

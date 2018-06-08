@@ -52,7 +52,7 @@ public class UserHasCourseEntity {
         this.updatedat = updatedat;
     }
 
-    @Basic
+    //TODO kek this is primary key
     @Column(name = "courseid", nullable = false)
     public int getCourseid() {
         return courseid;
@@ -62,7 +62,8 @@ public class UserHasCourseEntity {
         this.courseid = courseid;
     }
 
-    @Basic
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -90,7 +91,7 @@ public class UserHasCourseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "courseid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "courseid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public CourseEntity getCoursesByCourseid() {
         return coursesByCourseid;
     }
@@ -100,7 +101,7 @@ public class UserHasCourseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public UserEntity getUsersById() {
         return usersById;
     }

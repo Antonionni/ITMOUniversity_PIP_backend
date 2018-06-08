@@ -44,6 +44,7 @@ public class QuestionEntity {
     private AnswerType answerType;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -64,7 +65,7 @@ public class QuestionEntity {
     }
 
     @Basic
-    @Column(name = "textquestion", nullable = false, length = -1)
+    @Column(name = "textquestion", nullable = false, columnDefinition = "VARCHAR")
     public String getTextquestion() {
         return textquestion;
     }
@@ -120,7 +121,7 @@ public class QuestionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TestEntity getTestsByTestid() {
         return testsByTestid;
     }
@@ -130,7 +131,7 @@ public class QuestionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     public AnswerEntity getAnswersByRightanswerid() {
         return answersByRightanswerid;
     }

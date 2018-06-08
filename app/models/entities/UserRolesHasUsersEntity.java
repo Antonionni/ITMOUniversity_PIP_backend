@@ -1,5 +1,6 @@
 package models.entities;
 
+import be.objectify.deadbolt.java.models.Role;
 import enumerations.RoleType;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user_roles_has_users", catalog = "postgres")
-public class UserRolesHasUsersEntity {
+public class UserRolesHasUsersEntity implements Role {
     /**
      * unique identifiator
      */
@@ -32,6 +33,7 @@ public class UserRolesHasUsersEntity {
     private UserEntity user;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -51,7 +53,7 @@ public class UserRolesHasUsersEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name="userId", nullable=false)
+    @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
     public UserEntity getUser() {
         return user;
     }
@@ -60,7 +62,7 @@ public class UserRolesHasUsersEntity {
         this.user = user;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "role", nullable = false)
     public RoleType getRoleType() {
         return roleType;
@@ -104,5 +106,11 @@ public class UserRolesHasUsersEntity {
     public int hashCode() {
 
         return Objects.hash(id, startdate, enddate);
+    }
+
+    @Override
+    @Transient
+    public String getName() {
+        return roleType.getRoleName();
     }
 }

@@ -23,7 +23,7 @@ import play.data.FormFactory;
 import play.inject.ApplicationLifecycle;
 import play.mvc.Http.Context;
 import play.twirl.api.Content;
-import service.UserProvider;
+import services.UserProvider;
 import views.html.login;
 
 import javax.inject.Inject;

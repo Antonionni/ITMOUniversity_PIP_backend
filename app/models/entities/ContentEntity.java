@@ -19,9 +19,10 @@ public class ContentEntity {
     /**
      * reference to {@link MaterialEntity}
      */
-    private MaterialEntity attachedToMaterial;
+    //private MaterialEntity attachedToMaterial;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -37,7 +38,7 @@ public class ContentEntity {
     private ContentType contentType;
 
     @Basic
-    @Column(name = "content", nullable = false, length = -1)
+    @Column(name = "content", nullable = false, columnDefinition = "VARCHAR")
     public String getContent() {
         return content;
     }
