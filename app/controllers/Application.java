@@ -3,16 +3,22 @@ package controllers;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import com.feth.play.module.pa.PlayAuthenticate;
+import config.RolesConst;
+import enumerations.RoleType;
 import models.entities.UserEntity;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
+import services.IUserDAO;
 import services.UserProvider;
 import views.html.*;
 
 import javax.inject.Inject;
+import javax.management.relation.Role;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,13 +26,13 @@ public class Application extends Controller {
 
     public static final String FLASH_MESSAGE_KEY = "message";
     public static final String FLASH_ERROR_KEY = "error";
-    public static final String USER_ROLE = "user";
 
     private final PlayAuthenticate auth;
 
     private final MyUsernamePasswordAuthProvider provider;
 
     private final UserProvider userProvider;
+    private final IUserDAO userDao;
 
     public static String formatTimestamp(final long t) {
         return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
@@ -34,10 +40,11 @@ public class Application extends Controller {
 
     @Inject
     public Application(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
-                       final UserProvider userProvider) {
+                       final UserProvider userProvider, final IUserDAO userDao) {
         this.auth = auth;
         this.provider = provider;
         this.userProvider = userProvider;
+        this.userDao = userDao;
     }
 
     @Transactional
@@ -45,18 +52,19 @@ public class Application extends Controller {
         return ok(index.render(this.userProvider));
     }
 
+
     @Transactional
-    @Restrict(@Group(Application.USER_ROLE))
+    @Restrict(@Group(RolesConst.AuthenticatedUser))
     public Result restricted() {
         final UserEntity localUser = this.userProvider.getUser(session());
         return ok(restricted.render(this.userProvider, localUser));
     }
 
     @Transactional
-    @Restrict(@Group(Application.USER_ROLE))
+    @Restrict(@Group(RolesConst.AuthenticatedUser))
     public Result profile() {
         final UserEntity localUser = userProvider.getUser(session());
-        return ok(profile.render(this.auth, this.userProvider, localUser));
+        return ok(profile.render(this.auth, this.userProvider, localUser, userDao));
     }
 
     @Transactional

@@ -1,5 +1,8 @@
 package models.entities;
 
+import be.objectify.deadbolt.java.models.Permission;
+import be.objectify.deadbolt.java.models.Role;
+import be.objectify.deadbolt.java.models.Subject;
 import services.IUserDAO;
 
 import javax.persistence.*;
@@ -7,8 +10,8 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
-@Table(name = "users")
-public class UserEntity {
+@Table(name = "users", catalog = "postgres")
+public class UserEntity implements Subject {
     public final IUserDAO IUserDAO;
 
     public UserEntity(IUserDAO IUserDAO) {
@@ -26,10 +29,10 @@ public class UserEntity {
      * user Email
      */
     private String email;
-    /**
-     * secret password
-     */
-    private String password;
+//    /**
+//     * secret password
+//     */
+//    private String password;
     /**
      * Name
      */
@@ -51,7 +54,7 @@ public class UserEntity {
      */
     private Collection<CourseEntity> teacherCourses;
 
-    private Collection<UserRolesHasUsersEntity> roles;
+    private Collection<UserRolesHasUsersEntity> userRoles;
 
     private Collection<LinkedAccount> linkedAccounts;
 
@@ -65,6 +68,7 @@ public class UserEntity {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -74,7 +78,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = -1)
+    @Column(name = "email", nullable = false, length = 400)
     public String getEmail() {
         return email;
     }
@@ -82,19 +86,19 @@ public class UserEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+//
+//    @Basic
+//    @Column(name = "password", nullable = false)
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     @Basic
-    @Column(name = "password", nullable = false, length = -1)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Basic
-    @Column(name = "firstname", nullable = false, length = -1)
+    @Column(name = "firstname")
     public String getFirstname() {
         return firstname;
     }
@@ -104,7 +108,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "secondname", nullable = false, length = -1)
+    @Column(name = "secondname")
     public String getSecondname() {
         return secondname;
     }
@@ -143,15 +147,33 @@ public class UserEntity {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<UserRolesHasUsersEntity> getRoles() {
-        return roles;
+    public Collection<UserRolesHasUsersEntity> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(Collection<UserRolesHasUsersEntity> roles) {
-        this.roles = roles;
+    @Override
+    @Transient
+    public List<? extends Role> getRoles() {
+        return new ArrayList<>(userRoles);
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Override
+    @Transient
+    public List<? extends Permission> getPermissions() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    @Transient
+    public String getIdentifier() {
+        return Integer.toString(id);
+    }
+
+    public void setUserRoles(Collection<UserRolesHasUsersEntity> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Collection<LinkedAccount> getLinkedAccounts() {
         return linkedAccounts;
     }
@@ -203,7 +225,7 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
         return id == that.id &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(password, that.password) &&
+//                Objects.equals(password, that.password) &&
                 Objects.equals(firstname, that.firstname) &&
                 Objects.equals(secondname, that.secondname) &&
                 Objects.equals(createdat, that.createdat) &&
@@ -212,8 +234,7 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, email, password, firstname, secondname, createdat, updatedat);
+        return Objects.hash(id, email, /*password,*/ firstname, secondname, createdat, updatedat);
     }
 
 

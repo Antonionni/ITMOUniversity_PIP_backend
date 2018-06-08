@@ -16,167 +16,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53c31ce7-9b14-4b3a-a0fa-02c5d7e633ec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/services/ILinkedAccountDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/IUserDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__cglib_cglib_nodep_3_2_4_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__ch_qos_logback_logback_classic_1_2_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__ch_qos_logback_logback_core_1_2_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_classmate_1_3_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_annotations_2_8_10_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_core_2_9_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_databind_2_8_10_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_8_10_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_8_10_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_code_findbugs_jsr305_1_3_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_code_findbugs_jsr305_3_0_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_code_gson_gson_2_8_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_errorprone_error_prone_annotations_2_0_18_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_guava_guava_22_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_google_j2objc_j2objc_annotations_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_googlecode_usc_jdbcdslog_1_0_6_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_h2database_h2_1_4_193_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_novocode_junit_interface_0_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_actor_2_11_2_5_8_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_http_core_2_11_10_0_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_parsing_2_11_10_0_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_slf4j_2_11_2_5_8_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_akka_akka_stream_2_11_2_5_8_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_config_1_3_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_build_link_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_cachecontrol_2_11_1_1_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_filters_helpers_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ahc_ws_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ahc_ws_standalone_2_11_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_akka_http_server_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_cache_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ebean_2_11_4_0_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_enhancer_1_2_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_exceptions_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_functional_2_11_2_6_8_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_guice_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_java_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_java_forms_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_jdbc_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_jdbc_api_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_jdbc_evolutions_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_json_2_11_2_6_8_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_logback_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_netty_utils_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_server_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_streams_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_test_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ws_2_11_2_6_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ws_standalone_2_11_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ws_standalone_json_2_11_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_ws_standalone_xml_2_11_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_shaded_asynchttpclient_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_shaded_oauth_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_twirl_api_2_11_1_3_12_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_ssl_config_core_2_11_0_2_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_zaxxer_HikariCP_2_7_4_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__commons_io_commons_io_2_5_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__commons_logging_commons_logging_1_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__io_jsonwebtoken_jjwt_0_7_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__javax_cache_cache_api_1_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__joda_time_joda_time_2_9_9_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__junit_junit_4_12_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_java_dev_jna_jna_4_1_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_java_dev_jna_jna_platform_4_1_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_jodah_typetools_0_5_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_sourceforge_cssparser_cssparser_0_9_23_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_sourceforge_htmlunit_htmlunit_2_27_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_sourceforge_htmlunit_htmlunit_core_js_2_27_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__net_sourceforge_htmlunit_neko_htmlunit_2_27_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_antlr_antlr4_runtime_4_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_apache_commons_commons_exec_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_apache_commons_commons_lang3_3_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_apache_httpcomponents_httpclient_4_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_apache_httpcomponents_httpcore_4_4_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_apache_httpcomponents_httpmime_4_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_atteo_classindex_classindex_3_4_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_avaje_avaje_classpath_scanner_2_2_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_avaje_avaje_classpath_scanner_api_2_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_avaje_avaje_datasource_2_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_avaje_avaje_datasource_api_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_codehaus_mojo_animal_sniffer_annotations_1_14_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_jetty_client_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_jetty_http_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_jetty_io_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_jetty_util_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_websocket_websocket_api_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_websocket_websocket_client_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_eclipse_jetty_websocket_websocket_common_9_4_5_v20170502_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_fluentlenium_fluentlenium_core_3_3_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_hibernate_hibernate_validator_5_4_1_Final_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_javassist_javassist_3_21_0_GA_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_jetbrains_annotations_13_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_joda_joda_convert_1_7_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_reactivestreams_reactive_streams_1_0_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_reflections_reflections_0_9_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_java8_compat_2_11_0_8_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_parser_combinators_2_11_1_0_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_xml_2_11_1_0_6_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_11_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_reflect_2_11_11_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_sbt_test_interface_1_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_seleniumhq_selenium_htmlunit_driver_2_27_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_seleniumhq_selenium_selenium_api_3_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_seleniumhq_selenium_selenium_firefox_driver_3_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_seleniumhq_selenium_selenium_remote_driver_3_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_seleniumhq_selenium_selenium_support_3_5_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_slf4j_jcl_over_slf4j_1_7_25_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_slf4j_jul_to_slf4j_1_7_25_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_slf4j_slf4j_api_1_7_25_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_springframework_spring_beans_4_3_11_RELEASE_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_springframework_spring_context_4_3_11_RELEASE_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_springframework_spring_core_4_3_11_RELEASE_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_typelevel_macro_compat_2_11_1_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_w3c_css_sac_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__xalan_serializer_2_7_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__xalan_xalan_2_7_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/root-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/root-build.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/config/RolesConst.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/api/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/data/ApiHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models/apiEntities/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/ITokenActionDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/MyPlayAuthenticate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/root.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/root.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/play2_project_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/play2_project_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/play2_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/play2_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/Signup.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Signup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/data/HibernateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/data/HibernateUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/data/ORMHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/data/ORMHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/enumerations/RoleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/enumerations/RoleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/ApiResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/AnswerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/AnswerEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/ContentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/ContentEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/CourseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/CourseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/CoursePeriodEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/CoursePeriodEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/LessonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/LessonEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/LinkedAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/LinkedAccount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/MaterialEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/MaterialEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/PassageEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/PassageEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/PassageEntityPK.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/PassageEntityPK.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/PassageHasAnswersEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/PassageHasAnswersEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/QuestionEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/QuestionEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/TestEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/TestEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/entities/TokenAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/TokenAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/UserEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/UserHasCourseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/UserHasCourseEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/modules/DependencyInjectionModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/DependencyInjectionModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/providers/MyUsernamePasswordAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/providers/MyUsernamePasswordAuthProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/security/MyDeadboltHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/security/MyDeadboltHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/security/MyHandlerCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/security/MyHandlerCache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/LinkedAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/LinkedAccountDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/TokenActionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/TokenActionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/UserProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/UserProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/main.scala.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/main.scala.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/profile.scala.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/profile.scala.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/application.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/play-authenticate/mine.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/play-authenticate/mine.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/insert.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/project/build.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/project/project/target/" />
@@ -207,6 +95,18 @@
     </expand>
     <select />
   </component>
+  <component name="ExecutionTargetDialog">
+    <checked>
+      <node key="de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4">
+        <node key="postgres" />
+      </node>
+    </checked>
+    <expanded>
+      <node key="de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4">
+        <node key="postgres" />
+      </node>
+    </expanded>
+  </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -231,96 +131,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="IUserDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/services/IUserDAO.java">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDAO.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/services/UserDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="85" column="54" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/META-INF/persistence.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaAction.scala" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/core/j/JavaAction.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultJPAApi.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/srcs/play-java-jpa_2.11-2.5.0-sources.jar!/play/db/jpa/DefaultJPAApi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="149" selection-start-line="149" selection-end-line="149" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/entities/UserEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="158" column="49" lean-forward="true" selection-start-line="158" selection-start-column="49" selection-end-line="158" selection-end-column="49" />
+            <state relative-caret-position="341">
+              <caret line="84" column="52" selection-start-line="84" selection-start-column="52" selection-end-line="84" selection-end-column="52" />
               <folding>
-                <element signature="e#3351#3352#0" expanded="true" />
-                <element signature="e#3388#3389#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3008#3009#0" expanded="true" />
+                <element signature="e#3109#3110#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserRolesHasUsersEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java">
+      <file leaf-file-name="UsernamePasswordAuthProvider.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/providers/password/UsernamePasswordAuthProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LinkedAccount.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/entities/LinkedAccount.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Account.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-134">
-              <caret line="220" column="18" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
+            <state relative-caret-position="278">
+              <caret line="120" column="32" lean-forward="true" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
+              <folding>
+                <element signature="e#4216#4217#0" expanded="true" />
+                <element signature="e#4267#4268#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -333,32 +166,61 @@
         <option value="Kotlin Class" />
         <option value="Enum" />
         <option value="spring-beans.schema" />
-        <option value="Class" />
-        <option value="Interface" />
         <option value="Tag Library Descriptor" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>coursesByCoursesid</find>
-      <find>SecurityRole</find>
-      <find>getProvider</find>
-      <find>Messages</find>
-      <find>DeadboltHook</find>
-      <find>OpenIdClien</find>
-      <find>openid</find>
-      <find>cach</find>
+      <find>@GeneratedValue(strategy=GenerationType.IDENTITY)</find>
+      <find>generated by default as identity</find>
+      <find>Tran</find>
+      <find>.AUTO</find>
+      <find>Type.AUTO</find>
+      <find>Type.IDENTITY</find>
+      <find>Type.Auto</find>
+      <find>Type.Aut</find>
+      <find>Type.Sequence</find>
+      <find>call</find>
+      <find>GenerationType.</find>
+      <find>GenerationType.INSERT</find>
+      <find>GenerationType.TABLE</find>
+      <find>, columnDefinition = &quot;serial&quot;</find>
+      <find>passagesstartdate</find>
+      <find>type</find>
+      <find>IUserDao</find>
+      <find>UserD</find>
+      <find>ManyToOne</find>
+      <find>select</find>
+      <find>TokenActionDAO.</find>
+      <find>Transactional</find>
+      <find>@Transactional</find>
+      <find>@AsyncTransactional</find>
+      <find>@Transact</find>
+      <find>ctx</find>
+      <find>localUser.IU</find>
+      <find>PlayAuthenticate</find>
+      <find>wrong</find>
       <find>flash</find>
-      <find>gzip</find>
-      <find>play-authenticate-hibernate</find>
-      <find>NettyServer</find>
-      <find>localhost:5432</find>
-      <find>mapp</find>
-      <find>PassageHasAnswersEntity</find>
-      <find>JpAApi.em</find>
-      <find>JpaApi.em</find>
     </findStrings>
+    <replaceStrings>
+      <replace>columnDefinition = &quot;NVARCHAR(MAX)&quot;)</replace>
+      <replace>VARCHAR(</replace>
+      <replace>VARCHAR</replace>
+      <replace>@GeneratedValue(strategy=GenerationType.AUTO)</replace>
+      <replace>Type.IDENTITY</replace>
+      <replace>Type.AUTO</replace>
+      <replace>Type.SEQUENCE</replace>
+      <replace>Type.INSERT</replace>
+      <replace>GenerationType.TABLE</replace>
+      <replace>GenerationType.IDENTITY</replace>
+      <replace />
+      <replace>serial</replace>
+      <replace>@AsyncTransactional</replace>
+      <replace>@Transactional</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -366,57 +228,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/conf/routes" />
-        <option value="$PROJECT_DIR$/app/views/_providerPartial.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/index.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/login.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/profile.scala.html" />
-        <option value="$PROJECT_DIR$/app/providers/MyStupidBasicAuthProvider.java" />
-        <option value="$PROJECT_DIR$/app/views/account/ask_link.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/link.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/password_change.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/signup/exists.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/unverified.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/restricted.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/signup.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/ask_merge.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/signup/no_token_or_invalid.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/account/signup/oAuthDenied.scala.html" />
         <option value="$PROJECT_DIR$/app/views/account/signup/password_forgot.scala.html" />
         <option value="$PROJECT_DIR$/app/views/account/signup/unverified.scala.html" />
         <option value="$PROJECT_DIR$/app/views/account/signup/password_reset.scala.html" />
-        <option value="$PROJECT_DIR$/app/models/entities/LinkedAccount.java" />
-        <option value="$PROJECT_DIR$/app/models/entities/TokenAction.java" />
         <option value="$PROJECT_DIR$/app/controllers/MainController.java" />
         <option value="$PROJECT_DIR$/app/security/MyHandlerCache.java" />
         <option value="$PROJECT_DIR$/app/providers/MyUsernamePasswordAuthProvider.java" />
         <option value="$PROJECT_DIR$/app/views/main.scala.html" />
         <option value="$PROJECT_DIR$/project/build.properties" />
         <option value="$PROJECT_DIR$/project/plugins.sbt" />
-        <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/conf/hibernate.cfg.xml" />
         <option value="$PROJECT_DIR$/app/data/HibernateUtils.java" />
         <option value="$PROJECT_DIR$/app/data/ORMHelper.java" />
-        <option value="$PROJECT_DIR$/app/modules/DependencyInjectionModule.java" />
         <option value="$PROJECT_DIR$/conf/persistance.xml" />
         <option value="$PROJECT_DIR$/app/models/entities/CourseEntity.java" />
-        <option value="$PROJECT_DIR$/conf/application.conf" />
-        <option value="$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java" />
         <option value="$PROJECT_DIR$/app/models/entities/PassageHasAnswersEntity.java" />
-        <option value="$PROJECT_DIR$/app/models/entities/LessonEntity.java" />
-        <option value="$PROJECT_DIR$/app/models/entities/MaterialEntity.java" />
         <option value="$PROJECT_DIR$/app/models/entities/QuestionEntity.java" />
         <option value="$PROJECT_DIR$/app/models/entities/PassageEntity.java" />
         <option value="$PROJECT_DIR$/app/models/entities/UserHasCourseEntity.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/ContentEntity.java" />
+        <option value="$PROJECT_DIR$/conf/hibernate.cfg.xml" />
         <option value="$PROJECT_DIR$/app/models/entities/AnswerEntity.java" />
-        <option value="$PROJECT_DIR$/app/services/LinkedAccountDAO.java" />
-        <option value="$PROJECT_DIR$/app/services/TokenActionDAO.java" />
-        <option value="$PROJECT_DIR$/app/controllers/Signup.java" />
-        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
-        <option value="$PROJECT_DIR$/app/controllers/Account.java" />
-        <option value="$PROJECT_DIR$/app/models/entities/UserEntity.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/MaterialEntity.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/LinkedAccount.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/CoursePeriodEntity.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/LessonEntity.java" />
+        <option value="$PROJECT_DIR$/sampleCreate.ddl" />
+        <option value="$PROJECT_DIR$/app/models/entities/PassageEntityPK.java" />
         <option value="$PROJECT_DIR$/conf/META-INF/persistence.xml" />
+        <option value="$PROJECT_DIR$/app/services/TokenActionDAO.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/TokenAction.java" />
+        <option value="$PROJECT_DIR$/app/services/LinkedAccountDAO.java" />
+        <option value="$PROJECT_DIR$/build.sbt" />
+        <option value="$PROJECT_DIR$/app/controllers/Signup.java" />
+        <option value="$PROJECT_DIR$/app/security/MyDeadboltHandler.java" />
+        <option value="$PROJECT_DIR$/app/enumerations/RolesConst.java" />
+        <option value="$PROJECT_DIR$/app/enumerations/RoleType.java" />
+        <option value="$PROJECT_DIR$/app/config/RolesConst.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/UserEntity.java" />
+        <option value="$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java" />
+        <option value="$PROJECT_DIR$/app/controllers/Account.java" />
+        <option value="$PROJECT_DIR$/conf/play-authenticate/mine.conf" />
+        <option value="$PROJECT_DIR$/app/views/profile.scala.html" />
+        <option value="$PROJECT_DIR$/conf/application.conf" />
+        <option value="$PROJECT_DIR$/app/services/UserService.java" />
         <option value="$PROJECT_DIR$/app/services/UserDAO.java" />
+        <option value="$PROJECT_DIR$/app/models/apiEntities/Student.java" />
+        <option value="$PROJECT_DIR$/app/models/ApiResponse.java" />
+        <option value="$PROJECT_DIR$/app/data/ApiHelper.java" />
+        <option value="$PROJECT_DIR$/app/controllers/api/UserController.java" />
+        <option value="$PROJECT_DIR$/app/services/MyPlayAuthenticate.java" />
+        <option value="$PROJECT_DIR$/app/modules/DependencyInjectionModule.java" />
+        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
       </list>
     </option>
   </component>
@@ -435,10 +297,10 @@
   <component name="Play2ProjectSettings">
     <option name="LANGUAGE_IMPORTS">
       <array>
-        <option value="play.data._" />
         <option value="play.api.data.Field" />
-        <option value="scala.collection.JavaConversions._" />
+        <option value="play.data._" />
         <option value="play.api.templates.PlayMagic._" />
+        <option value="scala.collection.JavaConversions._" />
         <option value="java.lang._" />
         <option value="play.mvc._" />
         <option value="play.core.j.PlayMagicForJava._" />
@@ -449,9 +311,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="560" />
-    <option name="y" value="43" />
-    <option name="width" value="1257" />
+    <option name="x" value="654" />
+    <option name="y" value="40" />
+    <option name="width" value="1273" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -478,7 +340,20 @@
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
               <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
@@ -490,7 +365,26 @@
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
               <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="enumerations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="apiEntities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
@@ -502,7 +396,32 @@
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
               <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="providers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="account" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
@@ -518,7 +437,57 @@
             <path>
               <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
               <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="conf" type="462c0819:PsiDirectoryNode" />
+              <item name="play-authenticate" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="javascripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="play-authenticate-hibernate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ITMOUniversity_PIP_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -531,11 +500,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="JPA.DatabaseSchemaImportDialog" value="de1d32be-bf2c-42e4-9e16-8e4fb5ed38a4" />
-    <property name="SearchEverywhereHistoryKey" value="findByUsernamePasswordIdentity&#9;PSI&#9;JAVA://services.IUserDAO#findByUsernamePasswordIdentity&#10;AnswerEntity &#9;PSI&#9;JAVA://models.entities.AnswerEntity&#10;UserHasCourseEntity&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/UserHasCourseEntity.java&#10;PassageEntity &#9;PSI&#9;JAVA://models.entities.PassageEntity&#10;QuestionEntity &#9;PSI&#9;JAVA://models.entities.QuestionEntity&#10;MaterialEntity &#9;PSI&#9;JAVA://models.entities.MaterialEntity&#10;LessonEntity &#9;PSI&#9;JAVA://models.entities.LessonEntity&#10;PassageHasAnswersEntity&#9;PSI&#9;JAVA://models.entities.PassageHasAnswersEntity&#10;UserRolesHasUsersEntity &#9;PSI&#9;JAVA://models.entities.UserRolesHasUsersEntity&#10;CourseEntity&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/UserHasCourseEntity.java&#10;CoursePeriodEntity&#9;PSI&#9;JAVA://models.entities.CoursePeriodEntity&#10;JpaApi&#9;PSI&#9;JAVA://play.db.jpa.JPAApi" />
+    <property name="SearchEverywhereHistoryKey" value="handleauthentication&#9;PSI&#9;JAVA://services.MyPlayAuthenticate#handleAuthentication&#10;userser&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/services/UserService.java&#10;getlocalidentity&#9;PSI&#9;JAVA://services.UserService#getLocalIdentity&#10;signup&#9;PSI&#9;JAVA://controllers.Signup&#10;UserDa&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/services/UserDAO.java&#10;UserD&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/services/IUserDAO.java&#10;Link&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/LinkedAccount.java&#10;JpaPersistE&#9;PSI&#9;JAVA://org.hibernate.jpa.event.internal.core.JpaPersistEventListener&#10;passag&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/PassageEntity.java&#10;MaterialEn&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/MaterialEntity.java&#10;findByUsernamePasswordIdentity&#9;PSI&#9;JAVA://services.IUserDAO#findByUsernamePasswordIdentity&#10;AnswerEntity &#9;PSI&#9;JAVA://models.entities.AnswerEntity&#10;UserHasCourseEntity&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/UserHasCourseEntity.java&#10;PassageEntity &#9;PSI&#9;JAVA://models.entities.PassageEntity&#10;QuestionEntity &#9;PSI&#9;JAVA://models.entities.QuestionEntity&#10;MaterialEntity &#9;PSI&#9;JAVA://models.entities.MaterialEntity&#10;LessonEntity &#9;PSI&#9;JAVA://models.entities.LessonEntity&#10;PassageHasAnswersEntity&#9;PSI&#9;JAVA://models.entities.PassageHasAnswersEntity&#10;UserRolesHasUsersEntity &#9;PSI&#9;JAVA://models.entities.UserRolesHasUsersEntity&#10;CourseEntity&#9;FILE&#9;file://C:/Users/orkes/Documents/ITMOUniversity_PIP_backend/app/models/entities/UserHasCourseEntity.java&#10;CoursePeriodEntity&#9;PSI&#9;JAVA://models.entities.CoursePeriodEntity&#10;JpaApi&#9;PSI&#9;JAVA://play.db.jpa.JPAApi" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/conf/META-INF/persistance.xml" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/conf/hibernate.cfg.xml" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.14965986" />
     <property name="project.structure.side.proportion" value="0.3501144" />
@@ -546,6 +516,7 @@
       <recent name="services" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="config" />
       <recent name="models" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -553,6 +524,7 @@
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="models" />
+      <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\orkes\Documents\ITMOUniversity_PIP_backend\app\modules" />
@@ -719,19 +691,22 @@
       <workItem from="1527796054279" duration="2409000" />
       <workItem from="1527845026144" duration="5533000" />
       <workItem from="1527852397455" duration="5097000" />
-      <workItem from="1527877828815" duration="10725000" />
+      <workItem from="1527877828815" duration="11376000" />
+      <workItem from="1527928441919" duration="24483000" />
+      <workItem from="1528283021155" duration="18736000" />
+      <workItem from="1528388810123" duration="21940000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119995000" />
+    <option name="totallyTimeSpent" value="185805000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="sbt" order="3" visible="true" weight="0.26302084" />
+      <window_info anchor="right" id="sbt" order="3" weight="0.26302084" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
@@ -739,33 +714,34 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.42977825" />
-      <window_info anchor="right" id="Database" order="3" weight="0.19726562" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.0671875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39915523" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.38859555" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4308342" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.39598733" />
       <window_info anchor="bottom" id="Spring" order="8" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Persistence" order="3" sideWeight="0.33186814" side_tool="true" weight="0.10208333" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6681319" visible="true" weight="0.2390625" />
-      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" weight="0.40443507" />
+      <window_info id="Persistence" order="3" sideWeight="0.30569947" side_tool="true" visible="true" weight="0.14947917" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69430053" visible="true" weight="0.14947917" />
+      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" weight="0.2344245" />
       <window_info anchor="right" id="Bean Validation" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3252376" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32418162" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Database Console" order="9" weight="0.32946146" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="7" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -778,396 +754,544 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/services/UserDAO.java</url>
-          <line>87</line>
+          <url>file://$PROJECT_DIR$/app/controllers/Account.java</url>
+          <line>167</line>
           <properties />
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/services/UserDAO.java</url>
-          <line>85</line>
+          <url>file://$PROJECT_DIR$/app/controllers/Account.java</url>
+          <line>179</line>
           <properties />
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/services/UserDAO.java</url>
-          <line>86</line>
+          <url>jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/PlayAuthenticate.java</url>
+          <line>337</line>
           <properties />
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/services/UserDAO.java</url>
-          <line>84</line>
+          <url>file://$PROJECT_DIR$/app/services/MyPlayAuthenticate.java</url>
+          <line>75</line>
           <properties />
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="5" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="60" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Play2FrameworkRunConfigurations">
+        <watch expression="Http.Context.current()" language="JAVA" custom="play.mvc.Http" />
+        <watch expression="identity.getId()" />
+        <watch expression="ctx()" />
+        <watch expression="flash().values()" />
+        <watch expression="Json.toJson(flash().values()).toString()" language="JAVA" />
+        <watch expression="Json.toJson(flash().values()).toString()" />
+        <watch expression="Http.Cookie.builder(&quot;messages&quot;, Json.toJson(flash().values()).toString()).build()" />
+        <watch expression="response().cookies()" />
+        <watch expression="response().cookies()" />
+        <watch expression="ok(Json.toJson(&quot;sasaiLalka&quot;))" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>Http.Context.current()</expression-string>
+        <language-id>JAVA</language-id>
+        <custom-info>play.mvc.Http</custom-info>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Json.toJson(flash().values()).toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Json.toJson(flash().values())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Json.toJson(flash().values()).fields()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Json.toJson(flash().values()).textValue()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Json.toJson(flash().values()).asText()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Http.Context.current().args</expression-string>
+        <language-id>JAVA</language-id>
+        <custom-info>play.mvc.Http</custom-info>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Http.</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>JpAApi.em()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.ivy2/cache/scala_2.12/sbt_1.0/com.typesafe.play/sbt-plugin/jars/sbt-plugin-2.6.9.jar!/play/sbt/PlayImport.class">
+    <entry file="file://$PROJECT_DIR$/target/scala-2.11/twirl/main/views/html/account/link.template.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+        <state relative-caret-position="173">
+          <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-ahc-ws-standalone_2.11/srcs/play-ahc-ws-standalone_2.11-1.1.3-sources.jar!/play/api/libs/ws/ahc/AhcConfig.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/providers/openid/OpenIdAuthProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/jars/play-authenticate_2.11-0.8.3.jar!/com/feth/play/module/pa/views/html/forProviders_Scope0.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/scala-2.11/twirl/main/views/html/signup.template.scala" />
-    <entry file="jar://$USER_HOME$/.ivy2/cache/scala_2.10/sbt_0.13/com.typesafe.play/sbt-plugin/srcs/sbt-plugin-2.4.0-M1-sources.jar!/PlayImport.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#88#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.10/srcs/play_2.10-2.4.0-sources.jar!/play/api/package.scala">
+    <entry file="file://$PROJECT_DIR$/app/views/account/link.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar!/com/google/inject/internal/SingleParameterInjector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="32" column="3" lean-forward="true" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar!/com/google/inject/internal/FactoryProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar!/com/google/inject/internal/ConstructorBindingImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="266" selection-start-line="266" selection-end-line="266" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar!/com/google/inject/internal/ConstructorInjector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar!/com/google/inject/internal/DefaultConstructionProxyFactory.java">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/be.objectify/deadbolt-java_2.11/srcs/deadbolt-java_2.11-2.5.0-sources.jar!/be/objectify/deadbolt/java/actions/AbstractDeadboltAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
+          <caret line="291" selection-start-line="291" selection-end-line="291" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.google.inject/guice/jars/guice-4.0.jar!/com/google/inject/internal/cglib/reflect/$FastConstructor.class">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/be.objectify/deadbolt-java_2.11/srcs/deadbolt-java_2.11-2.5.0-sources.jar!/be/objectify/deadbolt/java/actions/SubjectPresentAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="15" column="117" selection-start-line="15" selection-start-column="117" selection-end-line="15" selection-end-column="117" />
+        <state relative-caret-position="180">
+          <caret line="65" selection-start-line="65" selection-end-line="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/build.properties">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/be.objectify/deadbolt-java_2.11/srcs/deadbolt-java_2.11-2.5.0-sources.jar!/be/objectify/deadbolt/java/ConstraintLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="325">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/play-authenticate">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/MyResolver.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/function/Supplier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="406">
+          <caret line="47" column="6" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/data/HibernateUtils.java">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.hibernate/hibernate-core/srcs/hibernate-core-5.2.7.Final-sources.jar!/org/hibernate/internal/SessionImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-          <folding>
-            <element signature="e#268#269#0" expanded="true" />
-            <element signature="e#299#300#0" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/ILinkedAccountDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/data/ORMHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.hibernate/hibernate-core/srcs/hibernate-core-5.2.7.Final-sources.jar!/org/hibernate/jpa/HibernatePersistenceProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/srcs/play-java-jpa_2.11-2.5.0-sources.jar!/play/db/jpa/JPAApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1076">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/DependencyInjectionModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/CoursePeriodEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/CourseEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="126" column="36" selection-start-line="126" selection-start-column="36" selection-end-line="126" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="14" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/Date.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/sql/Timestamp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="71" column="44" lean-forward="true" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/PassageHasAnswersEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/LessonEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="81" column="121" selection-start-line="81" selection-start-column="121" selection-end-line="81" selection-end-column="121" />
-          <folding>
-            <element signature="e#1905#1906#0" expanded="true" />
-            <element signature="e#1946#1947#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/MaterialEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="107" column="120" selection-start-line="107" selection-start-column="120" selection-end-line="107" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/QuestionEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="132" column="125" selection-start-line="132" selection-start-column="125" selection-end-line="132" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/PassageEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="110" column="5" lean-forward="true" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/UserHasCourseEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="92" column="120" selection-start-line="92" selection-start-column="120" selection-end-line="92" selection-end-column="120" />
-          <folding>
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/AnswerEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="103" column="102" lean-forward="true" selection-start-line="103" selection-start-column="102" selection-end-line="103" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/LinkedAccountDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/TokenActionDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Signup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1909">
-          <caret line="249" column="1" lean-forward="true" selection-start-line="249" selection-start-column="1" selection-end-line="249" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-134">
-          <caret line="220" column="18" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/IUserDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/UserRolesHasUsersEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entities/LinkedAccount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="197">
+          <caret line="859" selection-start-line="859" selection-end-line="859" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/entities/UserEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="158" column="49" lean-forward="true" selection-start-line="158" selection-start-column="49" selection-end-line="158" selection-end-column="49" />
+        <state relative-caret-position="161">
+          <caret line="177" selection-start-line="177" selection-end-line="177" />
           <folding>
-            <element signature="e#3351#3352#0" expanded="true" />
-            <element signature="e#3388#3389#0" expanded="true" />
+            <element signature="e#4018#4019#0" expanded="true" />
+            <element signature="e#4441#4442#0" expanded="true" />
+            <element signature="e#4470#4471#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/LinkedAccountDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/IUserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="184" column="16" selection-start-line="184" selection-start-column="16" selection-end-line="184" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/security/MyDeadboltHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="57" column="82" selection-start-line="57" selection-start-column="82" selection-end-line="57" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/_providerPartial.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/mvc/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#635#636#0" expanded="true" />
+            <element signature="e#1944#1945#0" expanded="true" />
+            <element signature="e#2000#2001#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/providers/oauth1/OAuth1AuthProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="95" column="18" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/MyResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/apiEntities/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+          <folding>
+            <element signature="e#213#214#0" expanded="true" />
+            <element signature="e#263#264#0" expanded="true" />
+            <element signature="e#305#306#0" expanded="true" />
+            <element signature="e#340#341#0" expanded="true" />
+            <element signature="e#371#372#0" expanded="true" />
+            <element signature="e#419#420#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
+            <element signature="e#595#596#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/mvc/Http.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-337">
+          <caret line="2241" column="28" selection-start-line="2241" selection-start-column="28" selection-end-line="2241" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/ApiResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/data/ApiHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/mvc/Results.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="517" column="20" selection-start-line="517" selection-start-column="20" selection-end-line="517" selection-end-column="20" />
+          <folding>
+            <element signature="e#2383#2384#0" expanded="true" />
+            <element signature="e#2435#2436#0" expanded="true" />
+            <element signature="e#3338#3339#0" expanded="true" />
+            <element signature="e#3390#3391#0" expanded="true" />
+            <element signature="e#16829#16830#0" expanded="true" />
+            <element signature="e#16871#16872#0" expanded="true" />
+            <element signature="e#41572#41573#0" expanded="true" />
+            <element signature="e#41621#41622#0" expanded="true" />
+            <element signature="e#42241#42242#0" expanded="true" />
+            <element signature="e#42290#42291#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/controllers/AuthenticateDI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/providers/oauth2/OAuth2AuthProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="195" column="18" selection-start-line="195" selection-start-column="18" selection-end-line="195" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/service/AbstractUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#verifyEmail#0;class#Account#0" />
+            <element signature="method#changePassword#0;class#Account#0" />
+            <element signature="method#doChangePassword#0;class#Account#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="234" column="18" selection-start-line="234" selection-start-column="18" selection-end-line="234" selection-end-column="18" />
+          <folding>
+            <element signature="e#10065#10066#0" expanded="true" />
+            <element signature="e#10148#10149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#179#180#0" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="92" selection-start-line="15" selection-start-column="92" selection-end-line="15" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/DependencyInjectionModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="41" column="51" lean-forward="true" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/providers/MyUsernamePasswordAuthProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="272" selection-start-line="272" selection-end-line="272" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/PlayAuthenticate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="377" selection-start-line="377" selection-end-line="377" />
+          <folding>
+            <element signature="e#1345#1346#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+            <element signature="e#1460#1461#0" expanded="true" />
+            <element signature="e#1488#1489#0" expanded="true" />
+            <element signature="e#5509#5510#0" expanded="true" />
+            <element signature="e#5549#5550#0" expanded="true" />
+            <element signature="e#5589#5590#0" expanded="true" />
+            <element signature="e#5664#5665#0" expanded="true" />
+            <element signature="e#15779#15780#0" expanded="true" />
+            <element signature="e#15831#15832#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/MyPlayAuthenticate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/controllers/Authenticate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/api/http/HttpErrorHandler.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="268" selection-start-line="268" selection-end-line="268" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-json_2.11/srcs/play-json_2.11-2.5.1-sources.jar!/play/libs/Json.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1343">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/scala-2.11/routes/main/router/Routes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="586" column="54" selection-start-line="586" selection-start-column="54" selection-end-line="586" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/core/routing/HandlerInvoker.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="135" column="53" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/http/HttpRequestHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="e#2162#2163#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/srcs/play-java-jpa_2.11-2.5.0-sources.jar!/play/db/jpa/DefaultJPAApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
+        <state relative-caret-position="239">
+          <caret line="194" selection-start-line="194" selection-end-line="194" />
+          <folding>
+            <element signature="e#2410#2411#0" expanded="true" />
+            <element signature="e#2458#2459#0" expanded="true" />
+            <element signature="e#4898#4899#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/srcs/play-java-jpa_2.11-2.5.0-sources.jar!/play/db/jpa/TransactionalAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play-iteratees_2.11/srcs/play-iteratees_2.11-2.5.1-sources.jar!/play/api/libs/iteratee/Execution.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="62" column="6" selection-start-line="62" selection-start-column="6" selection-end-line="62" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/core/j/HttpExecutionContext.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="47" column="45" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/core/j/JavaAction.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+        <state relative-caret-position="227">
+          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/META-INF/persistence.xml">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/utils/Threads.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+        <state relative-caret-position="340">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/UserDAO.java">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.1-sources.jar!/play/api/mvc/Action.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="85" column="54" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
+        <state relative-caret-position="217">
+          <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.4.2-sources.jar!/akka/dispatch/BatchingExecutor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="89" column="6" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.4.2-sources.jar!/akka/dispatch/AbstractDispatcher.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="21" column="55" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.feth/play-authenticate_2.11/srcs/play-authenticate_2.11-0.8.3-sources.jar!/com/feth/play/module/pa/providers/password/UsernamePasswordAuthProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="120" column="32" lean-forward="true" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
+          <folding>
+            <element signature="e#4216#4217#0" expanded="true" />
+            <element signature="e#4267#4268#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="84" column="52" selection-start-line="84" selection-start-column="52" selection-end-line="84" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3008#3009#0" expanded="true" />
+            <element signature="e#3109#3110#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

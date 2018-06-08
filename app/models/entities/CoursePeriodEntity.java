@@ -21,6 +21,7 @@ public class CoursePeriodEntity {
     private Timestamp enddate;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "coursesid", nullable = false)
     public int getCoursesid() {
         return coursesid;

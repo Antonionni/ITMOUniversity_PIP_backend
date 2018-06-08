@@ -1,5 +1,6 @@
 @import services.UserProvider
-@(playAuth: com.feth.play.module.pa.PlayAuthenticate, userProvider: UserProvider, localUser: models.entities.UserEntity = null)
+@import services.IUserDAO
+@(playAuth: com.feth.play.module.pa.PlayAuthenticate, userProvider: UserProvider, localUser: models.entities.UserEntity = null, userDao: IUserDAO)
 
 @import com.feth.play.module.pa.views.html._
 
@@ -21,7 +22,7 @@
             Your first name is @localUser.getFirstname and your last name is @localUser.getSecondname
             <br/>
         }
-    @defining(localUser.IUserDAO.getProviders(localUser)) { providers =>
+    @defining(userDao.getProviders(localUser)) { providers =>
         @if(providers.size() > 0) {
         @if(providers.size() ==1) {
             @Messages("playauthenticate.profile.providers_one")

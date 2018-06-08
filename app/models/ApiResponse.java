@@ -5,23 +5,28 @@ import org.jetbrains.annotations.Nullable;
 public class ApiResponse<T> {
 
     @Nullable
-    private final Integer mErrorCode;
+    private final Integer ErrorCode;
 
     @Nullable
-    private final T mData;
+    private final T Data;
 
-    public ApiResponse(@Nullable Integer errorCode, @Nullable T data) {
-        mErrorCode = errorCode;
-        mData = data;
+    private final String returnUrl;
+
+    public ApiResponse(@Nullable Integer errorCode, @Nullable T data, @Nullable String returnUrl) {
+        this.ErrorCode = errorCode;
+        this.Data = data;
+        this.returnUrl = returnUrl;
     }
+
+    public String getReturnUrl() { return returnUrl; }
 
     @Nullable
     public Integer getErrorCode() {
-        return mErrorCode;
+        return ErrorCode;
     }
 
     @Nullable
     public T getData() {
-        return mData;
+        return Data;
     }
 }

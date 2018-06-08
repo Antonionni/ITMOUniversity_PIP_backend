@@ -46,6 +46,7 @@ public class CourseEntity {
     private Collection<UserEntity> courseTeachers;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -56,7 +57,7 @@ public class CourseEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
@@ -66,7 +67,7 @@ public class CourseEntity {
     }
 
     @Basic
-    @Column(name = "subject", nullable = false, length = -1)
+    @Column(name = "subject", nullable = false, columnDefinition = "VARCHAR")
     public String getSubject() {
         return subject;
     }
@@ -76,7 +77,7 @@ public class CourseEntity {
     }
 
     @Basic
-    @Column(name = "imageurl", nullable = false, length = -1)
+    @Column(name = "imageurl", nullable = false, columnDefinition = "VARCHAR")
     public String getImageurl() {
         return imageurl;
     }

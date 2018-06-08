@@ -20,10 +20,9 @@ public class LinkedAccountDAO implements ILinkedAccountDAO {
     }
 
     @Override
-    @Transactional
     public LinkedAccount findByProviderKey(final UserEntity user, String key) {
         TypedQuery<LinkedAccount> query = JpAApi.em()
-                .createQuery("select LinkedAccount from LinkedAccount where user=:user and providerKey=:key", LinkedAccount.class);
+                .createQuery("from LinkedAccount where user=:user and providerKey=:key", LinkedAccount.class);
         query.setParameter("user", user);
         query.setParameter("key", key);
         return query.getSingleResult();

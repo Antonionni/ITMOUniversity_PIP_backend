@@ -1,17 +1,24 @@
-2018-06-02 00:57:24,123 [INFO] from play.core.server.NettyServer in pool-4-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
-2018-06-02 00:57:31,057 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
-2018-06-02 00:57:31,264 [INFO] from play.api.db.HikariCPConnectionPool in ForkJoinPool-1-worker-1 - datasource [default] bound to JNDI as DefaultDS
-2018-06-02 00:57:31,274 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql://localhost:5432/postgres
-2018-06-02 00:57:34,837 [DEBUG] from application in ForkJoinPool-1-worker-1 - Registered AuthProvider 'password'
-2018-06-02 00:57:35,013 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
-2018-06-02 00:58:03,277 [WARN] from org.hibernate.engine.jdbc.spi.SqlExceptionHelper in application-akka.actor.default-dispatcher-9 - SQL Error: 0, SQLState: 42P01
-2018-06-02 00:58:03,279 [ERROR] from org.hibernate.engine.jdbc.spi.SqlExceptionHelper in application-akka.actor.default-dispatcher-9 - ERROR: relation "coursachamba.users" does not exist
-  Position: 438
-2018-06-02 00:58:03,295 [ERROR] from application in application-akka.actor.default-dispatcher-9 - 
+2018-06-08 13:42:15,755 [INFO] from play.core.server.NettyServer in pool-4-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2018-06-08 13:42:24,945 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
+2018-06-08 13:42:25,189 [INFO] from play.api.db.HikariCPConnectionPool in ForkJoinPool-1-worker-1 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:42:25,201 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:42:29,837 [DEBUG] from application in ForkJoinPool-1-worker-1 - Registered AuthProvider 'google'
+2018-06-08 13:42:30,159 [DEBUG] from application in ForkJoinPool-1-worker-1 - Registered AuthProvider 'password'
+2018-06-08 13:42:30,204 [DEBUG] from application in ForkJoinPool-1-worker-1 - Registered AuthProvider 'openid'
+2018-06-08 13:42:30,453 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2018-06-08 13:43:12,748 [INFO] from application in application-akka.actor.default-dispatcher-9 - Shutting down connection pool.
+2018-06-08 13:43:13,064 [INFO] from application in application-akka.actor.default-dispatcher-9 - Creating Pool for datasource 'default'
+2018-06-08 13:43:13,121 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-9 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:43:13,121 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-9 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:43:14,122 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'google'
+2018-06-08 13:43:14,147 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'password'
+2018-06-08 13:43:14,166 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'openid'
+2018-06-08 13:43:14,283 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
+2018-06-08 13:43:14,562 [ERROR] from application in application-akka.actor.default-dispatcher-7 - 
 
-! @785pa9cjm - Internal server error, for (POST) [/signup] ->
+! @787kn6aj8 - Internal server error, for (POST) [/login] ->
  
-play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[PersistenceException: org.hibernate.exception.SQLGrammarException: could not extract ResultSet]]
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[UnsupportedOperationException: null]]
 	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:269)
 	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:195)
 	at play.api.GlobalSettings$class.onError(GlobalSettings.scala:160)
@@ -44,21 +51,11 @@ play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[Persisten
 	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
 	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
 	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-Caused by: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:147)
-	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:155)
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1419)
-	at org.hibernate.Query.getResultList(Query.java:427)
-	at services.UserDAO.getUsernamePasswordAuthUserFind(UserDAO.java:87)
-	at services.UserDAO.findByUsernamePasswordIdentity(UserDAO.java:75)
-	at providers.MyUsernamePasswordAuthProvider.signupUser(MyUsernamePasswordAuthProvider.java:180)
-	at providers.MyUsernamePasswordAuthProvider.signupUser(MyUsernamePasswordAuthProvider.java:36)
-	at com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.authenticate(UsernamePasswordAuthProvider.java:94)
-	at com.feth.play.module.pa.PlayAuthenticate.handleAuthentication(PlayAuthenticate.java:376)
-	at com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.handleSignup(UsernamePasswordAuthProvider.java:153)
-	at controllers.Application.doSignup(Application.java:106)
-	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$10$$anonfun$apply$10.apply(Routes.scala:611)
-	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$10$$anonfun$apply$10.apply(Routes.scala:611)
+Caused by: java.lang.UnsupportedOperationException: null
+	at java.util.Collections$UnmodifiableMap.put(Collections.java:1457)
+	at controllers.Application.doLogin(Application.java:86)
+	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$6$$anonfun$apply$6.apply(Routes.scala:587)
+	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$6$$anonfun$apply$6.apply(Routes.scala:587)
 	at play.core.routing.HandlerInvokerFactory$$anon$4.resultCall(HandlerInvoker.scala:157)
 	at play.core.routing.HandlerInvokerFactory$$anon$4.resultCall(HandlerInvoker.scala:156)
 	at play.core.routing.HandlerInvokerFactory$JavaActionInvokerFactory$$anon$14$$anon$3$$anon$1.invocation(HandlerInvoker.scala:136)
@@ -90,37 +87,61 @@ Caused by: javax.persistence.PersistenceException: org.hibernate.exception.SQLGr
 	at play.api.mvc.Action$$anonfun$apply$2.apply(Action.scala:103)
 	at scala.concurrent.Future$$anonfun$flatMap$1.apply(Future.scala:251)
 	... 15 common frames omitted
-Caused by: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:106)
-	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:42)
-	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:111)
-	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:97)
-	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:79)
-	at org.hibernate.loader.Loader.getResultSet(Loader.java:2123)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1911)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1887)
-	at org.hibernate.loader.Loader.doQuery(Loader.java:932)
-	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
-	at org.hibernate.loader.Loader.doList(Loader.java:2615)
-	at org.hibernate.loader.Loader.doList(Loader.java:2598)
-	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2430)
-	at org.hibernate.loader.Loader.list(Loader.java:2425)
-	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:502)
-	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:370)
-	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:216)
-	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1481)
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1441)
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1410)
-	... 56 common frames omitted
-Caused by: org.postgresql.util.PSQLException: ERROR: relation "coursachamba.users" does not exist
-  Position: 438
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2182)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1911)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:173)
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:645)
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:495)
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:380)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
-	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:70)
-	... 71 common frames omitted
+2018-06-08 13:44:24,497 [INFO] from application in application-akka.actor.default-dispatcher-5 - Shutting down connection pool.
+2018-06-08 13:44:24,703 [INFO] from application in application-akka.actor.default-dispatcher-5 - Creating Pool for datasource 'default'
+2018-06-08 13:44:24,781 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-5 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:44:24,782 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-5 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:44:25,938 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Registered AuthProvider 'google'
+2018-06-08 13:44:25,960 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Registered AuthProvider 'password'
+2018-06-08 13:44:25,975 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Registered AuthProvider 'openid'
+2018-06-08 13:44:26,044 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-5 - Application started (Dev)
+2018-06-08 13:44:54,646 [INFO] from application in application-akka.actor.default-dispatcher-9 - Shutting down connection pool.
+2018-06-08 13:44:54,944 [INFO] from application in application-akka.actor.default-dispatcher-9 - Creating Pool for datasource 'default'
+2018-06-08 13:44:54,995 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-9 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:44:54,995 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-9 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:44:55,914 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'google'
+2018-06-08 13:44:55,933 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'password'
+2018-06-08 13:44:55,944 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Registered AuthProvider 'openid'
+2018-06-08 13:44:56,003 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
+2018-06-08 13:45:25,479 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-08 13:45:25,653 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2018-06-08 13:45:25,694 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-6 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:45:25,694 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:45:26,457 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Registered AuthProvider 'google'
+2018-06-08 13:45:26,476 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Registered AuthProvider 'password'
+2018-06-08 13:45:26,491 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Registered AuthProvider 'openid'
+2018-06-08 13:45:26,602 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2018-06-08 13:48:53,679 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2018-06-08 13:48:53,826 [INFO] from application in application-akka.actor.default-dispatcher-4 - Creating Pool for datasource 'default'
+2018-06-08 13:48:53,871 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-4 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:48:53,871 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-4 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:48:54,655 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - Registered AuthProvider 'google'
+2018-06-08 13:48:54,674 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - Registered AuthProvider 'password'
+2018-06-08 13:48:54,684 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - Registered AuthProvider 'openid'
+2018-06-08 13:48:54,744 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
+2018-06-08 13:49:58,294 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-08 13:49:58,446 [INFO] from application in application-akka.actor.default-dispatcher-3 - Creating Pool for datasource 'default'
+2018-06-08 13:49:58,491 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-3 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:49:58,491 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-3 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:49:59,203 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Registered AuthProvider 'google'
+2018-06-08 13:49:59,224 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Registered AuthProvider 'password'
+2018-06-08 13:49:59,234 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Registered AuthProvider 'openid'
+2018-06-08 13:49:59,293 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
+2018-06-08 13:50:01,866 [WARN] from play in application-akka.actor.default-dispatcher-7 - You are using status code '200' with flashing, which should only be used with a redirect status!
+2018-06-08 13:52:43,856 [WARN] from play in application-akka.actor.default-dispatcher-10 - You are using status code '200' with flashing, which should only be used with a redirect status!
+2018-06-08 13:55:55,720 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-08 13:55:55,917 [INFO] from application in application-akka.actor.default-dispatcher-2 - Creating Pool for datasource 'default'
+2018-06-08 13:55:55,966 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-2 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:55:55,966 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-2 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:55:56,721 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'google'
+2018-06-08 13:55:56,739 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'password'
+2018-06-08 13:55:56,749 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'openid'
+2018-06-08 13:55:56,805 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-2 - Application started (Dev)
+2018-06-08 13:56:39,199 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-08 13:56:39,358 [INFO] from application in application-akka.actor.default-dispatcher-2 - Creating Pool for datasource 'default'
+2018-06-08 13:56:39,407 [INFO] from play.api.db.HikariCPConnectionPool in application-akka.actor.default-dispatcher-2 - datasource [default] bound to JNDI as DefaultDS
+2018-06-08 13:56:39,407 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-2 - Database [default] connected at jdbc:postgresql://localhost:5433/postgres
+2018-06-08 13:56:40,150 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'google'
+2018-06-08 13:56:40,167 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'password'
+2018-06-08 13:56:40,175 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Registered AuthProvider 'openid'
+2018-06-08 13:56:40,224 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-2 - Application started (Dev)

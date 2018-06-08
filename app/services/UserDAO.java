@@ -2,14 +2,12 @@ package services;
 
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
-import data.HibernateUtils;
 import enumerations.RoleType;
 import models.entities.LinkedAccount;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
 import models.entities.UserRolesHasUsersEntity;
 import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -20,13 +18,13 @@ import java.util.*;
 public class UserDAO implements IUserDAO {
 
     private final ILinkedAccountDAO ILinkedAccountDAO;
-    private final TokenActionDAO tokenActionDAO;
+    private final ITokenActionDAO ITokenActionDAO;
     private final JPAApi JpaApi;
 
     @Inject
-    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, TokenActionDAO tokenActionDAO, JPAApi jpaApi) {
+    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi) {
         this.ILinkedAccountDAO = ILinkedAccountDAO;
-        this.tokenActionDAO = tokenActionDAO;
+        this.ITokenActionDAO = ITokenActionDAO;
         this.JpaApi = jpaApi;
     }
 
@@ -43,13 +41,12 @@ public class UserDAO implements IUserDAO {
         return exp.setMaxResults(1).getResultList().size() > 0;
     }
 
-    @Transactional
     private TypedQuery<UserEntity> getAuthUserFind(
             final AuthUserIdentity identity) {
         TypedQuery<UserEntity> query = JpaApi.em().createQuery(
-                "SELECT LinkedAccount.user " +
+                "SELECT la.user " +
                         "from LinkedAccount la " +
-                        "where la.id = :IdentityId and la.providerKey = :IdentityProvider and la.user.active = true"
+                        "where la.providerUserId = :IdentityId and la.providerKey = :IdentityProvider and la.user.active = true"
                 , UserEntity.class);
         query.setParameter("IdentityId", identity.getId());
         query.setParameter("IdentityProvider", identity.getProvider());
@@ -64,7 +61,12 @@ public class UserDAO implements IUserDAO {
         if (identity instanceof UsernamePasswordAuthUser) {
             return findByUsernamePasswordIdentity((UsernamePasswordAuthUser) identity);
         } else {
-            return getAuthUserFind(identity).getSingleResult();
+            try {
+                return getAuthUserFind(identity).getSingleResult();
+            }
+            catch (NoResultException ex) {
+                return null;
+            }
         }
     }
 
@@ -79,21 +81,18 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    @Transactional
     private TypedQuery<UserEntity> getUsernamePasswordAuthUserFind(
             final UsernamePasswordAuthUser identity) {
         EntityManager em = JpaApi.em();
-        TypedQuery<UserEntity> kek = em.createQuery("from UserEntity", UserEntity.class);
-        List kekalio = kek.getResultList();
         TypedQuery<UserEntity> query = JpaApi.em().createQuery(
-                "select us from UserEntity us join us.linkedAccounts la where us.active = true and us.email = :email and la.providerKey = :providerKey", UserEntity.class);
+                "select us from UserEntity us join us.linkedAccounts la where us.active = :activeAccount and us.email = :email and la.providerKey = :providerKey", UserEntity.class);
+        query.setParameter("activeAccount", Boolean.TRUE);
         query.setParameter("email", identity.getEmail());
         query.setParameter("providerKey", identity.getProvider());
         return query;
     }
 
     @Override
-    @Transactional
     public void merge(final UserEntity mainUser, final UserEntity otherUser) {
         for (final LinkedAccount acc : otherUser.getLinkedAccounts()) {
             mainUser.getLinkedAccounts().add(ILinkedAccountDAO.create(acc));
@@ -105,7 +104,6 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    @Transactional
     public UserEntity create(final AuthUser authUser) {
         final UserEntity user = new UserEntity();
 
@@ -113,8 +111,8 @@ public class UserDAO implements IUserDAO {
         // user.permissions.add(UserPermission.findByValue("printers.edit"));
         user.setActive(true);
         user.setLastLogin(new Date());
-        user.setLinkedAccounts(Collections.singletonList(ILinkedAccountDAO
-                .create(authUser)));
+        LinkedAccount linkedAccount = ILinkedAccountDAO.create(authUser);
+        user.setLinkedAccounts(Collections.singletonList(linkedAccount));
 
         if (authUser instanceof EmailIdentity) {
             final EmailIdentity identity = (EmailIdentity) authUser;
@@ -146,6 +144,8 @@ public class UserDAO implements IUserDAO {
         }
         EntityManager em = JpaApi.em();
         em.persist(user);
+        linkedAccount.setUser(user);
+        em.merge(linkedAccount);
         UserRolesHasUsersEntity role = new UserRolesHasUsersEntity();
         // TODO[ASh]: wtf.
         role.setRoleType(RoleType.AuthenticatedUser);
@@ -172,20 +172,22 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    @Transactional
     public void addLinkedAccount(final AuthUser oldUser,
                                  final AuthUser newUser) {
         final UserEntity u = findByAuthUserIdentity(oldUser);
-        u.getLinkedAccounts().add(ILinkedAccountDAO.create(newUser));
+        LinkedAccount newLinkAccount = ILinkedAccountDAO.create(newUser);
+        newLinkAccount.setUser(u);
+        u.getLinkedAccounts().add(newLinkAccount);
         JpaApi.em().merge(u);
     }
 
     @Override
-    @Transactional
     public void setLastLoginDate(final AuthUser knownUser) {
         final UserEntity u = findByAuthUserIdentity(knownUser);
-        u.setLastLogin(new Date());
-        JpaApi.em().merge(u);
+        if(u != null) {
+            u.setLastLogin(new Date());
+            JpaApi.em().merge(u);
+        }
     }
 
     @Override
@@ -198,7 +200,6 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    @Transactional
     private TypedQuery<UserEntity> getEmailUserFind(final String email) {
         TypedQuery<UserEntity> query = JpaApi.em().createQuery(
                 "select us from UserEntity us where active = true and email = :email", UserEntity.class);
@@ -212,16 +213,14 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    @Transactional
     public void verify(final UserEntity unverified) {
         // You might want to wrap this into a transaction
         unverified.setEmailValidated(true);
         JpaApi.em().merge(unverified);
-        tokenActionDAO.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
+        ITokenActionDAO.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
     }
 
     @Override
-    @Transactional
     public void changePassword(UserEntity userEntity, final UsernamePasswordAuthUser authUser,
                                final boolean create) {
         LinkedAccount a = getAccountByProvider(userEntity, authUser.getProvider());
@@ -243,6 +242,6 @@ public class UserDAO implements IUserDAO {
                               final boolean create) {
         // You might want to wrap this into a transaction
         this.changePassword(userEntity, authUser, create);
-        tokenActionDAO.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
+        ITokenActionDAO.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
     }
 }

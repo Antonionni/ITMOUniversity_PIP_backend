@@ -12,7 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 
-public class TokenActionDAO {
+public class TokenActionDAO implements ITokenActionDAO {
     private final JPAApi JpAApi;
 
     @Inject
@@ -20,16 +20,16 @@ public class TokenActionDAO {
         JpAApi = jpaApi;
     }
 
-    @Transactional
+    @Override
     public TokenAction findByToken(final String token, final TokenAction.Type type) {
         TypedQuery<TokenAction> query = JpAApi.em()
-                .createQuery("select TokenAction from TokenAction where token=:token and type=:type", TokenAction.class);
+                .createQuery("from TokenAction where token = :token and type = :type", TokenAction.class);
         query.setParameter("token", token);
         query.setParameter("type", type);
         return query.getSingleResult();
     }
 
-    @Transactional
+    @Override
     public void deleteByUser(final UserEntity u, final TokenAction.Type type) {
         Query query = JpAApi.em().createQuery("delete from TokenAction where targetUser.id=:userId and type=:type");
         query.setParameter("userId", u.getId());
@@ -37,9 +37,9 @@ public class TokenActionDAO {
         query.executeUpdate();
     }
 
-    @Transactional
+    @Override
     public TokenAction create(final TokenAction.Type type, final String token,
-                                     final UserEntity targetUser) {
+                              final UserEntity targetUser) {
         final TokenAction ua = new TokenAction();
         ua.targetUser = targetUser;
         ua.token = token;

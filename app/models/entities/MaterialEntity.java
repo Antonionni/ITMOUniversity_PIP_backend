@@ -38,6 +38,7 @@ public class MaterialEntity {
     private Collection<ContentEntity> materialContent;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -48,7 +49,7 @@ public class MaterialEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title", nullable = true)
     public String getTitle() {
         return title;
     }

@@ -10,7 +10,7 @@
         <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="hbm2ddl.auto">update</property>
-        <property name="hibernate.default_schema">coursachamba</property>
+        <property name="hibernate.default_schema">coursach</property>
         <property name="connection.password"></property>
         <property name="connection.username">postgres</property>
     </session-factory>

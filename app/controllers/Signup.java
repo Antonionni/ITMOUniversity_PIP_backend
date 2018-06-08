@@ -12,8 +12,8 @@ import providers.MyLoginUsernamePasswordAuthUser;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyIdentity;
 import providers.MyUsernamePasswordAuthUser;
+import services.ITokenActionDAO;
 import services.IUserDAO;
-import services.TokenActionDAO;
 import services.UserProvider;
 
 import com.feth.play.module.pa.PlayAuthenticate;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 
 public class Signup extends Controller {
 
-	private final TokenActionDAO tokenActionDAO;
+	private final ITokenActionDAO ITokenActionDAO;
 
 	public static class PasswordReset extends controllers.Account.PasswordChange {
 
@@ -62,14 +62,14 @@ public class Signup extends Controller {
 	@Inject
 	public Signup(final PlayAuthenticate auth, final UserProvider userProvider,
                   final MyUsernamePasswordAuthProvider userPaswAuthProvider,
-                  final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO, final TokenActionDAO tokenActionDAO) {
+                  final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO, final ITokenActionDAO ITokenActionDAO) {
 		this.auth = auth;
 		this.userProvider = userProvider;
 		this.userPaswAuthProvider = userPaswAuthProvider;
 		this.PASSWORD_RESET_FORM = formFactory.form(PasswordReset.class);
 		this.FORGOT_PASSWORD_FORM = formFactory.form(MyIdentity.class);
 		this.IUserDAO = IUserDAO;
-		this.tokenActionDAO = tokenActionDAO;
+		this.ITokenActionDAO = ITokenActionDAO;
 
 		this.msg = msg;
 	}
@@ -153,7 +153,7 @@ public class Signup extends Controller {
 	private TokenAction tokenIsValid(final String token, final TokenAction.Type type) {
 		TokenAction ret = null;
 		if (token != null && !token.trim().isEmpty()) {
-			final TokenAction ta = tokenActionDAO.findByToken(token, type);
+			final TokenAction ta = ITokenActionDAO.findByToken(token, type);
 			if (ta != null && ta.isValid()) {
 				ret = ta;
 			}

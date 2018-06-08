@@ -5,6 +5,7 @@ import be.objectify.deadbolt.java.actions.Restrict;
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.user.AuthUser;
+import config.RolesConst;
 import models.entities.UserEntity;
 import play.data.Form;
 import play.data.FormFactory;
@@ -99,15 +100,15 @@ public class Account extends Controller {
 		this.msg = msg;
 	}
 
-	@SubjectPresent
 	@Transactional
+	@SubjectPresent
 	public Result link() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(link.render(this.userProvider, this.auth));
 	}
 
-	@Restrict(@Group(Application.USER_ROLE))
 	@Transactional
+	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result verifyEmail() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final UserEntity user = this.userProvider.getUser(session());
@@ -128,8 +129,8 @@ public class Account extends Controller {
 		return redirect(routes.Application.profile());
 	}
 
-	@Restrict(@Group(Application.USER_ROLE))
 	@Transactional
+	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result changePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final UserEntity u = this.userProvider.getUser(session());
@@ -141,8 +142,8 @@ public class Account extends Controller {
 		}
 	}
 
-	@Restrict(@Group(Application.USER_ROLE))
 	@Transactional
+	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result doChangePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<PasswordChange> filledForm = PASSWORD_CHANGE_FORM
@@ -161,8 +162,8 @@ public class Account extends Controller {
 		}
 	}
 
-	@SubjectPresent
 	@Transactional
+	@SubjectPresent
 	public Result askLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final AuthUser u = this.auth.getLinkUser(session());
@@ -173,8 +174,8 @@ public class Account extends Controller {
 		return ok(views.html.account.ask_link.render(this.userProvider, ACCEPT_FORM, u));
 	}
 
-	@SubjectPresent
 	@Transactional
+	@SubjectPresent
 	public Result doLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final AuthUser u = this.auth.getLinkUser(session());
@@ -198,8 +199,8 @@ public class Account extends Controller {
 		}
 	}
 
-	@SubjectPresent
 	@Transactional
+	@SubjectPresent
 	public Result askMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		// this is the currently logged in user
@@ -217,8 +218,8 @@ public class Account extends Controller {
 		return ok(views.html.account.ask_merge.render(this.userProvider, ACCEPT_FORM, aUser, bUser));
 	}
 
-	@SubjectPresent
 	@Transactional
+	@SubjectPresent
 	public Result doMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		// this is the currently logged in user

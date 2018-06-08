@@ -15,7 +15,7 @@ resolvers += "Keks rep" at "https://dl.bintray.com/playframework/sbt-plugin-rele
 libraryDependencies ++= Seq(
   javaJpa,
   "be.objectify"  %% "deadbolt-java"     % "2.5.0",
-  // Comment the next line for local development of the Play Authentication core:
+// Comment the next line for local development of the Play Authentication core:
   "com.feth"      %% "play-authenticate" % "0.8.3",
   //"org.postgresql"    %  "postgresql"        % "9.4-1201-jdbc41",
   "org.hibernate" % "hibernate-entitymanager" % "5.2.7.Final",

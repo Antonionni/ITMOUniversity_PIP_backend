@@ -44,6 +44,7 @@ public class QuestionEntity {
     private AnswerType answerType;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -64,7 +65,7 @@ public class QuestionEntity {
     }
 
     @Basic
-    @Column(name = "textquestion", nullable = false, length = -1)
+    @Column(name = "textquestion", nullable = false, columnDefinition = "VARCHAR")
     public String getTextquestion() {
         return textquestion;
     }

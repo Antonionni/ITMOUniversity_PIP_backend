@@ -34,6 +34,7 @@ public class TestEntity {
     private Collection<QuestionEntity> questionsById;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -44,7 +45,7 @@ public class TestEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", nullable = false, columnDefinition = "VARCHAR")
     public String getTitle() {
         return title;
     }
