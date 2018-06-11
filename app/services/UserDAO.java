@@ -7,6 +7,8 @@ import models.entities.LinkedAccount;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
 import models.entities.UserRolesHasUsersEntity;
+import models.serviceEntities.Admin;
+import models.serviceEntities.Teacher;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -14,18 +16,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.*;
+import java.util.concurrent.CompletionStage;
 
-public class UserDAO implements IUserDAO {
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
+public class UserDAO extends BaseService implements IUserDAO {
 
     private final ILinkedAccountDAO ILinkedAccountDAO;
     private final ITokenActionDAO ITokenActionDAO;
-    private final JPAApi JpaApi;
 
     @Inject
     public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi) {
+        super(jpaApi);
         this.ILinkedAccountDAO = ILinkedAccountDAO;
         this.ITokenActionDAO = ITokenActionDAO;
-        this.JpaApi = jpaApi;
     }
 
     @Override
@@ -90,6 +94,32 @@ public class UserDAO implements IUserDAO {
         query.setParameter("email", identity.getEmail());
         query.setParameter("providerKey", identity.getProvider());
         return query;
+    }
+
+
+    private UserEntity getUserByIDandRole(int id, final RoleType role) {
+        EntityManager em = JpaApi.em();
+        UserEntity user = em.find(UserEntity.class, id);
+        /*TypedQuery<UserEntity> query = em.createQuery(
+            "select us from UserEntity us where us.id = :id", UserEntity.class);
+        query.setParameter("id", id);
+        UserEntity user = query.getSingleResult();*/
+        if (!user.getUserRoles().stream().anyMatch((userRole) -> userRole.getRoleType().equals(role))) {
+            throw new NoResultException("User with role = " + role + "not found");
+        }
+        return user;
+    }
+
+    public CompletionStage<UserEntity> getStudent(int id) {
+        return supplyAsync(() -> wrap(em -> getUserByIDandRole(id, RoleType.Student)));
+    }
+
+    public Teacher getTeacher(int id) {
+        return (Teacher)getUserByIDandRole(id, RoleType.Teacher);
+    }
+
+    public Admin getAdmin(int id) {
+        return (Admin)getUserByIDandRole(id, RoleType.Admin);
     }
 
     @Override

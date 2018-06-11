@@ -3,6 +3,7 @@ package models.entities;
 import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import services.IUserDAO;
 
 import javax.persistence.*;
@@ -66,13 +67,16 @@ public class UserEntity implements Subject {
     /**
      * List of courses which student try to pass
      */
-    @ManyToMany(mappedBy = "courseTeachers")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "courseTeachers", fetch = FetchType.EAGER)
     private Collection<CourseEntity> teacherCourses;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Collection<UserRolesHasUsersEntity> userRoles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Collection<LinkedAccount> linkedAccounts;
 
     @Column(name = "emailValidated")
@@ -152,6 +156,7 @@ public class UserEntity implements Subject {
     public void setTeacherCourses(Collection<CourseEntity> teacherCourses) {
         this.teacherCourses = teacherCourses;
     }
+
 
     public Collection<UserRolesHasUsersEntity> getUserRoles() {
         return userRoles;

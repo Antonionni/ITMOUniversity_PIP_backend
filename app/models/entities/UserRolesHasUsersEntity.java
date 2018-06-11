@@ -1,6 +1,7 @@
 package models.entities;
 
 import be.objectify.deadbolt.java.models.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import enumerations.RoleType;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class UserRolesHasUsersEntity implements Role {
     @Column(name = "userId", nullable = false)
     private int userId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
     private UserEntity user;

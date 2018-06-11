@@ -5,8 +5,11 @@ import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
 import models.entities.LinkedAccount;
 import models.entities.UserEntity;
+import models.serviceEntities.Admin;
+import models.serviceEntities.Teacher;
 
 import java.util.Set;
+import java.util.concurrent.CompletionStage;
 
 public interface IUserDAO {
     boolean existsByAuthUserIdentity(
@@ -41,4 +44,10 @@ public interface IUserDAO {
 
     void resetPassword(UserEntity userEntity, UsernamePasswordAuthUser authUser,
                        boolean create);
+
+    CompletionStage<UserEntity> getStudent(int id);
+
+    Teacher getTeacher(int id);
+
+    Admin getAdmin(int id);
 }
