@@ -2,5 +2,8 @@ package models.serviceEntities;
 
 import models.entities.UserEntity;
 
-public class Student extends UserEntity  {}
+import java.util.Date;
+
+public class Student extends BaseUser  {
+}
 

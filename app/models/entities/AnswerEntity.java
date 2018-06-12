@@ -33,17 +33,11 @@ public class AnswerEntity {
     @Column(name = "updatedat", nullable = true)
     private Timestamp updatedat;
     /**
-     * id of {@link QuestionEntity}
-     */
-    @Basic
-    @Column(name = "questionid", nullable = false)
-    private int questionid;
-    /**
      * instans of {@link QuestionEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private QuestionEntity questionsByQuestionid;
+    @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false)
+    private QuestionEntity question;
 
     public int getId() {
         return id;
@@ -77,21 +71,12 @@ public class AnswerEntity {
         this.updatedat = updatedat;
     }
 
-    public int getQuestionid() {
-        return questionid;
-    }
-
-    public void setQuestionid(int questionid) {
-        this.questionid = questionid;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AnswerEntity that = (AnswerEntity) o;
         return id == that.id &&
-                questionid == that.questionid &&
                 Objects.equals(useranswer, that.useranswer) &&
                 Objects.equals(createdat, that.createdat) &&
                 Objects.equals(updatedat, that.updatedat);
@@ -100,14 +85,14 @@ public class AnswerEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, useranswer, createdat, updatedat, questionid);
+        return Objects.hash(id, useranswer, createdat, updatedat);
     }
 
-    public QuestionEntity getQuestionsByQuestionid() {
-        return questionsByQuestionid;
+    public QuestionEntity getQuestion() {
+        return question;
     }
 
-    public void setQuestionsByQuestionid(QuestionEntity questionsByQuestionid) {
-        this.questionsByQuestionid = questionsByQuestionid;
+    public void setQuestion(QuestionEntity questionsByQuestionid) {
+        this.question = questionsByQuestionid;
     }
 }

@@ -38,12 +38,8 @@ public class UserRolesHasUsersEntity implements Role {
     @Column(name = "role", nullable = false)
     private RoleType roleType;
 
-    @Column(name = "userId", nullable = false)
-    private int userId;
-
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="userId", nullable=false, insertable = false, updatable = false)
+    @JoinColumn(name="userId", nullable=false)
     private UserEntity user;
 
     public int getId() {
@@ -52,14 +48,6 @@ public class UserRolesHasUsersEntity implements Role {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public UserEntity getUser() {

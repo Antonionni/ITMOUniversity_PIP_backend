@@ -179,7 +179,7 @@ public class UserDAO extends BaseService implements IUserDAO {
         UserRolesHasUsersEntity role = new UserRolesHasUsersEntity();
         // TODO[ASh]: wtf.
         role.setRoleType(RoleType.AuthenticatedUser);
-        role.setUserId(user.getId());
+        role.setUser(user);
         role.setStartdate(new Date());
         em.persist(role);
         return user;

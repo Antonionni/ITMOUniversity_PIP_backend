@@ -38,23 +38,23 @@ public class CourseEntity {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Timestamp createdAt;
     /**
      * date when course was updated
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedat;
+    private Timestamp updatedAt;
     /**
      * List of coruses periods
      */
-    @OneToMany(mappedBy = "coursesid")
-    private Collection<CoursePeriodEntity> coursePeriodsById;
+    @OneToMany(mappedBy = "course")
+    private Collection<CoursePeriodEntity> coursePeriods;
     /**
      * List of course lessons
      */
-    @OneToMany(mappedBy = "coursesByCoursesid")
-    private Collection<LessonEntity> lessonsById;
+    @OneToMany(mappedBy = "courses")
+    private Collection<LessonEntity> lessons;
     /**
      * List of theachers who created course
      */
@@ -97,20 +97,20 @@ public class CourseEntity {
         this.imageurl = imageurl;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdat) {
+        this.createdAt = createdat;
     }
 
-    public Timestamp getUpdatedat() {
-        return updatedat;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
-        this.updatedat = updatedat;
+    public void setUpdatedAt(Timestamp updatedat) {
+        this.updatedAt = updatedat;
     }
 
     @Override
@@ -122,30 +122,30 @@ public class CourseEntity {
                 Objects.equals(title, that.title) &&
                 Objects.equals(subject, that.subject) &&
                 Objects.equals(imageurl, that.imageurl) &&
-                Objects.equals(createdat, that.createdat) &&
-                Objects.equals(updatedat, that.updatedat);
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, title, subject, imageurl, createdat, updatedat);
+        return Objects.hash(id, title, subject, imageurl, createdAt, updatedAt);
     }
 
-    public Collection<CoursePeriodEntity> getCoursePeriodsById() {
-        return coursePeriodsById;
+    public Collection<CoursePeriodEntity> getCoursePeriods() {
+        return coursePeriods;
     }
 
-    public void setCoursePeriodsById(Collection<CoursePeriodEntity> coursePeriodsById) {
-        this.coursePeriodsById = coursePeriodsById;
+    public void setCoursePeriods(Collection<CoursePeriodEntity> coursePeriodsById) {
+        this.coursePeriods = coursePeriodsById;
     }
 
-    public Collection<LessonEntity> getLessonsById() {
-        return lessonsById;
+    public Collection<LessonEntity> getLessons() {
+        return lessons;
     }
 
-    public void setLessonsById(Collection<LessonEntity> lessonsById) {
-        this.lessonsById = lessonsById;
+    public void setLessons(Collection<LessonEntity> lessonsById) {
+        this.lessons = lessonsById;
     }
 
     public Collection<UserEntity> getCourseTeachers() {

@@ -1,24 +1,27 @@
 package models.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Objects;
 
+@Embeddable
 public class UserHasCourseEntityPK implements Serializable {
-    private int id;
-    /**
-     * reference to {@link CourseEntity}
-     */
-    private int courseid;
 
-    public int getId() {
-        return id;
+    @Column(name = "courseid")
+    private int courseId;
+    /**
+     * reference to {@link UserEntity}
+     */
+
+    @Column(name = "userid")
+    private int userId;
+
+    public int getCourseId() {
+        return courseId;
     }
 
-    public int getCourseid() {
-        return courseid;
+    public int getUserId() {
+        return userId;
     }
 
     @Override
@@ -26,13 +29,13 @@ public class UserHasCourseEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserHasCourseEntityPK that = (UserHasCourseEntityPK) o;
-        return id == that.id &&
-                courseid == that.courseid;
+        return Objects.equals(courseId, that.courseId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, courseid);
+        return Objects.hash(courseId, userId);
     }
 }

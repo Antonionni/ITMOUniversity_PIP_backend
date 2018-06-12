@@ -6,78 +6,52 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user_has_course", catalog = "postgres")
-@IdClass(UserHasCourseEntityPK.class)
 public class UserHasCourseEntity {
     /**
      * date and time when this row was created
      */
+    @EmbeddedId
+    private UserHasCourseEntityPK id;
+
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Timestamp createdAt;
     /**
      * date and time when this row was updated
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedat;
+    private Timestamp updatedAt;
 
-    /**
-     * unique identificator
-     */
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    /**
-     * id of {@link CourseEntity}
-     */
-    @Id
-    @Column(name = "courseid", nullable = false)
-    private int courseid;
     /**
      * reference to {@link CourseEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "courseid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private CourseEntity coursesByCourseid;
+    /*@JoinColumn(name = "courseid", referencedColumnName = "id", nullable = false)*/
+    @MapsId("courseId")
+    private CourseEntity course;
     /**
      * reference to {@link UserEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private UserEntity usersById;
+    /*@JoinColumn(name = "id", referencedColumnName = "id", nullable = false)*/
+    @MapsId("userId")
+    private UserEntity user;
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdat) {
+        this.createdAt = createdat;
     }
 
-    public Timestamp getUpdatedat() {
-        return updatedat;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
-        this.updatedat = updatedat;
-    }
-
-    public int getCourseid() {
-        return courseid;
-    }
-
-    public void setCourseid(int courseid) {
-        this.courseid = courseid;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setUpdatedAt(Timestamp updatedat) {
+        this.updatedAt = updatedat;
     }
 
     @Override
@@ -85,31 +59,30 @@ public class UserHasCourseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserHasCourseEntity that = (UserHasCourseEntity) o;
-        return courseid == that.courseid &&
-                id == that.id &&
-                Objects.equals(createdat, that.createdat) &&
-                Objects.equals(updatedat, that.updatedat);
+        return id == that.id &&
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(createdat, updatedat, courseid, id);
+        return Objects.hash(createdAt, updatedAt, id);
     }
 
-    public CourseEntity getCoursesByCourseid() {
-        return coursesByCourseid;
+    public CourseEntity getCourse() {
+        return course;
     }
 
-    public void setCoursesByCourseid(CourseEntity coursesByCourseid) {
-        this.coursesByCourseid = coursesByCourseid;
+    public void setCourse(CourseEntity coursesByCourseid) {
+        this.course = coursesByCourseid;
     }
 
-    public UserEntity getUsersById() {
-        return usersById;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsersById(UserEntity usersById) {
-        this.usersById = usersById;
+    public void setUser(UserEntity usersById) {
+        this.user = usersById;
     }
 }

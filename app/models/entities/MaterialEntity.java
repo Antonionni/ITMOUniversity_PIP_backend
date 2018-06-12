@@ -26,25 +26,19 @@ public class MaterialEntity {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Timestamp createdAt;
     /**
      * date and time when materials updated
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedat;
-    /**
-     * reference to ID of leson
-     */
-    @Basic
-    @Column(name = "lessonid", nullable = false)
-    private int lessonid;
+    private Timestamp updatedAt;
     /**
      * reference of {@link LessonEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    private LessonEntity lessonByLessonid;
+    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false)
+    private LessonEntity lessons;
     /**
      * List of content which used in this materials
      */
@@ -52,7 +46,7 @@ public class MaterialEntity {
     @JoinTable(name = "materials_has_content",
             joinColumns = @JoinColumn(name = "materialid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "contentid", referencedColumnName = "id"))
-    private Collection<ContentEntity> materialContent;
+    private Collection<ContentEntity> materialContents;
 
     public int getId() {
         return id;
@@ -70,28 +64,20 @@ public class MaterialEntity {
         this.title = title;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdat) {
+        this.createdAt = createdat;
     }
 
-    public Timestamp getUpdatedat() {
-        return updatedat;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
-        this.updatedat = updatedat;
-    }
-
-    public int getLessonid() {
-        return lessonid;
-    }
-
-    public void setLessonid(int lessonid) {
-        this.lessonid = lessonid;
+    public void setUpdatedAt(Timestamp updatedat) {
+        this.updatedAt = updatedat;
     }
 
     @Override
@@ -100,30 +86,29 @@ public class MaterialEntity {
         if (o == null || getClass() != o.getClass()) return false;
         MaterialEntity that = (MaterialEntity) o;
         return id == that.id &&
-                lessonid == that.lessonid &&
                 Objects.equals(title, that.title) &&
-                Objects.equals(createdat, that.createdat) &&
-                Objects.equals(updatedat, that.updatedat);
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, createdat, updatedat, lessonid);
+        return Objects.hash(id, title, createdAt, updatedAt);
     }
 
-    public LessonEntity getLessonByLessonid() {
-        return lessonByLessonid;
+    public LessonEntity getLessons() {
+        return lessons;
     }
 
-    public void setLessonByLessonid(LessonEntity lessonByLessonid) {
-        this.lessonByLessonid = lessonByLessonid;
+    public void setLessons(LessonEntity lessonByLessonid) {
+        this.lessons = lessonByLessonid;
     }
 
-    public Collection<ContentEntity> getMaterialContent() {
-        return materialContent;
+    public Collection<ContentEntity> getMaterialContents() {
+        return materialContents;
     }
 
-    public void setMaterialContent(Collection<ContentEntity> materialContent) {
-        this.materialContent = materialContent;
+    public void setMaterialContents(Collection<ContentEntity> materialContent) {
+        this.materialContents = materialContent;
     }
 }

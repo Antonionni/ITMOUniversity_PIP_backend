@@ -29,9 +29,9 @@ public class PassageEntity {
     /**
      * reference of {@link TestEntity}
      */
-    @Basic
-    @Column(name = "testid", nullable = false)
-    private int testid;
+    @ManyToOne
+    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false)
+    private TestEntity test;
     /**
      * result score
      */
@@ -48,8 +48,7 @@ public class PassageEntity {
      * refernce to {@link UserEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private UserEntity usersById;
+    private UserEntity user;
 
     public int getId() {
         return id;
@@ -75,12 +74,12 @@ public class PassageEntity {
         this.enddate = enddate;
     }
 
-    public int getTestid() {
-        return testid;
+    public TestEntity getTest() {
+        return test;
     }
 
-    public void setTestid(int testid) {
-        this.testid = testid;
+    public void setTest(TestEntity test) {
+        this.test = test;
     }
 
     public int getResult() {
@@ -105,7 +104,6 @@ public class PassageEntity {
         if (o == null || getClass() != o.getClass()) return false;
         PassageEntity that = (PassageEntity) o;
         return id == that.id &&
-                testid == that.testid &&
                 result == that.result &&
                 isRight == that.isRight &&
                 Objects.equals(startdate, that.startdate) &&
@@ -115,14 +113,14 @@ public class PassageEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, startdate, enddate, testid, result, isRight);
+        return Objects.hash(id, startdate, enddate, result, isRight);
     }
 
-    public UserEntity getUsersById() {
-        return usersById;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsersById(UserEntity usersById) {
-        this.usersById = usersById;
+    public void setUser(UserEntity usersById) {
+        this.user = usersById;
     }
 }

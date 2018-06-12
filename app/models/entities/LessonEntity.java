@@ -15,12 +15,6 @@ public class LessonEntity {
     @Column(name = "id", nullable = false)
     private int id;
     /**
-     * reference to {@link CourseEntity}
-     */
-    @Basic
-    @Column(name = "coursesid", nullable = false)
-    private int coursesid;
-    /**
      * lesson title
      */
     @Basic
@@ -30,13 +24,13 @@ public class LessonEntity {
      * reference of {@link CourseEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private CourseEntity coursesByCoursesid;
+    @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false)
+    private CourseEntity courses;
     /**
      * List of materials which used in this course
      */
-    @OneToMany(mappedBy = "lessonByLessonid")
-    private Collection<MaterialEntity> materialsById;
+    @OneToMany(mappedBy = "lessons")
+    private Collection<MaterialEntity> materials;
     /**
      * List of test which used in this course
      */
@@ -54,14 +48,6 @@ public class LessonEntity {
         this.id = id;
     }
 
-    public int getCoursesid() {
-        return coursesid;
-    }
-
-    public void setCoursesid(int coursesid) {
-        this.coursesid = coursesid;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -76,30 +62,29 @@ public class LessonEntity {
         if (o == null || getClass() != o.getClass()) return false;
         LessonEntity that = (LessonEntity) o;
         return id == that.id &&
-                coursesid == that.coursesid &&
                 Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, coursesid, title);
+        return Objects.hash(id, title);
     }
 
-    public CourseEntity getCoursesByCoursesid() {
-        return coursesByCoursesid;
+    public CourseEntity getCourses() {
+        return courses;
     }
 
-    public void setCoursesByCoursesid(CourseEntity coursesByCoursesid) {
-        this.coursesByCoursesid = coursesByCoursesid;
+    public void setCourses(CourseEntity coursesByCoursesid) {
+        this.courses = coursesByCoursesid;
     }
 
-    public Collection<MaterialEntity> getMaterialsById() {
-        return materialsById;
+    public Collection<MaterialEntity> getMaterials() {
+        return materials;
     }
 
-    public void setMaterialsById(Collection<MaterialEntity> materialsById) {
-        this.materialsById = materialsById;
+    public void setMaterials(Collection<MaterialEntity> materialsById) {
+        this.materials = materialsById;
     }
 
     public Collection<TestEntity> getLessonTests() {

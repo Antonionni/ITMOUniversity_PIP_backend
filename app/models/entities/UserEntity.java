@@ -67,15 +67,15 @@ public class UserEntity implements Subject {
     /**
      * List of courses which student try to pass
      */
-    @JsonIgnore
     @ManyToMany(mappedBy = "courseTeachers", fetch = FetchType.EAGER)
     private Collection<CourseEntity> teacherCourses;
 
-    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Collection<UserHasCourseEntity> studentCourses;
+
     @OneToMany(mappedBy = "user")
     private Collection<UserRolesHasUsersEntity> userRoles;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Collection<LinkedAccount> linkedAccounts;
 
@@ -106,16 +106,6 @@ public class UserEntity implements Subject {
     public void setEmail(String email) {
         this.email = email;
     }
-//
-//    @Basic
-//    @Column(name = "password", nullable = false)
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     public String getFirstname() {
         return firstname;

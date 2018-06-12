@@ -22,36 +22,25 @@ public class QuestionEntity {
     @Basic
     @Column(name = "textquestion", nullable = false, columnDefinition = "VARCHAR")
     private String textquestion;
-    /**
-     * id of {@link TestEntity}
-     */
-    @Basic
-    @Column(name = "testid", nullable = false)
-    private int testid;
-    /**
-     * count of right answers
-     */
-    @Basic
-    @Column(name = "rightanswerid", nullable = false)
-    private int rightanswerid;
+
     /**
      * List of {@link AnswerEntity} which existing at this question
      */
-    @OneToMany(mappedBy = "questionsByQuestionid")
-    private Collection<AnswerEntity> answersById;
+    @OneToMany(mappedBy = "question")
+    private Collection<AnswerEntity> answers;
 
     /**
      * reference tot {@link TestEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private TestEntity testsByTestid;
+    @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false)
+    private TestEntity test;
     /**
      * refernce to {@link AnswerEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    private AnswerEntity answersByRightanswerid;
+    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false)
+    private AnswerEntity rightAnswer;
     /**
      * Enum of answer types
      */
@@ -83,60 +72,41 @@ public class QuestionEntity {
         this.textquestion = textquestion;
     }
 
-    public int getTestid() {
-        return testid;
-    }
-
-    public void setTestid(int testid) {
-        this.testid = testid;
-    }
-
-    public int getRightanswerid() {
-        return rightanswerid;
-    }
-
-    public void setRightanswerid(int rightanswerid) {
-        this.rightanswerid = rightanswerid;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuestionEntity that = (QuestionEntity) o;
         return id == that.id &&
-                testid == that.testid &&
-                rightanswerid == that.rightanswerid &&
                 Objects.equals(textquestion, that.textquestion);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, textquestion, testid, rightanswerid);
+        return Objects.hash(id, textquestion);
     }
 
-    public Collection<AnswerEntity> getAnswersById() {
-        return answersById;
+    public Collection<AnswerEntity> getAnswers() {
+        return answers;
     }
 
-    public void setAnswersById(Collection<AnswerEntity> answersById) {
-        this.answersById = answersById;
+    public void setAnswers(Collection<AnswerEntity> answersById) {
+        this.answers = answersById;
     }
 
-    public TestEntity getTestsByTestid() {
-        return testsByTestid;
+    public TestEntity getTest() {
+        return test;
     }
 
-    public void setTestsByTestid(TestEntity testsByTestid) {
-        this.testsByTestid = testsByTestid;
+    public void setTest(TestEntity testsByTestid) {
+        this.test = testsByTestid;
     }
 
-    public AnswerEntity getAnswersByRightanswerid() {
-        return answersByRightanswerid;
+    public AnswerEntity getRightAnswer() {
+        return rightAnswer;
     }
 
-    public void setAnswersByRightanswerid(AnswerEntity answersByRightanswerid) {
-        this.answersByRightanswerid = answersByRightanswerid;
+    public void setRightAnswer(AnswerEntity answersByRightanswerid) {
+        this.rightAnswer = answersByRightanswerid;
     }
 }

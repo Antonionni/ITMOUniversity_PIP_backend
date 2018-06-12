@@ -32,18 +32,18 @@ public class TestEntity {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Timestamp createdAt;
     /**
      * date and time when test updated
      */
     @Basic
-    @Column(name = "updateat", nullable = true)
-    private Timestamp updatedat;
+    @Column(name = "updatedat", nullable = true)
+    private Timestamp updatedAt;
     /**
      * List of questions
      */
-    @OneToMany(mappedBy = "testsByTestid")
-    private Collection<QuestionEntity> questionsById;
+    @OneToMany(mappedBy = "test")
+    private Collection<QuestionEntity> questions;
 
     public int getId() {
         return id;
@@ -69,20 +69,20 @@ public class TestEntity {
         this.threshold = threshold;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdat) {
+        this.createdAt = createdat;
     }
 
-    public Timestamp getUpdatedat() {
-        return updatedat;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
-        this.updatedat = updatedat;
+    public void setUpdatedAt(Timestamp updatedat) {
+        this.updatedAt = updatedat;
     }
 
     @Override
@@ -93,21 +93,20 @@ public class TestEntity {
         return id == that.id &&
                 threshold == that.threshold &&
                 Objects.equals(title, that.title) &&
-                Objects.equals(createdat, that.createdat) &&
-                Objects.equals(updatedat, that.updatedat);
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, title, threshold, createdat, updatedat);
+        return Objects.hash(id, title, threshold, createdAt, updatedAt);
     }
 
-    public Collection<QuestionEntity> getQuestionsById() {
-        return questionsById;
+    public Collection<QuestionEntity> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionsById(Collection<QuestionEntity> questionsById) {
-        this.questionsById = questionsById;
+    public void setQuestions(Collection<QuestionEntity> questionsById) {
+        this.questions = questionsById;
     }
 }

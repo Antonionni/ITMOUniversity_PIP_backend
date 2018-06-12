@@ -6,61 +6,36 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "passages_has_answers", catalog = "postgres")
-@IdClass(PasssageHasAnswersPK.class)
 public class PassageHasAnswersEntity {
     /**
      * uniqe identificator
      */
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
-    /**
-     * date and time when
-     */
+    @EmbeddedId
+    private PassageHasAnswersPK id;
+
     @Column(name = "passagesstartdate", nullable = true)
-    private Timestamp passagesstartdate;
-    /**
-     * id of {@link AnswerEntity}
-     */
-    @Id
-    @Column(name = "answerid")
-    private Integer answerid;
+    private Timestamp startdate;
     /**
      * reference to {@link PassageEntity}
      */
     @ManyToOne
     @JoinColumns({@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "passagesstartdate", referencedColumnName = "startdate", insertable = false, updatable = false)})
-    private PassageEntity passages;
+    private PassageEntity passage;
+
     /**
      * reference to {@link AnswerEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "answerid", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private AnswerEntity answersByAnswerid;
+    @JoinColumn(name = "answerid", referencedColumnName = "id", nullable = false)
+    @MapsId("answerId")
+    private AnswerEntity answer;
 
-
-    public Integer getId() {
-        return id;
+    public Timestamp getStartdate() {
+        return startdate;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Timestamp getPassagesstartdate() {
-        return passagesstartdate;
-    }
-
-    public void setPassagesstartdate(Timestamp passagesstartdate) {
-        this.passagesstartdate = passagesstartdate;
-    }
-
-    public Integer getAnswerid() {
-        return answerid;
-    }
-
-    public void setAnswerid(Integer answerid) {
-        this.answerid = answerid;
+    public void setStartdate(Timestamp passagesstartdate) {
+        this.startdate = passagesstartdate;
     }
 
     @Override
@@ -69,29 +44,29 @@ public class PassageHasAnswersEntity {
         if (o == null || getClass() != o.getClass()) return false;
         PassageHasAnswersEntity that = (PassageHasAnswersEntity) o;
         return id.equals(that.id) &&
-                answerid.equals(that.answerid) &&
-                Objects.equals(passagesstartdate, that.passagesstartdate);
+                answer.getId() == (that.answer.getId()) &&
+                Objects.equals(startdate, that.startdate);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, passagesstartdate, answerid);
+        return Objects.hash(id, startdate, answer.getId());
     }
 
-    public PassageEntity getPassages() {
-        return passages;
+    public PassageEntity getPassage() {
+        return passage;
     }
 
-    public void setPassages(PassageEntity passages) {
-        this.passages = passages;
+    public void setPassage(PassageEntity passages) {
+        this.passage = passages;
     }
 
-    public AnswerEntity getAnswersByAnswerid() {
-        return answersByAnswerid;
+    public AnswerEntity getAnswer() {
+        return answer;
     }
 
-    public void setAnswersByAnswerid(AnswerEntity answersByAnswerid) {
-        this.answersByAnswerid = answersByAnswerid;
+    public void setAnswer(AnswerEntity answersByAnswerid) {
+        this.answer = answersByAnswerid;
     }
 }

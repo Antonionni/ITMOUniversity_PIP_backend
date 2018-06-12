@@ -12,8 +12,10 @@ public class CoursePeriodEntity {
      */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "coursesid", nullable = false)
-    private int coursesid;
+    private int id;
+
+    @ManyToOne
+    private CourseEntity course;
     /**
      * date when course started
      */
@@ -26,14 +28,6 @@ public class CoursePeriodEntity {
     @Basic
     @Column(name = "enddate", nullable = true)
     private Timestamp enddate;
-
-    public int getCoursesid() {
-        return coursesid;
-    }
-
-    public void setCoursesid(int coursesid) {
-        this.coursesid = coursesid;
-    }
 
     public Timestamp getStartdate() {
         return startdate;
@@ -56,7 +50,8 @@ public class CoursePeriodEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CoursePeriodEntity that = (CoursePeriodEntity) o;
-        return coursesid == that.coursesid &&
+        return id == that.id &&
+                Objects.equals(course, that.course) &&
                 Objects.equals(startdate, that.startdate) &&
                 Objects.equals(enddate, that.enddate);
     }
@@ -64,6 +59,6 @@ public class CoursePeriodEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(coursesid, startdate, enddate);
+        return Objects.hash(id, course, startdate, enddate);
     }
 }
