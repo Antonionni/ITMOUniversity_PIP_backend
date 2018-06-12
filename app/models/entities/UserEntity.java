@@ -4,11 +4,13 @@ import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import enumerations.RoleType;
 import services.IUserDAO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users", catalog = "postgres", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -147,6 +149,13 @@ public class UserEntity implements Subject {
         this.teacherCourses = teacherCourses;
     }
 
+    public Collection<UserHasCourseEntity> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(Collection<UserHasCourseEntity> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
 
     public Collection<UserRolesHasUsersEntity> getUserRoles() {
         return userRoles;
@@ -231,6 +240,11 @@ public class UserEntity implements Subject {
     @Override
     public int hashCode() {
         return Objects.hash(id, email, /*password,*/ firstname, secondname, createdat, updatedat);
+    }
+
+    @Transient
+    public Collection<RoleType> getRoleTypes() {
+        return userRoles.stream().map(UserRolesHasUsersEntity::getRoleType).collect(Collectors.toList());
     }
 
 

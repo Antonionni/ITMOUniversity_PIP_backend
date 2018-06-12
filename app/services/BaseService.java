@@ -8,10 +8,12 @@ import java.util.function.Function;
 
 public abstract class BaseService {
     protected final JPAApi JpaApi;
+    protected final CustomExecutionContext ec;
 
     @Inject
-    public BaseService(JPAApi jpaApi) {
+    public BaseService(JPAApi jpaApi, CustomExecutionContext ec) {
         this.JpaApi = jpaApi;
+        this.ec = ec;
     }
 
     protected <T> T wrap(Function<EntityManager, T> function) {

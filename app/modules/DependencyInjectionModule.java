@@ -42,6 +42,7 @@ public class DependencyInjectionModule extends AbstractModule {
         bind(UserService.class).asEagerSingleton();
 
         bind(GoogleAuthProvider.class).asEagerSingleton();
+        bind(CustomExecutionContext.class);
         //bind(FacebookAuthProvider.class).asEagerSingleton();
         //bind(FoursquareAuthProvider.class).asEagerSingleton();
         bind(MyUsernamePasswordAuthProvider.class).asEagerSingleton();

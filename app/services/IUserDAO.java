@@ -3,11 +3,13 @@ package services;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
+import enumerations.RoleType;
 import models.entities.LinkedAccount;
 import models.entities.UserEntity;
-import models.serviceEntities.Admin;
-import models.serviceEntities.Teacher;
+import models.serviceEntities.UserData.AggregatedUser;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
@@ -45,9 +47,9 @@ public interface IUserDAO {
     void resetPassword(UserEntity userEntity, UsernamePasswordAuthUser authUser,
                        boolean create);
 
-    CompletionStage<UserEntity> getStudent(int id);
+    CompletionStage<Optional<AggregatedUser>> getStudent(int id);
 
-    Teacher getTeacher(int id);
+    CompletionStage<Optional<AggregatedUser>> getTeacher(int id);
 
-    Admin getAdmin(int id);
+    CompletionStage<Optional<AggregatedUser>> getUserAndGatherDataForRoles(int id, Collection<RoleType> roles);
 }

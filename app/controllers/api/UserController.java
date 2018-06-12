@@ -1,25 +1,17 @@
 package controllers.api;
 
-import akka.stream.*;
-import akka.stream.javadsl.*;
-
-import akka.Done;
-import akka.NotUsed;
-import akka.actor.ActorSystem;
-import akka.util.ByteString;
-
-import models.serviceEntities.Admin;
-import models.serviceEntities.Student;
-import models.serviceEntities.Teacher;
-import play.db.jpa.Transactional;
+import enumerations.RoleType;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Results;
 import services.IUserDAO;
 
 import javax.inject.Inject;
-import java.beans.Transient;
+import javax.management.relation.Role;
+import java.util.*;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 public class UserController extends Controller {
 
@@ -31,7 +23,36 @@ public class UserController extends Controller {
     }
 
     public CompletionStage<Result> getStudent(int id) {
-        return this.userDao.getStudent(id).thenApplyAsync(student -> ok(Json.toJson(student)));
+        return this.userDao.getStudent(id)
+                .thenApplyAsync(optionalStudent ->
+                        optionalStudent
+                                .map(x -> ok(Json.toJson(x)))
+                                .orElseGet(Results::notFound));
+    }
+
+    public CompletionStage<Result> getTeacher(int id) {
+        return this.userDao.getTeacher(id)
+                .thenApplyAsync(optionalStudent ->
+                        optionalStudent
+                                .map(x -> ok(Json.toJson(x)))
+                                .orElseGet(Results::notFound));
+    }
+
+    public CompletionStage<Result> getUser(int id, String role) {
+        return getUserWithSeveralRoles(id, role);
+    }
+
+    public CompletionStage<Result> getUserWithSeveralRoles(int id, String roles) {
+        Collection<RoleType> parsedRoles = Arrays
+                .stream(roles.split(","))
+                .filter(x -> !x.isEmpty())
+                .map(RoleType::valueOf)
+                .collect(Collectors.toList());
+        return this.userDao.getUserAndGatherDataForRoles(id, parsedRoles)
+                .thenApplyAsync(optionalStudent ->
+                        optionalStudent
+                                .map(x -> ok(Json.toJson(x)))
+                                .orElseGet(Results::notFound));
     }
 
     /*Teacher getTeacher(int id) {

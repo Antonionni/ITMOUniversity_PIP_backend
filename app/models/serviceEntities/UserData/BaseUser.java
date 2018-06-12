@@ -1,13 +1,15 @@
-package models.serviceEntities;
+package models.serviceEntities.UserData;
 
 import enumerations.RoleType;
+import models.entities.UserEntity;
 
 import java.util.Collection;
 import java.util.Date;
 
-abstract class BaseUser {
+public class BaseUser {
     private int id;
     private String email;
+    private String name;
     private String firstName;
     private String lastName;
     private Date createdAt;
@@ -16,6 +18,34 @@ abstract class BaseUser {
     private boolean emailValidated;
     private boolean active;
     private Date lastLogin;
+
+    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, Collection<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.roles = roles;
+        this.emailValidated = emailValidated;
+        this.active = active;
+        this.lastLogin = lastLogin;
+    }
+
+    public BaseUser(UserEntity userEntity) {
+        this(userEntity.getId(),
+                userEntity.getEmail(),
+                userEntity.getName(),
+                userEntity.getFirstname(),
+                userEntity.getSecondname(),
+                userEntity.getCreatedat(),
+                userEntity.getUpdatedat(),
+                userEntity.getRoleTypes(),
+                userEntity.isEmailValidated(),
+                userEntity.isActive(),
+                userEntity.getLastLogin());
+    }
 
     public int getId() {
         return id;
@@ -31,6 +61,14 @@ abstract class BaseUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFirstName() {

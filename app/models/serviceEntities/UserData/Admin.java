@@ -1,4 +1,4 @@
-package models.serviceEntities;
+package models.serviceEntities.UserData;
 
 import models.entities.UserEntity;
 

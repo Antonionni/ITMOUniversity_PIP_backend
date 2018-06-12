@@ -3,18 +3,15 @@ package services;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
 import enumerations.RoleType;
-import models.entities.LinkedAccount;
-import models.entities.TokenAction;
-import models.entities.UserEntity;
-import models.entities.UserRolesHasUsersEntity;
-import models.serviceEntities.Admin;
-import models.serviceEntities.Teacher;
+import models.entities.*;
+import models.serviceEntities.UserData.*;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
 
@@ -26,8 +23,8 @@ public class UserDAO extends BaseService implements IUserDAO {
     private final ITokenActionDAO ITokenActionDAO;
 
     @Inject
-    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi) {
-        super(jpaApi);
+    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi, CustomExecutionContext ec) {
+        super(jpaApi, ec);
         this.ILinkedAccountDAO = ILinkedAccountDAO;
         this.ITokenActionDAO = ITokenActionDAO;
     }
@@ -96,30 +93,69 @@ public class UserDAO extends BaseService implements IUserDAO {
         return query;
     }
 
+    public CompletionStage<Optional<AggregatedUser>> getStudent(int id) {
+        return supplyAsync(() -> wrap(em ->
+                getUserByIDandRole(id, RoleType.Student)
+                        .map(x -> {
+                            AggregatedUser aggregatedUser = ToAggregatedUser(x);
+                            return AddStudentInfo(x, aggregatedUser);
+                        })), ec);
+    }
 
-    private UserEntity getUserByIDandRole(int id, final RoleType role) {
+    public CompletionStage<Optional<AggregatedUser>> getTeacher(int id) {
+        return supplyAsync(() -> wrap(em ->
+                getUserByIDandRole(id, RoleType.Teacher)
+                        .map(x -> {
+                            AggregatedUser aggregatedUser = ToAggregatedUser(x);
+                            return AddTeacherInfo(x, aggregatedUser);
+                        })), ec);
+    }
+
+    public CompletionStage<Optional<AggregatedUser>> getUserAndGatherDataForRoles(int id, Collection<RoleType> roles) {
+        return supplyAsync(() -> wrap(em -> getUserById(id)
+                .map(x -> {
+                    AggregatedUser aggregatedUser = ToAggregatedUser(x);
+                    roles.forEach(role -> {
+                        switch (role) {
+                            case Student:
+                                AddStudentInfo(x, aggregatedUser);
+                            case Teacher:
+                                AddTeacherInfo(x, aggregatedUser);
+                                break;
+                            case Admin:
+                                break;
+                            case AuthenticatedUser:
+                                break;
+                        }
+                    });
+                    return aggregatedUser;
+                })), ec);
+    }
+
+    private Optional<UserEntity> getUserById(int id) {
         EntityManager em = JpaApi.em();
         UserEntity user = em.find(UserEntity.class, id);
-        /*TypedQuery<UserEntity> query = em.createQuery(
-            "select us from UserEntity us where us.id = :id", UserEntity.class);
-        query.setParameter("id", id);
-        UserEntity user = query.getSingleResult();*/
-        if (!user.getUserRoles().stream().anyMatch((userRole) -> userRole.getRoleType().equals(role))) {
-            throw new NoResultException("User with role = " + role + "not found");
-        }
+        return Optional.ofNullable(user);
+    }
+
+    private Optional<UserEntity> getUserByIDandRole(int id, final RoleType role) {
+        Optional<UserEntity> user = getUserById(id);
+        return user.filter(x -> x.getRoleTypes().contains(role));
+    }
+
+    private AggregatedUser ToAggregatedUser(@NotNull UserEntity user) {
+        return new AggregatedUser(new BaseUser(user));
+
+    }
+
+    private AggregatedUser AddStudentInfo(@NotNull UserEntity userEntity, @NotNull AggregatedUser user) {
+        user.setStudent(new Student(userEntity));
         return user;
     }
 
-    public CompletionStage<UserEntity> getStudent(int id) {
-        return supplyAsync(() -> wrap(em -> getUserByIDandRole(id, RoleType.Student)));
-    }
-
-    public Teacher getTeacher(int id) {
-        return (Teacher)getUserByIDandRole(id, RoleType.Teacher);
-    }
-
-    public Admin getAdmin(int id) {
-        return (Admin)getUserByIDandRole(id, RoleType.Admin);
+    private AggregatedUser AddTeacherInfo(UserEntity userEntity, AggregatedUser user) {
+        user.setTeacher(new Teacher(userEntity));
+        return user;
     }
 
     @Override

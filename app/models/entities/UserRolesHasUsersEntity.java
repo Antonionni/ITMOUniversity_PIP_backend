@@ -6,6 +6,7 @@ import enumerations.RoleType;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
