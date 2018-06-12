@@ -3,7 +3,7 @@ package services;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
 
-public interface ITokenActionDAO {
+public interface ITokenActionService {
     TokenAction findByToken(String token, TokenAction.Type type);
 
     void deleteByUser(UserEntity u, TokenAction.Type type);

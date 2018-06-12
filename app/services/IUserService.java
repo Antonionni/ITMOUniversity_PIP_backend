@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
-public interface IUserDAO {
+public interface IUserService {
     boolean existsByAuthUserIdentity(
             AuthUserIdentity identity);
 

@@ -1,30 +1,20 @@
 package modules;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.feth.play.module.mail.IMailer;
 import com.feth.play.module.mail.Mailer;
 import com.feth.play.module.mail.Mailer.MailerFactory;
-import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.Resolver;
 import com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider;
 import com.feth.play.module.pa.providers.openid.OpenIdAuthProvider;
 import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
-import play.api.Configuration;
-import play.api.Environment;
-import play.api.inject.Binding;
-import play.api.inject.Module;
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
-import play.db.jpa.DefaultJPAApi;
 import play.libs.Json;
-import providers.MyStupidBasicAuthProvider;
 import providers.MyUsernamePasswordAuthProvider;
-import scala.collection.Seq;
 import services.*;
 //import service.DataInitializer;
 //import service.MyResolver;
@@ -38,13 +28,13 @@ public class DependencyInjectionModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new FactoryModuleBuilder().implement(IMailer.class, Mailer.class).build(MailerFactory.class));
-        bind(ITokenActionDAO.class).to(TokenActionDAO.class);
-        bind(ILinkedAccountDAO.class).to(LinkedAccountDAO.class);
-        bind(IUserDAO.class).to(UserDAO.class);
+        bind(ITokenActionService.class).to(TokenActionService.class);
+        bind(ILinkedAccountService.class).to(LinkedAccountService.class);
+        bind(IUserService.class).to(UserService.class);
         bind(Resolver.class).to(MyResolver.class);
 
         // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();
-        bind(UserService.class).asEagerSingleton();
+        bind(UserIdentityService.class).asEagerSingleton();
 
         bind(GoogleAuthProvider.class).asEagerSingleton();
         bind(CustomExecutionContext.class);

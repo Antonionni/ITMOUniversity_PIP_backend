@@ -12,8 +12,8 @@ import providers.MyLoginUsernamePasswordAuthUser;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyIdentity;
 import providers.MyUsernamePasswordAuthUser;
-import services.ITokenActionDAO;
-import services.IUserDAO;
+import services.ITokenActionService;
+import services.IUserService;
 import services.UserProvider;
 
 import com.feth.play.module.pa.PlayAuthenticate;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 
 public class Signup extends Controller {
 
-	private final ITokenActionDAO ITokenActionDAO;
+	private final ITokenActionService TokenActionService;
 
 	public static class PasswordReset extends controllers.Account.PasswordChange {
 
@@ -57,19 +57,19 @@ public class Signup extends Controller {
 
 	private final MessagesApi msg;
 
-	private final IUserDAO IUserDAO;
+	private final IUserService UserService;
 
 	@Inject
 	public Signup(final PlayAuthenticate auth, final UserProvider userProvider,
                   final MyUsernamePasswordAuthProvider userPaswAuthProvider,
-                  final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO, final ITokenActionDAO ITokenActionDAO) {
+                  final FormFactory formFactory, final MessagesApi msg, final IUserService UserService, final ITokenActionService TokenActionService) {
 		this.auth = auth;
 		this.userProvider = userProvider;
 		this.userPaswAuthProvider = userPaswAuthProvider;
 		this.PASSWORD_RESET_FORM = formFactory.form(PasswordReset.class);
 		this.FORGOT_PASSWORD_FORM = formFactory.form(MyIdentity.class);
-		this.IUserDAO = IUserDAO;
-		this.ITokenActionDAO = ITokenActionDAO;
+		this.UserService = UserService;
+		this.TokenActionService = TokenActionService;
 
 		this.msg = msg;
 	}
@@ -113,7 +113,7 @@ public class Signup extends Controller {
 							"playauthenticate.reset_password.message.instructions_sent",
 							email));
 
-			final UserEntity user = IUserDAO.findByEmail(email);
+			final UserEntity user = UserService.findByEmail(email);
 			if (user != null) {
 				// yep, we have a user with this email that is active - we do
 				// not know if the user owning that account has requested this
@@ -153,7 +153,7 @@ public class Signup extends Controller {
 	private TokenAction tokenIsValid(final String token, final TokenAction.Type type) {
 		TokenAction ret = null;
 		if (token != null && !token.trim().isEmpty()) {
-			final TokenAction ta = ITokenActionDAO.findByToken(token, type);
+			final TokenAction ta = TokenActionService.findByToken(token, type);
 			if (ta != null && ta.isValid()) {
 				ret = ta;
 			}
@@ -195,7 +195,7 @@ public class Signup extends Controller {
 				// Pass true for the second parameter if you want to
 				// automatically create a password and the exception never to
 				// happen
-				IUserDAO.resetPassword(u, new MyUsernamePasswordAuthUser(newPassword),
+				UserService.resetPassword(u, new MyUsernamePasswordAuthUser(newPassword),
 						false);
 			} catch (final RuntimeException re) {
 				flash(Application.FLASH_MESSAGE_KEY,
@@ -238,7 +238,7 @@ public class Signup extends Controller {
 			return badRequest(views.html.account.signup.no_token_or_invalid.render(this.userProvider));
 		}
 		final String email = ta.targetUser.getEmail();
-		IUserDAO.verify(ta.targetUser);
+		UserService.verify(ta.targetUser);
 		flash(Application.FLASH_MESSAGE_KEY,
 				this.msg.preferred(request()).at("playauthenticate.verify_email.success", email));
 		if (this.userProvider.getUser(session()) != null) {

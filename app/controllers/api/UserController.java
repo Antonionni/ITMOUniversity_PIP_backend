@@ -8,22 +8,20 @@ import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Results;
-import services.IUserDAO;
+import services.IUserService;
 
 import javax.inject.Inject;
-import javax.management.relation.Role;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 public class UserController extends Controller {
 
-    private final IUserDAO userDao;
+    private final IUserService userDao;
     private final FormFactory formFactory;
 
     @Inject
-    public UserController(IUserDAO userDAO, FormFactory formFactory) {
+    public UserController(IUserService userDAO, FormFactory formFactory) {
         this.userDao = userDAO;
         this.formFactory = formFactory;
     }

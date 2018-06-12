@@ -3,13 +3,11 @@ package models.entities;
 import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
 import enumerations.RoleType;
-import services.IUserDAO;
+import services.IUserService;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,14 +15,14 @@ import java.util.stream.Collectors;
 @Table(name = "users", catalog = "postgres", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class UserEntity implements Subject {
     @Transient
-    public final IUserDAO IUserDAO;
+    public final IUserService UserService;
 
-    public UserEntity(IUserDAO IUserDAO) {
-        this.IUserDAO = IUserDAO;
+    public UserEntity(IUserService UserService) {
+        this.UserService = UserService;
     }
 
     public UserEntity() {
-        IUserDAO = null;
+        UserService = null;
     }
     /**
      * use unique identificator

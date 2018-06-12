@@ -4,7 +4,7 @@ import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
 import be.objectify.deadbolt.java.cache.HandlerCache;
 import com.feth.play.module.pa.PlayAuthenticate;
-import services.IUserDAO;
+import services.IUserService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,9 +17,9 @@ public class MyHandlerCache implements HandlerCache {
 	private final PlayAuthenticate auth;
 
 	@Inject
-	public MyHandlerCache(final PlayAuthenticate auth, final ExecutionContextProvider execContextProvider, IUserDAO IUserDao) {
+	public MyHandlerCache(final PlayAuthenticate auth, final ExecutionContextProvider execContextProvider, IUserService UserService) {
 		this.auth = auth;
-		this.defaultHandler = new MyDeadboltHandler(auth, execContextProvider, IUserDao);
+		this.defaultHandler = new MyDeadboltHandler(auth, execContextProvider, UserService);
 	}
 
 	@Override

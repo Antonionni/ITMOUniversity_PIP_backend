@@ -1,22 +1,19 @@
 package services;
 
-import data.HibernateUtils;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
 import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 
-public class TokenActionDAO implements ITokenActionDAO {
+public class TokenActionService implements ITokenActionService {
     private final JPAApi JpAApi;
 
     @Inject
-    public TokenActionDAO(JPAApi jpaApi) {
+    public TokenActionService(JPAApi jpaApi) {
         JpAApi = jpaApi;
     }
 

@@ -1,6 +1,5 @@
-@import services.UserProvider
-@import services.IUserDAO
-@(playAuth: com.feth.play.module.pa.PlayAuthenticate, userProvider: UserProvider, localUser: models.entities.UserEntity = null, userDao: IUserDAO)
+@import services.{IUserService, UserProvider}
+@(playAuth: com.feth.play.module.pa.PlayAuthenticate, userProvider: UserProvider, localUser: models.entities.UserEntity = null, userDao: IUserService)
 
 @import com.feth.play.module.pa.views.html._
 

@@ -24,8 +24,8 @@ import play.i18n.MessagesApi;
 import play.inject.ApplicationLifecycle;
 import play.mvc.Call;
 import play.mvc.Http.Context;
-import services.IUserDAO;
-import services.TokenActionDAO;
+import services.IUserService;
+import services.TokenActionService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -47,7 +47,7 @@ public class MyUsernamePasswordAuthProvider
 
 	private static final String EMAIL_TEMPLATE_FALLBACK_LANGUAGE = "en";
 	private final MessagesApi messagesApi;
-	private final TokenActionDAO tokenActionDAO;
+	private final TokenActionService tokenActionDAO;
 
 	@Override
 	protected List<String> neededSettingKeys() {
@@ -202,18 +202,18 @@ public class MyUsernamePasswordAuthProvider
 
 	private final Form<MySignup> SIGNUP_FORM;
 	private final Form<MyLogin> LOGIN_FORM;
-	private final IUserDAO IUserDao;
+	private final IUserService UserService;
 
 	@Inject
 	public MyUsernamePasswordAuthProvider(final PlayAuthenticate auth, final FormFactory formFactory,
 										  final ApplicationLifecycle lifecycle, MailerFactory mailerFactory,
-										  IUserDAO IUserDao, MessagesApi messagesApi,
-										  TokenActionDAO tokenActionDAO) {
+										  IUserService UserService, MessagesApi messagesApi,
+										  TokenActionService tokenActionDAO) {
 		super(auth, lifecycle, mailerFactory);
 
 		this.SIGNUP_FORM = formFactory.form(MySignup.class);
 		this.LOGIN_FORM = formFactory.form(MyLogin.class);
-		this.IUserDao = IUserDao;
+		this.UserService = UserService;
 		this.messagesApi = messagesApi;
 		this.tokenActionDAO = tokenActionDAO;
 	}
@@ -244,7 +244,7 @@ public class MyUsernamePasswordAuthProvider
 
 	@Override
 	protected SignupResult signupUser(final MyUsernamePasswordAuthUser user) {
-		final UserEntity u = IUserDao.findByUsernamePasswordIdentity(user);
+		final UserEntity u = UserService.findByUsernamePasswordIdentity(user);
 		if (u != null) {
 			if (u.isEmailValidated()) {
 				// This user exists, has its email validated and is active
@@ -257,7 +257,7 @@ public class MyUsernamePasswordAuthProvider
 		}
 		// The user either does not exist or is inactive - create a new one
 		@SuppressWarnings("unused")
-		final UserEntity newUser = IUserDao.create(user);
+		final UserEntity newUser = UserService.create(user);
 		// Usually the email should be verified before allowing login, however
 		// if you return
 		// return SignupResult.USER_CREATED;
@@ -268,7 +268,7 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected LoginResult loginUser(
 			final MyLoginUsernamePasswordAuthUser authUser) {
-		final UserEntity u = IUserDao.findByUsernamePasswordIdentity(authUser);
+		final UserEntity u = UserService.findByUsernamePasswordIdentity(authUser);
 		if (u == null) {
 			return LoginResult.NOT_FOUND;
 		} else {
@@ -369,7 +369,7 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected String generateVerificationRecord(
 			final MyUsernamePasswordAuthUser user) {
-		return generateVerificationRecord(IUserDao.findByAuthUserIdentity(user));
+		return generateVerificationRecord(UserService.findByAuthUserIdentity(user));
 	}
 
 	protected String generateVerificationRecord(final UserEntity user) {

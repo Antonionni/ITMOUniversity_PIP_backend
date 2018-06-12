@@ -18,7 +18,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthUser;
-import services.IUserDAO;
+import services.IUserService;
 import services.UserProvider;
 import views.html.account.link;
 
@@ -81,21 +81,21 @@ public class Account extends Controller {
 	private final PlayAuthenticate auth;
 	private final UserProvider userProvider;
 	private final MyUsernamePasswordAuthProvider myUsrPaswProvider;
-	private final IUserDAO IUserDAO;
+	private final IUserService UserService;
 
 	private final MessagesApi msg;
 
 	@Inject
 	public Account(final PlayAuthenticate auth, final UserProvider userProvider,
 				   final MyUsernamePasswordAuthProvider myUsrPaswProvider,
-				   final FormFactory formFactory, final MessagesApi msg, final IUserDAO IUserDAO) {
+				   final FormFactory formFactory, final MessagesApi msg, final IUserService UserService) {
 		this.auth = auth;
 		this.userProvider = userProvider;
 		this.myUsrPaswProvider = myUsrPaswProvider;
 
 		this.ACCEPT_FORM = formFactory.form(Accept.class);
 		this.PASSWORD_CHANGE_FORM = formFactory.form(PasswordChange.class);
-		this.IUserDAO = IUserDAO;
+		this.UserService = UserService;
 
 		this.msg = msg;
 	}
@@ -154,7 +154,7 @@ public class Account extends Controller {
 		} else {
 			final UserEntity user = this.userProvider.getUser(session());
 			final String newPassword = filledForm.get().password;
-			IUserDAO.changePassword(user, new MyUsernamePasswordAuthUser(newPassword),
+			UserService.changePassword(user, new MyUsernamePasswordAuthUser(newPassword),
 					true);
 			flash(Application.FLASH_MESSAGE_KEY,
 					this.msg.preferred(request()).at("playauthenticate.change_password.success"));

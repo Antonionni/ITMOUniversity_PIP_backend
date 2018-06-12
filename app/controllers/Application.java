@@ -4,21 +4,17 @@ import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import com.feth.play.module.pa.PlayAuthenticate;
 import config.RolesConst;
-import enumerations.RoleType;
 import models.entities.UserEntity;
 import play.data.Form;
 import play.db.jpa.Transactional;
-import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
-import services.IUserDAO;
+import services.IUserService;
 import services.UserProvider;
 import views.html.*;
 
 import javax.inject.Inject;
-import javax.management.relation.Role;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,7 +28,7 @@ public class Application extends Controller {
     private final MyUsernamePasswordAuthProvider provider;
 
     private final UserProvider userProvider;
-    private final IUserDAO userDao;
+    private final IUserService userDao;
 
     public static String formatTimestamp(final long t) {
         return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
@@ -40,7 +36,7 @@ public class Application extends Controller {
 
     @Inject
     public Application(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
-                       final UserProvider userProvider, final IUserDAO userDao) {
+                       final UserProvider userProvider, final IUserService userDao) {
         this.auth = auth;
         this.provider = provider;
         this.userProvider = userProvider;

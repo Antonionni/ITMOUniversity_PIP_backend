@@ -12,18 +12,18 @@ public class UserProvider {
 
     private final PlayAuthenticate auth;
 
-    private final IUserDAO IUserDao;
+    private final IUserService UserService;
 
     @Inject
-    public UserProvider(final PlayAuthenticate auth, IUserDAO IUserDao) {
+    public UserProvider(final PlayAuthenticate auth, IUserService UserService) {
         this.auth = auth;
-        this.IUserDao = IUserDao;
+        this.UserService = UserService;
     }
 
     @Nullable
     public UserEntity getUser(Http.Session session) {
         final AuthUser currentAuthUser = this.auth.getUser(session);
-        return IUserDao.findByAuthUserIdentity(currentAuthUser);
+        return UserService.findByAuthUserIdentity(currentAuthUser);
     }
 }
 

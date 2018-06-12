@@ -1,21 +1,18 @@
 package services;
 
 import com.feth.play.module.pa.user.AuthUser;
-import data.HibernateUtils;
 import models.entities.LinkedAccount;
 import models.entities.UserEntity;
 import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class LinkedAccountDAO implements ILinkedAccountDAO {
+public class LinkedAccountService implements ILinkedAccountService {
     private final JPAApi JpAApi;
 
     @Inject
-    public LinkedAccountDAO(JPAApi jpaApi) {
+    public LinkedAccountService(JPAApi jpaApi) {
         JpAApi = jpaApi;
     }
 
