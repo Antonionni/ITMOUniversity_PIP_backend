@@ -1,28 +1,58 @@
 package models;
 
+import enumerations.ErrorCode;
 import org.jetbrains.annotations.Nullable;
 
 public class ApiResponse<T> {
 
     @Nullable
-    private final Integer ErrorCode;
+    private ErrorCode ErrorCode = null;
 
     @Nullable
-    private final T Data;
+    private String ErrorMessage = null;
 
-    private final String returnUrl;
+    @Nullable
+    private T Data = null;
 
-    public ApiResponse(@Nullable Integer errorCode, @Nullable T data, @Nullable String returnUrl) {
+    @Nullable
+    private String ReturnUrl = null;
+
+    public ApiResponse(@Nullable ErrorCode errorCode, @Nullable String errorMessage, @Nullable T data, @Nullable String returnUrl) {
         this.ErrorCode = errorCode;
         this.Data = data;
-        this.returnUrl = returnUrl;
+        this.ReturnUrl = returnUrl;
+        this.ErrorMessage = errorMessage;
     }
 
-    public String getReturnUrl() { return returnUrl; }
+    public ApiResponse(ErrorCode errorCode) {
+        this.ErrorCode = errorCode;
+    }
+
+    public static ApiResponse<String> withReturnUrl(String returnUrl) {
+        return new ApiResponse<>(null, null, null, returnUrl);
+    }
+
+    public ApiResponse(ErrorCode errorCode, String errorMessage) {
+        this.ErrorCode = errorCode;
+        this.ErrorMessage = errorMessage;
+    }
+
+    public ApiResponse(T data) {
+        this.Data = data;
+    }
 
     @Nullable
-    public Integer getErrorCode() {
+    public String getReturnUrl() {
+        return ReturnUrl;
+    }
+
+    @Nullable
+    public ErrorCode getErrorCode() {
         return ErrorCode;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
     }
 
     @Nullable

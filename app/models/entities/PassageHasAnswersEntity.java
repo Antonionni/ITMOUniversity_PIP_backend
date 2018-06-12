@@ -2,6 +2,7 @@ package models.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +15,7 @@ public class PassageHasAnswersEntity {
     private PassageHasAnswersPK id;
 
     @Column(name = "passagesstartdate", nullable = true)
-    private Timestamp startdate;
+    private Date startdate;
     /**
      * reference to {@link PassageEntity}
      */
@@ -30,11 +31,11 @@ public class PassageHasAnswersEntity {
     @MapsId("answerId")
     private AnswerEntity answer;
 
-    public Timestamp getStartdate() {
+    public Date getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(Timestamp passagesstartdate) {
+    public void setStartdate(Date passagesstartdate) {
         this.startdate = passagesstartdate;
     }
 

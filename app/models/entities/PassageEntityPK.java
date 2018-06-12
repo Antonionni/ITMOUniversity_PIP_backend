@@ -6,11 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 public class PassageEntityPK implements Serializable {
     private int id;
-    private Timestamp startdate;
+    private Date startdate;
 
     public int getId() {
         return id;
@@ -20,7 +21,7 @@ public class PassageEntityPK implements Serializable {
         this.id = id;
     }
 
-    public Timestamp getStartdate() {
+    public Date getStartdate() {
         return startdate;
     }
 

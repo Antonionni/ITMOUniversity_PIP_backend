@@ -46,12 +46,12 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
         try {
             final Object o = ap.authenticate(context, payload);
             if (o instanceof String) {
-                return Controller.ok(Json.toJson(new ApiResponse<String>(null, null, (String)o)));
+                return Controller.ok(Json.toJson(ApiResponse.withReturnUrl((String)o)));
                 //return Controller.redirect((String) o);
             } else if (o instanceof Result) {
                 String resultText = Json.toJson(o).asText();
                 Logger.debug("wow auth return result " + context.request().uri());
-                return Controller.ok(Json.toJson(new ApiResponse<String>(null, resultText, null)));
+                return Controller.ok(Json.toJson(new ApiResponse<String>(resultText)));
             } else if (o instanceof AuthUser) {
 
                 final AuthUser newUser = (AuthUser) o;
@@ -131,7 +131,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
                                                 SETTING_KEY_ACCOUNT_AUTO_MERGE));
                             }
                             storeMergeUser(newUser, session);
-                            return Controller.ok(Json.toJson(new ApiResponse<String>(null, null, c.url())));
+                            return Controller.ok(Json.toJson(ApiResponse.withReturnUrl(c.url())));
                         }
                     } else {
                         // the currently logged in user and the new login belong
@@ -163,7 +163,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
                                             SETTING_KEY_ACCOUNT_AUTO_LINK));
                         }
                         storeLinkUser(newUser, session);
-                        return Controller.ok(Json.toJson(new ApiResponse<String>(null, null, c.url())));
+                        return Controller.ok(Json.toJson(ApiResponse.withReturnUrl(c.url())));
                     }
 
                 }
@@ -176,7 +176,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
         } catch (final AuthException e) {
                 final String message = e.getMessage();
                 if (message != null) {
-                    return Controller.internalServerError(Json.toJson(new ApiResponse<String>(null, message, null)));
+                    return Controller.internalServerError(Json.toJson(new ApiResponse<String>(message)));
                 } else {
                     return Controller.internalServerError();
                 }

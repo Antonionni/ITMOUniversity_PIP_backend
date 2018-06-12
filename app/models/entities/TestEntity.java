@@ -3,6 +3,7 @@ package models.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -32,13 +33,13 @@ public class TestEntity {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdAt;
+    private Date createdAt;
     /**
      * date and time when test updated
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedAt;
+    private Date updatedAt;
     /**
      * List of questions
      */
@@ -69,19 +70,19 @@ public class TestEntity {
         this.threshold = threshold;
     }
 
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdat) {
+    public void setCreatedAt(Date createdat) {
         this.createdAt = createdat;
     }
 
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedat) {
+    public void setUpdatedAt(Date updatedat) {
         this.updatedAt = updatedat;
     }
 

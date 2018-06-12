@@ -13,6 +13,8 @@ public class Teacher {
         this.courses = courses;
     }
 
+    public Teacher() {}
+
     public Teacher(UserEntity userEntity) {
         this(userEntity
                 .getTeacherCourses()

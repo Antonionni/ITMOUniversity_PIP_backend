@@ -4,6 +4,7 @@ import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.ImmutableList;
 import enumerations.RoleType;
 import services.IUserDAO;
 
@@ -59,13 +60,13 @@ public class UserEntity implements Subject {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Date createdat;
     /**
      * date and time when user was update his profile
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedat;
+    private Date updatedat;
     /**
      * List of courses which student try to pass
      */
@@ -92,6 +93,30 @@ public class UserEntity implements Subject {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "birthDate")
+    private Date birthDate;
+
+    @Column(name = "placeOfStudy")
+    private String placeOfStudy;
+
+    public String getPlaceOfStudy() {
+        return placeOfStudy;
+    }
+
+
+
+    public void setPlaceOfStudy(String placeOfStudy) {
+        this.placeOfStudy = placeOfStudy;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public int getId() {
         return id;
@@ -125,19 +150,19 @@ public class UserEntity implements Subject {
         this.secondname = secondname;
     }
 
-    public Timestamp getCreatedat() {
+    public Date getCreatedat() {
         return createdat;
     }
 
-    public void setCreatedat(Timestamp createdat) {
+    public void setCreatedat(Date createdat) {
         this.createdat = createdat;
     }
 
-    public Timestamp getUpdatedat() {
+    public Date getUpdatedat() {
         return updatedat;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
+    public void setUpdatedat(Date updatedat) {
         this.updatedat = updatedat;
     }
 
@@ -243,8 +268,10 @@ public class UserEntity implements Subject {
     }
 
     @Transient
-    public Collection<RoleType> getRoleTypes() {
-        return userRoles.stream().map(UserRolesHasUsersEntity::getRoleType).collect(Collectors.toList());
+    public ImmutableList<RoleType> getRoleTypes() {
+        return ImmutableList.copyOf(userRoles != null
+                ? userRoles.stream().map(UserRolesHasUsersEntity::getRoleType).collect(Collectors.toList())
+                : Collections.emptyList());
     }
 
 

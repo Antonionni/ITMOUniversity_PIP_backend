@@ -1,5 +1,8 @@
 package modules;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.feth.play.module.mail.IMailer;
 import com.feth.play.module.mail.Mailer;
 import com.feth.play.module.mail.Mailer.MailerFactory;
@@ -8,6 +11,7 @@ import com.feth.play.module.pa.Resolver;
 import com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider;
 import com.feth.play.module.pa.providers.openid.OpenIdAuthProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 import play.api.Configuration;
@@ -17,6 +21,7 @@ import play.api.inject.Module;
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
 import play.db.jpa.DefaultJPAApi;
+import play.libs.Json;
 import providers.MyStupidBasicAuthProvider;
 import providers.MyUsernamePasswordAuthProvider;
 import scala.collection.Seq;
@@ -38,7 +43,7 @@ public class DependencyInjectionModule extends AbstractModule {
         bind(IUserDAO.class).to(UserDAO.class);
         bind(Resolver.class).to(MyResolver.class);
 
-       // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();
+        // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();
         bind(UserService.class).asEagerSingleton();
 
         bind(GoogleAuthProvider.class).asEagerSingleton();
@@ -47,6 +52,9 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(FoursquareAuthProvider.class).asEagerSingleton();
         bind(MyUsernamePasswordAuthProvider.class).asEagerSingleton();
         bind(OpenIdAuthProvider.class).asEagerSingleton();
+
+        Json.mapper().registerModule(new GuavaModule());
+        Json.mapper().registerModule(new Jdk8Module());
         //bind(TwitterAuthProvider.class).asEagerSingleton();
         //bind(LinkedinAuthProvider.class).asEagerSingleton();
         //bind(VkAuthProvider.class).asEagerSingleton();
@@ -58,8 +66,4 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(EventBriteAuthProvider.class).asEagerSingleton();
 
     }
-
-
-
-
 }

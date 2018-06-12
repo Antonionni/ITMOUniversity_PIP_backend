@@ -1,11 +1,15 @@
 package models.serviceEntities.UserData;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import enumerations.RoleType;
 import models.entities.UserEntity;
+import org.immutables.value.Value;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
+@Value.Style(jdkOnly = true)
 public class BaseUser {
     private int id;
     private String email;
@@ -14,12 +18,13 @@ public class BaseUser {
     private String lastName;
     private Date createdAt;
     private Date updatedAt;
-    private Collection<RoleType> roles;
+    private List<RoleType> roles;
     private boolean emailValidated;
     private boolean active;
     private Date lastLogin;
+    private Date birthDate;
 
-    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, Collection<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin) {
+    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, List<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin, Date birthDate) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -31,6 +36,7 @@ public class BaseUser {
         this.emailValidated = emailValidated;
         this.active = active;
         this.lastLogin = lastLogin;
+        this.birthDate = birthDate;
     }
 
     public BaseUser(UserEntity userEntity) {
@@ -44,8 +50,11 @@ public class BaseUser {
                 userEntity.getRoleTypes(),
                 userEntity.isEmailValidated(),
                 userEntity.isActive(),
-                userEntity.getLastLogin());
+                userEntity.getLastLogin(),
+                userEntity.getBirthDate());
     }
+
+    public BaseUser() {}
 
     public int getId() {
         return id;
@@ -103,11 +112,13 @@ public class BaseUser {
         this.updatedAt = updatedAt;
     }
 
-    public Collection<RoleType> getRoles() {
+    @JsonDeserialize(as = ArrayList.class, contentAs = RoleType.class)
+    public List<RoleType> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<RoleType> roles) {
+    @JsonDeserialize(as = ArrayList.class, contentAs = RoleType.class)
+    public void setRoles(List<RoleType> roles) {
         this.roles = roles;
     }
 
@@ -133,5 +144,13 @@ public class BaseUser {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }

@@ -2,6 +2,7 @@ package models.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -21,27 +22,27 @@ public class CoursePeriodEntity {
      */
     @Basic
     @Column(name = "startdate", nullable = true)
-    private Timestamp startdate;
+    private Date startdate;
     /**
      * date when course was end
      */
     @Basic
     @Column(name = "enddate", nullable = true)
-    private Timestamp enddate;
+    private Date enddate;
 
-    public Timestamp getStartdate() {
+    public Date getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(Timestamp startdate) {
+    public void setStartdate(Date startdate) {
         this.startdate = startdate;
     }
 
-    public Timestamp getEnddate() {
+    public Date getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(Timestamp enddate) {
+    public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
 

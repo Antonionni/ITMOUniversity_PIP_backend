@@ -8,17 +8,24 @@ import java.util.stream.Collectors;
 
 public class Student {
     private Collection<Course> courses;
+    private String placeOfStudy;
 
-    public Student(Collection<Course> courses) {
+    public Student(Collection<Course> courses, String placeOfStudy) {
         this.courses = courses;
+        this.placeOfStudy = placeOfStudy;
     }
 
+    public Student() {}
+
     public Student(UserEntity userEntity) {
-        this(userEntity
-                .getStudentCourses()
-                .stream()
-                .map(Course::new)
-                .collect(Collectors.toList()));
+
+        this(
+                userEntity
+                    .getStudentCourses()
+                    .stream()
+                    .map(Course::new)
+                    .collect(Collectors.toList()),
+                userEntity.getPlaceOfStudy());
     }
 
     public Collection<Course> getCourses() {
@@ -27,6 +34,14 @@ public class Student {
 
     public void setCourses(Collection<Course> courses) {
         this.courses = courses;
+    }
+
+    public String getPlaceOfStudy() {
+        return placeOfStudy;
+    }
+
+    public void setPlaceOfStudy(String placeOfStudy) {
+        this.placeOfStudy = placeOfStudy;
     }
 }
 

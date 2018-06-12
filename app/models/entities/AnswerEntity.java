@@ -2,6 +2,7 @@ package models.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -25,13 +26,13 @@ public class AnswerEntity {
      */
     @Basic
     @Column(name = "createdat", nullable = true)
-    private Timestamp createdat;
+    private Date createdat;
     /**
      * date when answer was updated
      */
     @Basic
     @Column(name = "updatedat", nullable = true)
-    private Timestamp updatedat;
+    private Date updatedat;
     /**
      * instans of {@link QuestionEntity}
      */
@@ -55,19 +56,19 @@ public class AnswerEntity {
         this.useranswer = useranswer;
     }
 
-    public Timestamp getCreatedat() {
+    public Date getCreatedat() {
         return createdat;
     }
 
-    public void setCreatedat(Timestamp createdat) {
+    public void setCreatedat(Date createdat) {
         this.createdat = createdat;
     }
 
-    public Timestamp getUpdatedat() {
+    public Date getUpdatedat() {
         return updatedat;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
+    public void setUpdatedat(Date updatedat) {
         this.updatedat = updatedat;
     }
 

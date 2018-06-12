@@ -1,6 +1,7 @@
 package services;
 
 import play.db.jpa.JPAApi;
+import play.libs.concurrent.HttpExecutionContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -8,10 +9,10 @@ import java.util.function.Function;
 
 public abstract class BaseService {
     protected final JPAApi JpaApi;
-    protected final CustomExecutionContext ec;
+    protected final HttpExecutionContext ec;
 
     @Inject
-    public BaseService(JPAApi jpaApi, CustomExecutionContext ec) {
+    public BaseService(JPAApi jpaApi, HttpExecutionContext ec) {
         this.JpaApi = jpaApi;
         this.ec = ec;
     }

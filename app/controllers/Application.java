@@ -103,6 +103,7 @@ public class Application extends Controller {
     @Transactional
     public Result doSignup() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+
         final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = this.provider.getSignupForm().bindFromRequest();
         if (filledForm.hasErrors()) {
             // User did not fill everything properly

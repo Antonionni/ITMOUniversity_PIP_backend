@@ -24,6 +24,8 @@ public interface IUserDAO {
 
     void merge(UserEntity mainUser, UserEntity otherUser);
 
+    CompletionStage<Boolean> update(AggregatedUser aggregatedUser);
+
     UserEntity create(AuthUser authUser);
 
     void merge(AuthUser oldUser, AuthUser newUser);

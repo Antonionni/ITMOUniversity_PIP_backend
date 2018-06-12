@@ -12,6 +12,8 @@ public class AggregatedUser {
         this.baseUser = baseUser;
     }
 
+    public AggregatedUser() {}
+
     public BaseUser getBaseUser() {
         return baseUser;
     }

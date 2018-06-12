@@ -1,11 +1,16 @@
 package services;
 
+import Exceptions.NotAuthorizedAccess;
+import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
 import enumerations.RoleType;
 import models.entities.*;
 import models.serviceEntities.UserData.*;
 import play.db.jpa.JPAApi;
+import play.libs.concurrent.HttpExecutionContext;
+import play.mvc.Http;
+import providers.MyUsernamePasswordAuthUser;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -14,19 +19,22 @@ import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 public class UserDAO extends BaseService implements IUserDAO {
-
     private final ILinkedAccountDAO ILinkedAccountDAO;
     private final ITokenActionDAO ITokenActionDAO;
+    private final PlayAuthenticate AuthService;
+    private final Collection<RoleType> PRIVILEGED_ROLE_TYPES = Arrays.asList(RoleType.Admin, RoleType.ApprovedTeacher);
 
     @Inject
-    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi, CustomExecutionContext ec) {
+    public UserDAO(ILinkedAccountDAO ILinkedAccountDAO, ITokenActionDAO ITokenActionDAO, JPAApi jpaApi, HttpExecutionContext ec, PlayAuthenticate auth) {
         super(jpaApi, ec);
         this.ILinkedAccountDAO = ILinkedAccountDAO;
         this.ITokenActionDAO = ITokenActionDAO;
+        this.AuthService = auth;
     }
 
     @Override
@@ -84,7 +92,6 @@ public class UserDAO extends BaseService implements IUserDAO {
 
     private TypedQuery<UserEntity> getUsernamePasswordAuthUserFind(
             final UsernamePasswordAuthUser identity) {
-        EntityManager em = JpaApi.em();
         TypedQuery<UserEntity> query = JpaApi.em().createQuery(
                 "select us from UserEntity us join us.linkedAccounts la where us.active = :activeAccount and us.email = :email and la.providerKey = :providerKey", UserEntity.class);
         query.setParameter("activeAccount", Boolean.TRUE);
@@ -99,7 +106,7 @@ public class UserDAO extends BaseService implements IUserDAO {
                         .map(x -> {
                             AggregatedUser aggregatedUser = ToAggregatedUser(x);
                             return AddStudentInfo(x, aggregatedUser);
-                        })), ec);
+                        })), ec.current());
     }
 
     public CompletionStage<Optional<AggregatedUser>> getTeacher(int id) {
@@ -108,7 +115,7 @@ public class UserDAO extends BaseService implements IUserDAO {
                         .map(x -> {
                             AggregatedUser aggregatedUser = ToAggregatedUser(x);
                             return AddTeacherInfo(x, aggregatedUser);
-                        })), ec);
+                        })), ec.current());
     }
 
     public CompletionStage<Optional<AggregatedUser>> getUserAndGatherDataForRoles(int id, Collection<RoleType> roles) {
@@ -129,7 +136,7 @@ public class UserDAO extends BaseService implements IUserDAO {
                         }
                     });
                     return aggregatedUser;
-                })), ec);
+                })), ec.current());
     }
 
     private Optional<UserEntity> getUserById(int id) {
@@ -169,22 +176,56 @@ public class UserDAO extends BaseService implements IUserDAO {
         em.merge(otherUser);
     }
 
+    public CompletionStage<Boolean> update(AggregatedUser aggregatedUser) {
+        return supplyAsync(() -> wrap(em -> {
+            UserEntity userEntity = em.find(UserEntity.class, aggregatedUser.getBaseUser().getId());
+            if(userEntity == null) {
+                return false;
+            }
+            UpdateWithBaseUserData(userEntity, aggregatedUser.getBaseUser());
+            aggregatedUser.getStudent().map(x -> UpdateWithStudentData(userEntity, x));
+            aggregatedUser.getTeacher().map(x -> UpdateWithTeacherData(userEntity, x));
+            JpaApi.em().merge(userEntity);
+            return true;
+        }),ec.current());
+    }
+
+    private UserEntity UpdateWithBaseUserData(UserEntity userEntity, BaseUser user) {
+        userEntity.setEmail(user.getEmail());
+        userEntity.setName(user.getName());
+        userEntity.setFirstname(user.getFirstName());
+        userEntity.setSecondname(user.getLastName());
+        userEntity.setCreatedat(user.getCreatedAt());
+        userEntity.setUpdatedat(user.getUpdatedAt());
+        userEntity.setEmailValidated(user.isEmailValidated());
+        userEntity.setActive(user.isActive());
+        userEntity.setLastLogin(user.getLastLogin());
+        userEntity.setBirthDate(user.getBirthDate());
+        updateRoles(userEntity, user.getRoles());
+        return userEntity;
+    }
+
+    private UserEntity UpdateWithStudentData(UserEntity userEntity, Student studentData) {
+        userEntity.setPlaceOfStudy(studentData.getPlaceOfStudy());
+        //userEntity.setStudentCourses(studentData.);
+        return userEntity;
+    }
+
+    private UserEntity UpdateWithTeacherData(UserEntity userEntity, Teacher teacherData) {
+        return userEntity;
+    }
     @Override
     public UserEntity create(final AuthUser authUser) {
         final UserEntity user = new UserEntity();
-
-        // user.permissions = new ArrayList<UserPermission>();
-        // user.permissions.add(UserPermission.findByValue("printers.edit"));
         user.setActive(true);
         user.setLastLogin(new Date());
         LinkedAccount linkedAccount = ILinkedAccountDAO.create(authUser);
+        linkedAccount.setUser(user);
         user.setLinkedAccounts(Collections.singletonList(linkedAccount));
+        Collection<RoleType> roles = Arrays.asList(RoleType.AuthenticatedUser);
 
         if (authUser instanceof EmailIdentity) {
             final EmailIdentity identity = (EmailIdentity) authUser;
-            // Remember, even when getting them from FB & Co., emails should be
-            // verified within the application as a security breach there might
-            // break your security as well!
             user.setEmail(identity.getEmail());
             user.setEmailValidated(false);
         }
@@ -208,17 +249,48 @@ public class UserDAO extends BaseService implements IUserDAO {
                 user.setSecondname(lastName);
             }
         }
+        if(authUser instanceof MyUsernamePasswordAuthUser) {
+            final MyUsernamePasswordAuthUser identity = (MyUsernamePasswordAuthUser) authUser;
+            user.setBirthDate(identity.getBirthDate());
+            user.setPlaceOfStudy(identity.getPlaceOfStudy());
+            roles.addAll(identity.getRoles());
+        }
+
         EntityManager em = JpaApi.em();
         em.persist(user);
-        linkedAccount.setUser(user);
+        Collection<UserRolesHasUsersEntity> roleEntities = updateRoles(user, roles);
+        roleEntities.forEach(em::persist);
         em.merge(linkedAccount);
-        UserRolesHasUsersEntity role = new UserRolesHasUsersEntity();
-        // TODO[ASh]: wtf.
-        role.setRoleType(RoleType.AuthenticatedUser);
-        role.setUser(user);
-        role.setStartdate(new Date());
-        em.persist(role);
         return user;
+    }
+
+    /*private Collection<UserHasCourseEntity> updateCourses(UserEntity user, Collection<Course> courses) {
+        Collection<UserHasCourseEntity> userCourses = user.getStudentCourses();
+        Collection<UserHasCourseEntityPK> userCoursesId = userCourses.stream().map(x -> x.)
+        courses.stream().filter(x -> !userCourses.contains(x.getId()))
+    }*/
+
+    private Collection<UserRolesHasUsersEntity> updateRoles(UserEntity user, Collection<RoleType> roles) {
+        UserEntity currentUser = findByAuthUserIdentity(AuthService.getUser(Http.Context.current()));
+        boolean isAdmin = currentUser != null && currentUser.getRoleTypes().contains(RoleType.Admin);
+        roles.removeAll(user.getRoleTypes());
+        return roles
+                .stream()
+                .distinct()
+                .filter(x -> {
+                    if (!isAdmin && PRIVILEGED_ROLE_TYPES.contains(x)) {
+                        throw new NotAuthorizedAccess();
+                    }
+                    return true;
+                })
+                .map(x -> {
+                    UserRolesHasUsersEntity userRoleEntity = new UserRolesHasUsersEntity();
+                    userRoleEntity.setUser(user);
+                    userRoleEntity.setStartdate(new Date());
+                    userRoleEntity.setRoleType(x);
+                    return userRoleEntity;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

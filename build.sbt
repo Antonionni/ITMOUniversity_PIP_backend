@@ -27,7 +27,10 @@ libraryDependencies ++= Seq(
   "org.easytesting" % "fest-assert" % "1.4" % "test",
   "dom4j" % "dom4j" % "1.6.1",
   "com.google.inject" % "guice" % "4.0",
-  "org.jetbrains" % "annotations" % "13.0"
+  "org.jetbrains" % "annotations" % "13.0",
+  "com.fasterxml.jackson.module" % "jackson-modules-java8" % "2.8.5" pomOnly(),
+  "org.immutables" % "value" % "2.6.1" % "provided",
+  "com.fasterxml.jackson.datatype" % "jackson-datatype-guava" % "2.8.5"
 )
 
 // add resolver for deadbolt and easymail snapshots

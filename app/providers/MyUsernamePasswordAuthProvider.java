@@ -6,7 +6,9 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 
+import com.google.common.base.Strings;
 import controllers.routes;
+import enumerations.RoleType;
 import models.entities.LinkedAccount;
 import models.entities.TokenAction;
 import models.entities.UserEntity;
@@ -29,9 +31,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Singleton
 public class MyUsernamePasswordAuthProvider
@@ -106,14 +107,80 @@ public class MyUsernamePasswordAuthProvider
 		@MinLength(5)
 		private String repeatPassword;
 
-		@Required
 		private String name;
+
+		private String roles;
+
+		private Collection<RoleType> parsedRoles;
+
+		private String firstName;
+
+		private String lastName;
+
+		@Required
+		private Date birthDate;
+
+		private String placeOfStudy;
 
 		public String validate() {
 			if (password == null || !password.equals(repeatPassword)) {
 				return "wrong password";
 			}
+			if(
+					Strings.isNullOrEmpty(name)
+					|| (Strings.isNullOrEmpty(firstName) && Strings.isNullOrEmpty(lastName))) {
+				return "enter name or firstname + lastname";
+			}
+			if(roles == null || roles.isEmpty()) {
+				return "enter the roles";
+			}
+			try {
+				parsedRoles = Arrays.stream(roles.split(",")).map(RoleType::valueOf).collect(Collectors.toList());
+			}
+			catch (IllegalArgumentException ex) {
+				return "wrong roles";
+			}
 			return null;
+		}
+
+		public Collection<RoleType> getParsedRoles() {
+			return parsedRoles;
+		}
+
+		public void setParsedRoles(Collection<RoleType> parsedRoles) {
+			this.parsedRoles = parsedRoles;
+		}
+
+		public String getFirstName() {
+			return firstName;
+		}
+
+		public void setFirstName(String firstName) {
+			this.firstName = firstName;
+		}
+
+		public String getLastName() {
+			return lastName;
+		}
+
+		public void setLastName(String lastName) {
+			this.lastName = lastName;
+		}
+
+		public Date getBirthDate() {
+			return birthDate;
+		}
+
+		public void setBirthDate(Date birthDate) {
+			this.birthDate = birthDate;
+		}
+
+		public String getPlaceOfStudy() {
+			return placeOfStudy;
+		}
+
+		public void setPlaceOfStudy(String placeOfStudy) {
+			this.placeOfStudy = placeOfStudy;
 		}
 
 		public String getName() {
