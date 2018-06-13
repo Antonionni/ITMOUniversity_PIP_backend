@@ -54,4 +54,6 @@ public interface IUserService {
     CompletionStage<Optional<AggregatedUser>> getTeacher(int id);
 
     CompletionStage<Optional<AggregatedUser>> getUserAndGatherDataForRoles(int id, Collection<RoleType> roles);
+
+    CompletionStage<Optional<AggregatedUser>> getProfileData();
 }

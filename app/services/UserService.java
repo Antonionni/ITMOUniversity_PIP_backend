@@ -1,15 +1,15 @@
 package services;
 
-import Exceptions.NotAuthorizedAccess;
+import Exceptions.UnauthorizedAccessException;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
+import data.RoleHelper;
 import enumerations.RoleType;
 import models.entities.*;
 import models.serviceEntities.UserData.*;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
-import play.mvc.Http;
 import providers.MyUsernamePasswordAuthUser;
 
 import javax.inject.Inject;
@@ -122,21 +122,37 @@ public class UserService extends BaseService implements IUserService {
         return supplyAsync(() -> wrap(em -> getUserById(id)
                 .map(x -> {
                     AggregatedUser aggregatedUser = ToAggregatedUser(x);
-                    roles.forEach(role -> {
-                        switch (role) {
-                            case Student:
-                                AddStudentInfo(x, aggregatedUser);
-                            case Teacher:
-                                AddTeacherInfo(x, aggregatedUser);
-                                break;
-                            case Admin:
-                                break;
-                            case AuthenticatedUser:
-                                break;
-                        }
-                    });
+                    AddDataForRoles(roles, x, aggregatedUser);
                     return aggregatedUser;
                 })), ec.current());
+    }
+
+    public CompletionStage<Optional<AggregatedUser>> getProfileData() {
+        return supplyAsync(() -> wrap(em -> {
+            UserEntity userEntity = RoleHelper.getCurrentUser();
+            if(userEntity == null) {
+                return Optional.empty();
+            }
+            AggregatedUser aggregatedUser = ToAggregatedUser(userEntity);
+            AddDataForRoles(userEntity.getRoleTypes(), userEntity, aggregatedUser);
+            return Optional.of(aggregatedUser);
+        }), ec.current());
+    }
+
+    private void AddDataForRoles(Collection<RoleType> roles, UserEntity x, AggregatedUser aggregatedUser) {
+        roles.forEach(role -> {
+            switch (role) {
+                case Student:
+                    AddStudentInfo(x, aggregatedUser);
+                case Teacher:
+                    AddTeacherInfo(x, aggregatedUser);
+                    break;
+                case Admin:
+                    break;
+                case AuthenticatedUser:
+                    break;
+            }
+        });
     }
 
     private Optional<UserEntity> getUserById(int id) {
@@ -178,7 +194,11 @@ public class UserService extends BaseService implements IUserService {
 
     public CompletionStage<Boolean> update(AggregatedUser aggregatedUser) {
         return supplyAsync(() -> wrap(em -> {
-            UserEntity userEntity = em.find(UserEntity.class, aggregatedUser.getBaseUser().getId());
+            int userId = aggregatedUser.getBaseUser().getId();
+            if(!RoleHelper.currentUserOrAdmin(userId)) {
+                throw new UnauthorizedAccessException();
+            }
+            UserEntity userEntity = em.find(UserEntity.class, userId);
             if(userEntity == null) {
                 return false;
             }
@@ -271,15 +291,14 @@ public class UserService extends BaseService implements IUserService {
     }*/
 
     private Collection<UserRolesHasUsersEntity> updateRoles(UserEntity user, Collection<RoleType> roles) {
-        UserEntity currentUser = findByAuthUserIdentity(AuthService.getUser(Http.Context.current()));
-        boolean isAdmin = currentUser != null && currentUser.getRoleTypes().contains(RoleType.Admin);
+        boolean isAdmin = RoleHelper.getUserRoles().contains(RoleType.Admin);
         roles.removeAll(user.getRoleTypes());
         return roles
                 .stream()
                 .distinct()
                 .filter(x -> {
                     if (!isAdmin && PRIVILEGED_ROLE_TYPES.contains(x)) {
-                        throw new NotAuthorizedAccess();
+                        throw new UnauthorizedAccessException();
                     }
                     return true;
                 })

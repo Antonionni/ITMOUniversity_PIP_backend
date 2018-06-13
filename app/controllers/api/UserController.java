@@ -1,8 +1,14 @@
 package controllers.api;
 
+import Exceptions.UnauthorizedAccessException;
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
+import config.RolesConst;
+import data.RoleHelper;
 import enumerations.ErrorCode;
 import enumerations.RoleType;
 import models.ApiResponse;
+import models.entities.UserEntity;
 import models.serviceEntities.UserData.AggregatedUser;
 import play.data.FormFactory;
 import play.libs.Json;
@@ -18,14 +24,13 @@ import java.util.stream.Collectors;
 public class UserController extends Controller {
 
     private final IUserService userDao;
-    private final FormFactory formFactory;
 
     @Inject
-    public UserController(IUserService userDAO, FormFactory formFactory) {
-        this.userDao = userDAO;
-        this.formFactory = formFactory;
+    public UserController(IUserService userService) {
+        this.userDao = userService;
     }
 
+    @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> update() {
         AggregatedUser user = Json.fromJson(request().body().asJson(), AggregatedUser.class);
         return this.userDao.update(user).thenApplyAsync(x -> x
@@ -64,6 +69,13 @@ public class UserController extends Controller {
                         optionalStudent
                                 .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
                                 .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
+    }
+
+    public CompletionStage<Result> getProfile() {
+        return this.userDao.getProfileData().thenApplyAsync(profile ->
+                profile
+                        .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
+                        .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
 
     /*Teacher getTeacher(int id) {

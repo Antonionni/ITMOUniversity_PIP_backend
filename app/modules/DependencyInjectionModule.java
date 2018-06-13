@@ -13,6 +13,7 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
+import data.RoleHelper;
 import play.libs.Json;
 import providers.MyUsernamePasswordAuthProvider;
 import services.*;
@@ -45,6 +46,7 @@ public class DependencyInjectionModule extends AbstractModule {
 
         Json.mapper().registerModule(new GuavaModule());
         Json.mapper().registerModule(new Jdk8Module());
+        requestStaticInjection(RoleHelper.class);
         //bind(TwitterAuthProvider.class).asEagerSingleton();
         //bind(LinkedinAuthProvider.class).asEagerSingleton();
         //bind(VkAuthProvider.class).asEagerSingleton();
