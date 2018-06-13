@@ -49,7 +49,7 @@ public class CourseListService extends BaseService implements ICourseListService
             int resultSize = coursesResult.size();
             List<Course> shrinkedResult = courseQuery.getResultList().stream().limit(pageSize).map(Course::new).collect(Collectors.toList());
             return new PagedResult<>(shrinkedResult, resultSize > pageSize);
-        }));
+        }), ec.current());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CourseListService extends BaseService implements ICourseListService
             }
             em.persist(createCourseSubscriptionEntity(user, course));
             return true;
-        }));
+        }), ec.current());
     }
 
     private CourseSubscriptionEntity createCourseSubscriptionEntity(UserEntity user, CourseEntity course) {

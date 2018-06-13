@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
-public class UserController extends Controller {
+public class UserController extends BaseController {
 
     private final IUserService UserService;
 
@@ -28,7 +28,7 @@ public class UserController extends Controller {
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> update() {
-        AggregatedUser user = Json.fromJson(request().body().asJson(), AggregatedUser.class);
+        AggregatedUser user = getModelFromJson(AggregatedUser.class);
         return this.UserService.update(user).thenApplyAsync(x -> x
                 ? ok(Json.toJson(new ApiResponse<Boolean>(true)))
                 : badRequest(Json.toJson(new ApiResponse<Boolean>(ErrorCode.EntityNotFound))));

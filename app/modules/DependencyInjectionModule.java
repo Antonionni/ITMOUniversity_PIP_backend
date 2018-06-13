@@ -13,7 +13,6 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
-import data.RoleHelperService;
 import play.libs.Json;
 import providers.MyUsernamePasswordAuthProvider;
 import services.*;
@@ -33,6 +32,8 @@ public class DependencyInjectionModule extends AbstractModule {
         bind(ILinkedAccountService.class).to(LinkedAccountService.class);
         bind(IUserService.class).to(UserService.class);
         bind(ICourseListService.class).to(CourseListService.class);
+        bind(ICourseService.class).to(CourseService.class);
+
         bind(Resolver.class).to(MyResolver.class);
 
         // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();

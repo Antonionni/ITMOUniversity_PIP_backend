@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
-public class CourseListController extends Controller {
+public class CourseListController extends BaseController {
 
     private final ICourseListService CourseListService;
 
@@ -29,8 +29,8 @@ public class CourseListController extends Controller {
         return CourseListService.findCourses(keyword, pageNumber, ApiConst.DEFAULT_PAGE_SIZE).thenApplyAsync(x -> ok(Json.toJson(x)));
     }
 
-    public CompletionStage<Result> subscribeToCourse(int courseId) {
-        return CourseListService.subscribeToCourse(courseId).thenApplyAsync(x -> ok(Json.toJson(x)));
+    public CompletionStage<Result> subscribeToCourse(int id) {
+        return CourseListService.subscribeToCourse(id).thenApplyAsync(x -> ok(Json.toJson(x)));
     }
 
 
