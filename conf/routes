@@ -52,5 +52,10 @@ GET         /users/userWithSeveralRoles/:id/:roles        controllers.api.UserCo
 POST        /users/update                                 controllers.api.UserController.update
 GET         /profile/new                                  controllers.api.UserController.getProfile
 
+GET         /courselist/randomlist/:size                  controllers.api.CourseListController.listRandomCourses(size: Integer)
+GET         /courselist/find/:keyword/:pageNumber         controllers.api.CourseListController.findCourses(keyword: String, pageNumber: Integer)
+POST        /courselist/subscribe/:courseId               controllers.api.CourseListController.subscribeToCourse(courseId: Integer)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                 controllers.Assets.versioned(path="/public", file: Asset)

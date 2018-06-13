@@ -19,24 +19,24 @@ import java.util.stream.Collectors;
 
 public class UserController extends Controller {
 
-    private final IUserService userDao;
+    private final IUserService UserService;
 
     @Inject
     public UserController(IUserService userService) {
-        this.userDao = userService;
+        this.UserService = userService;
     }
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> update() {
         AggregatedUser user = Json.fromJson(request().body().asJson(), AggregatedUser.class);
-        return this.userDao.update(user).thenApplyAsync(x -> x
+        return this.UserService.update(user).thenApplyAsync(x -> x
                 ? ok(Json.toJson(new ApiResponse<Boolean>(true)))
                 : badRequest(Json.toJson(new ApiResponse<Boolean>(ErrorCode.EntityNotFound))));
     }
 
     @Restrict(@Group({RolesConst.ApprovedTeacher, RolesConst.Admin}))
     public CompletionStage<Result> getStudent(int id) {
-        return this.userDao.getStudent(id)
+        return this.UserService.getStudent(id)
                 .thenApplyAsync(optionalStudent ->
                         optionalStudent
                                 .map(x -> ok(Json.toJson(new ApiResponse<>(x))))
@@ -45,7 +45,7 @@ public class UserController extends Controller {
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> getTeacher(int id) {
-        return this.userDao.getTeacher(id)
+        return this.UserService.getTeacher(id)
                 .thenApplyAsync(optionalStudent ->
                         optionalStudent
                                 .map(x -> ok(Json.toJson(new ApiResponse<>(x))))
@@ -64,7 +64,7 @@ public class UserController extends Controller {
                 .filter(x -> !x.isEmpty())
                 .map(RoleType::valueOf)
                 .collect(Collectors.toList());
-        return this.userDao.getUserAndGatherDataForRoles(id, parsedRoles)
+        return this.UserService.getUserAndGatherDataForRoles(id, parsedRoles)
                 .thenApplyAsync(optionalStudent ->
                         optionalStudent
                                 .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
@@ -73,7 +73,7 @@ public class UserController extends Controller {
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> getProfile() {
-        return this.userDao.getProfileData().thenApplyAsync(profile ->
+        return this.UserService.getProfileData().thenApplyAsync(profile ->
                 profile
                         .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
                         .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));

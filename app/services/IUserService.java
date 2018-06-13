@@ -56,4 +56,10 @@ public interface IUserService {
     CompletionStage<Optional<AggregatedUser>> getUserAndGatherDataForRoles(int id, Collection<RoleType> roles);
 
     CompletionStage<Optional<AggregatedUser>> getProfileData();
+
+    Collection<RoleType> getCurrentUserRoles();
+
+    UserEntity getCurrentUser();
+
+    boolean currentUserOrAdmin(int userId);
 }

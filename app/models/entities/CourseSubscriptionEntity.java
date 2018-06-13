@@ -1,13 +1,12 @@
 package models.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user_has_course", catalog = "postgres")
-public class UserHasCourseEntity {
+public class CourseSubscriptionEntity {
     /**
      * date and time when this row was created
      */
@@ -59,7 +58,7 @@ public class UserHasCourseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserHasCourseEntity that = (UserHasCourseEntity) o;
+        CourseSubscriptionEntity that = (CourseSubscriptionEntity) o;
         return id == that.id &&
                 Objects.equals(createdAt, that.createdAt) &&
                 Objects.equals(updatedAt, that.updatedAt);

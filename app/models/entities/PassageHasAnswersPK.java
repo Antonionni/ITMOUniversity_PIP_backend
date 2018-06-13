@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class PassageHasAnswersPK implements Serializable {
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     public Integer getId() {

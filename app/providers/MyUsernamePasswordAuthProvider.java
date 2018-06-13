@@ -24,6 +24,7 @@ import play.i18n.MessagesApi;
 import play.inject.ApplicationLifecycle;
 import play.mvc.Call;
 import play.mvc.Http.Context;
+import services.ITokenActionService;
 import services.IUserService;
 import services.TokenActionService;
 
@@ -47,7 +48,7 @@ public class MyUsernamePasswordAuthProvider
 
 	private static final String EMAIL_TEMPLATE_FALLBACK_LANGUAGE = "en";
 	private final MessagesApi messagesApi;
-	private final TokenActionService tokenActionDAO;
+	private final ITokenActionService TokenActionService;
 
 	@Override
 	protected List<String> neededSettingKeys() {
@@ -209,14 +210,14 @@ public class MyUsernamePasswordAuthProvider
 	public MyUsernamePasswordAuthProvider(final PlayAuthenticate auth, final FormFactory formFactory,
 										  final ApplicationLifecycle lifecycle, MailerFactory mailerFactory,
 										  IUserService UserService, MessagesApi messagesApi,
-										  TokenActionService tokenActionDAO) {
+										  ITokenActionService TokenActionService) {
 		super(auth, lifecycle, mailerFactory);
 
 		this.SIGNUP_FORM = formFactory.form(MySignup.class);
 		this.LOGIN_FORM = formFactory.form(MyLogin.class);
 		this.UserService = UserService;
 		this.messagesApi = messagesApi;
-		this.tokenActionDAO = tokenActionDAO;
+		this.TokenActionService = TokenActionService;
 	}
 
 	public Form<MySignup> getSignupForm() {
@@ -376,13 +377,13 @@ public class MyUsernamePasswordAuthProvider
 	protected String generateVerificationRecord(final UserEntity user) {
 		final String token = generateToken();
 		// Do database actions, etc.
-		tokenActionDAO.create(TokenAction.Type.EMAIL_VERIFICATION, token, user);
+		TokenActionService.create(TokenAction.Type.EMAIL_VERIFICATION, token, user);
 		return token;
 	}
 
 	protected String generatePasswordResetRecord(final UserEntity u) {
 		final String token = generateToken();
-		tokenActionDAO.create(TokenAction.Type.PASSWORD_RESET, token, u);
+		TokenActionService.create(TokenAction.Type.PASSWORD_RESET, token, u);
 		return token;
 	}
 

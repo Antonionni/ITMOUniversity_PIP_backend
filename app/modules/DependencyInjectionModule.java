@@ -32,6 +32,7 @@ public class DependencyInjectionModule extends AbstractModule {
         bind(ITokenActionService.class).to(TokenActionService.class);
         bind(ILinkedAccountService.class).to(LinkedAccountService.class);
         bind(IUserService.class).to(UserService.class);
+        bind(ICourseListService.class).to(CourseListService.class);
         bind(Resolver.class).to(MyResolver.class);
 
         // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();

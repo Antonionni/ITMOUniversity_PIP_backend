@@ -72,7 +72,7 @@ public class UserEntity implements Subject {
     private Collection<CourseEntity> teacherCourses;
 
     @OneToMany(mappedBy = "user")
-    private Collection<UserHasCourseEntity> studentCourses;
+    private Collection<CourseSubscriptionEntity> studentCourses;
 
     @OneToMany(mappedBy = "user")
     private Collection<UserRolesHasUsersEntity> userRoles;
@@ -172,11 +172,11 @@ public class UserEntity implements Subject {
         this.teacherCourses = teacherCourses;
     }
 
-    public Collection<UserHasCourseEntity> getStudentCourses() {
+    public Collection<CourseSubscriptionEntity> getStudentCourses() {
         return studentCourses;
     }
 
-    public void setStudentCourses(Collection<UserHasCourseEntity> studentCourses) {
+    public void setStudentCourses(Collection<CourseSubscriptionEntity> studentCourses) {
         this.studentCourses = studentCourses;
     }
 

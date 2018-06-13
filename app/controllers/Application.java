@@ -28,7 +28,7 @@ public class Application extends Controller {
     private final MyUsernamePasswordAuthProvider provider;
 
     private final UserProvider userProvider;
-    private final IUserService userDao;
+    private final IUserService UserService;
 
     public static String formatTimestamp(final long t) {
         return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
@@ -36,11 +36,11 @@ public class Application extends Controller {
 
     @Inject
     public Application(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
-                       final UserProvider userProvider, final IUserService userDao) {
+                       final UserProvider userProvider, final IUserService UserService) {
         this.auth = auth;
         this.provider = provider;
         this.userProvider = userProvider;
-        this.userDao = userDao;
+        this.UserService = UserService;
     }
 
     @Transactional
@@ -60,7 +60,7 @@ public class Application extends Controller {
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public Result profile() {
         final UserEntity localUser = userProvider.getUser(session());
-        return ok(profile.render(this.auth, this.userProvider, localUser, userDao));
+        return ok(profile.render(this.auth, this.userProvider, localUser, UserService));
     }
 
     @Transactional

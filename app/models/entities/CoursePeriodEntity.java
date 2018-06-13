@@ -7,22 +7,30 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "course_period", catalog = "postgres")
+@IdClass(CoursePeriodPK.class)
 public class CoursePeriodEntity {
-    /**
-     * unique identificator
-     */
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    private CourseEntity course;
     /**
      * date when course started
      */
-    @Basic
+    @Id
     @Column(name = "startdate", nullable = true)
     private Date startdate;
+
+    public CourseEntity getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseEntity course) {
+        this.course = course;
+    }
+
+    @ManyToOne
+    private CourseEntity course;
     /**
      * date when course was end
      */
@@ -44,6 +52,14 @@ public class CoursePeriodEntity {
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

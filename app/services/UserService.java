@@ -4,7 +4,6 @@ import Exceptions.UnauthorizedAccessException;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
-import data.RoleHelperService;
 import enumerations.RoleType;
 import models.entities.*;
 import models.serviceEntities.UserData.*;
@@ -217,7 +216,7 @@ public class UserService extends BaseService implements IUserService {
         userEntity.setFirstname(user.getFirstName());
         userEntity.setSecondname(user.getLastName());
         userEntity.setCreatedat(user.getCreatedAt());
-        userEntity.setUpdatedat(user.getUpdatedAt());
+        userEntity.setUpdatedat(new Date());
         userEntity.setEmailValidated(user.isEmailValidated());
         userEntity.setActive(user.isActive());
         userEntity.setLastLogin(user.getLastLogin());
@@ -240,6 +239,8 @@ public class UserService extends BaseService implements IUserService {
         final UserEntity user = new UserEntity();
         user.setActive(true);
         user.setLastLogin(new Date());
+        user.setCreatedat(new Date());
+        user.setUpdatedat(new Date());
         LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
         linkedAccount.setUser(user);
         ArrayList<LinkedAccount> linkedAccounts = new ArrayList<>();
@@ -288,14 +289,14 @@ public class UserService extends BaseService implements IUserService {
         return user;
     }
 
-    /*private Collection<UserHasCourseEntity> updateCourses(UserEntity user, Collection<Course> courses) {
-        Collection<UserHasCourseEntity> userCourses = user.getStudentCourses();
+    /*private Collection<CourseSubscriptionEntity> updateCourses(UserEntity user, Collection<Course> courses) {
+        Collection<CourseSubscriptionEntity> userCourses = user.getStudentCourses();
         Collection<UserHasCourseEntityPK> userCoursesId = userCourses.stream().map(x -> x.)
         courses.stream().filter(x -> !userCourses.contains(x.getId()))
     }*/
 
     private Collection<UserRolesHasUsersEntity> updateRoles(UserEntity user, Collection<RoleType> roles) {
-        boolean isAdmin = getUserRoles().contains(RoleType.Admin);
+        boolean isAdmin = getCurrentUserRoles().contains(RoleType.Admin);
         roles.removeAll(user.getRoleTypes());
         return roles
                 .stream()
@@ -406,7 +407,7 @@ public class UserService extends BaseService implements IUserService {
         TokenActionService.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
     }
 
-    private UserEntity getCurrentUser() {
+    public UserEntity getCurrentUser() {
         if(Http.Context.current.get() == null) {
             return null;
         }
@@ -416,7 +417,7 @@ public class UserService extends BaseService implements IUserService {
         }
         return findByAuthUserIdentity(user);
     }
-    public Collection<RoleType> getUserRoles() {
+    public Collection<RoleType> getCurrentUserRoles() {
         UserEntity userEntity = getCurrentUser();
         if(userEntity == null) {
             return Collections.emptyList();

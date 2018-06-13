@@ -1,7 +1,7 @@
 package models.serviceEntities;
 
 import models.entities.CourseEntity;
-import models.entities.UserHasCourseEntity;
+import models.entities.CourseSubscriptionEntity;
 
 import java.util.Date;
 
@@ -32,8 +32,8 @@ public class Course {
                 courseEntity.getUpdatedAt());
     }
 
-    public Course(UserHasCourseEntity userHasCourseEntity) {
-        this(userHasCourseEntity.getCourse());
+    public Course(CourseSubscriptionEntity courseSubscriptionEntity) {
+        this(courseSubscriptionEntity.getCourse());
     }
 
     public int getId() {
