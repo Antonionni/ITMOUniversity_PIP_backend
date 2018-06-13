@@ -34,6 +34,7 @@ public class UserController extends Controller {
                 : badRequest(Json.toJson(new ApiResponse<Boolean>(ErrorCode.EntityNotFound))));
     }
 
+    @Restrict(@Group({RolesConst.ApprovedTeacher, RolesConst.Admin}))
     public CompletionStage<Result> getStudent(int id) {
         return this.userDao.getStudent(id)
                 .thenApplyAsync(optionalStudent ->
@@ -42,6 +43,7 @@ public class UserController extends Controller {
                                 .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
 
+    @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> getTeacher(int id) {
         return this.userDao.getTeacher(id)
                 .thenApplyAsync(optionalStudent ->
@@ -50,10 +52,12 @@ public class UserController extends Controller {
                                 .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
 
+    @Restrict(@Group(RolesConst.Admin))
     public CompletionStage<Result> getUser(int id, String role) {
         return getUserWithSeveralRoles(id, role);
     }
 
+    @Restrict(@Group(RolesConst.Admin))
     public CompletionStage<Result> getUserWithSeveralRoles(int id, String roles) {
         Collection<RoleType> parsedRoles = Arrays
                 .stream(roles.split(","))
@@ -67,19 +71,11 @@ public class UserController extends Controller {
                                 .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
 
+    @Restrict(@Group(RolesConst.AuthenticatedUser))
     public CompletionStage<Result> getProfile() {
         return this.userDao.getProfileData().thenApplyAsync(profile ->
                 profile
                         .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
                         .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
-
-    /*Teacher getTeacher(int id) {
-
-    }
-
-    Admin getAdmin(int id) {
-
-    }*/
-
 }

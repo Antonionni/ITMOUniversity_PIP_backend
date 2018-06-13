@@ -242,8 +242,11 @@ public class UserService extends BaseService implements IUserService {
         user.setLastLogin(new Date());
         LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
         linkedAccount.setUser(user);
-        user.setLinkedAccounts(Collections.singletonList(linkedAccount));
-        Collection<RoleType> roles = Arrays.asList(RoleType.AuthenticatedUser);
+        ArrayList<LinkedAccount> linkedAccounts = new ArrayList<>();
+        linkedAccounts.add(linkedAccount);
+        user.setLinkedAccounts(linkedAccounts);
+        Collection<RoleType> roles = new ArrayList<>();
+        roles.add(RoleType.AuthenticatedUser);
 
         if (authUser instanceof EmailIdentity) {
             final EmailIdentity identity = (EmailIdentity) authUser;
@@ -298,7 +301,7 @@ public class UserService extends BaseService implements IUserService {
                 .stream()
                 .distinct()
                 .filter(x -> {
-                    if (!isAdmin && PRIVILEGED_ROLE_TYPES.contains(x)) {
+                    if (!isAdmin && PRIVILEGED_ROLE_TYPES.contains(x) && Http.Context.current.get() != null) {
                         throw new UnauthorizedAccessException();
                     }
                     return true;
@@ -404,6 +407,9 @@ public class UserService extends BaseService implements IUserService {
     }
 
     private UserEntity getCurrentUser() {
+        if(Http.Context.current.get() == null) {
+            return null;
+        }
         AuthUser user = AuthService.getUser(Http.Context.current());
         if(user == null) {
             return null;

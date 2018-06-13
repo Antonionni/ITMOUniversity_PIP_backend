@@ -143,12 +143,13 @@ public class MyUsernamePasswordAuthProvider
 			return null;
 		}
 
-		public Collection<RoleType> getParsedRoles() {
-			return parsedRoles;
+		public void setRoles(String roles) {
+			this.roles = roles;
+			this.parsedRoles = Arrays.stream(roles.split(",")).map(RoleType::valueOf).collect(Collectors.toList());
 		}
 
-		public void setParsedRoles(Collection<RoleType> parsedRoles) {
-			this.parsedRoles = parsedRoles;
+		public Collection<RoleType> getParsedRoles() {
+			return parsedRoles;
 		}
 
 		public String getFirstName() {

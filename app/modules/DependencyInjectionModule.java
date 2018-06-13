@@ -43,6 +43,7 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(FoursquareAuthProvider.class).asEagerSingleton();
         bind(MyUsernamePasswordAuthProvider.class).asEagerSingleton();
         bind(OpenIdAuthProvider.class).asEagerSingleton();
+        bind(ApplicationStart.class).asEagerSingleton();
 
         Json.mapper().registerModule(new GuavaModule());
         Json.mapper().registerModule(new Jdk8Module());
