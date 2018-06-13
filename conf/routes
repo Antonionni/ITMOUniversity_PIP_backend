@@ -54,7 +54,12 @@ GET         /profile/new                                  controllers.api.UserCo
 
 GET         /courselist/randomlist/:size                  controllers.api.CourseListController.listRandomCourses(size: Integer)
 GET         /courselist/find/:keyword/:pageNumber         controllers.api.CourseListController.findCourses(keyword: String, pageNumber: Integer)
-POST        /courselist/subscribe/:courseId               controllers.api.CourseListController.subscribeToCourse(courseId: Integer)
+POST        /courselist/subscribe/:id                     controllers.api.CourseListController.subscribeToCourse(id: Integer)
+
+GET         /course/get/:id                               controllers.api.CourseController.get(id: Integer)
+POST        /course/create                                controllers.api.CourseController.create
+POST        /course/update                                controllers.api.CourseController.update
+POST        /course/delete/:id                            controllers.api.CourseController.delete(id: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path
