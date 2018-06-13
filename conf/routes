@@ -50,6 +50,7 @@ GET         /users/user/:id                               controllers.api.UserCo
 GET         /users/user/:id/:role                         controllers.api.UserController.getUser(id: Integer, role: String)
 GET         /users/userWithSeveralRoles/:id/:roles        controllers.api.UserController.getUserWithSeveralRoles(id: Integer, roles: String)
 POST        /users/update                                 controllers.api.UserController.update
+GET         /profile/new                                  controllers.api.UserController.getProfile
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                 controllers.Assets.versioned(path="/public", file: Asset)

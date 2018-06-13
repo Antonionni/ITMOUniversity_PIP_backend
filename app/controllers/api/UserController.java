@@ -1,16 +1,12 @@
 package controllers.api;
 
-import Exceptions.UnauthorizedAccessException;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import config.RolesConst;
-import data.RoleHelper;
 import enumerations.ErrorCode;
 import enumerations.RoleType;
 import models.ApiResponse;
-import models.entities.UserEntity;
 import models.serviceEntities.UserData.AggregatedUser;
-import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;

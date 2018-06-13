@@ -4,12 +4,13 @@ import Exceptions.UnauthorizedAccessException;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.*;
-import data.RoleHelper;
+import data.RoleHelperService;
 import enumerations.RoleType;
 import models.entities.*;
 import models.serviceEntities.UserData.*;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
+import play.mvc.Http;
 import providers.MyUsernamePasswordAuthUser;
 
 import javax.inject.Inject;
@@ -129,7 +130,7 @@ public class UserService extends BaseService implements IUserService {
 
     public CompletionStage<Optional<AggregatedUser>> getProfileData() {
         return supplyAsync(() -> wrap(em -> {
-            UserEntity userEntity = RoleHelper.getCurrentUser();
+            UserEntity userEntity = getCurrentUser();
             if(userEntity == null) {
                 return Optional.empty();
             }
@@ -195,7 +196,7 @@ public class UserService extends BaseService implements IUserService {
     public CompletionStage<Boolean> update(AggregatedUser aggregatedUser) {
         return supplyAsync(() -> wrap(em -> {
             int userId = aggregatedUser.getBaseUser().getId();
-            if(!RoleHelper.currentUserOrAdmin(userId)) {
+            if(!currentUserOrAdmin(userId)) {
                 throw new UnauthorizedAccessException();
             }
             UserEntity userEntity = em.find(UserEntity.class, userId);
@@ -291,7 +292,7 @@ public class UserService extends BaseService implements IUserService {
     }*/
 
     private Collection<UserRolesHasUsersEntity> updateRoles(UserEntity user, Collection<RoleType> roles) {
-        boolean isAdmin = RoleHelper.getUserRoles().contains(RoleType.Admin);
+        boolean isAdmin = getUserRoles().contains(RoleType.Admin);
         roles.removeAll(user.getRoleTypes());
         return roles
                 .stream()
@@ -400,5 +401,37 @@ public class UserService extends BaseService implements IUserService {
         // You might want to wrap this into a transaction
         this.changePassword(userEntity, authUser, create);
         TokenActionService.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
+    }
+
+    private UserEntity getCurrentUser() {
+        AuthUser user = AuthService.getUser(Http.Context.current());
+        if(user == null) {
+            return null;
+        }
+        return findByAuthUserIdentity(user);
+    }
+    public Collection<RoleType> getUserRoles() {
+        UserEntity userEntity = getCurrentUser();
+        if(userEntity == null) {
+            return Collections.emptyList();
+        }
+        return userEntity.getRoleTypes();
+    }
+
+    private Collection<RoleType> getUserRoles(UserEntity userEntity) {
+        if(userEntity == null) {
+            return Collections.emptyList();
+        }
+        return userEntity.getRoleTypes();
+    }
+
+    public boolean currentUserOrAdmin(int userId) {
+        UserEntity userEntity = getCurrentUser();
+        if(userEntity == null) {
+            return false;
+        }
+
+        boolean isCurrentUser = userEntity.getId() == userId;
+        return isCurrentUser || getUserRoles(userEntity).contains(RoleType.Admin);
     }
 }
