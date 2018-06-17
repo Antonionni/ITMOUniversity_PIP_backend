@@ -15,12 +15,10 @@ import java.util.concurrent.CompletionStage;
 
 public class CourseController extends BaseController {
     private final ICourseService CourseService;
-    private final ILessonService LessonService;
 
     @Inject
-    public CourseController(ICourseService courseService, ILessonService lessonService) {
+    public CourseController(ICourseService courseService) {
         CourseService = courseService;
-        LessonService = lessonService;
     }
 
     public CompletionStage<Result> get(int id) {
@@ -55,25 +53,5 @@ public class CourseController extends BaseController {
 
     public CompletionStage<Result> deleteCoursePeriod(int coursePeriodId) {
         return CourseService.deletePeriod(coursePeriodId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
-    }
-
-    public CompletionStage<Result> getLesson(int id) {
-        return LessonService.get(id).thenApplyAsync(x -> x
-                .map((lesson) -> ok(Json.toJson(new ApiResponse<>(lesson))))
-                .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
-    }
-
-    public CompletionStage<Result> createLesson(int courseId) {
-        LessonInfo lesson = getModelFromJson(LessonInfo.class);
-        return LessonService.create(lesson, courseId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
-    }
-
-    public CompletionStage<Result> updateLesson(int courseId) {
-        LessonInfo lesson = getModelFromJson(LessonInfo.class);
-        return LessonService.update(lesson, courseId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
-    }
-
-    public CompletionStage<Result> deleteLesson(int lessonId) {
-        return LessonService.delete(lessonId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 }

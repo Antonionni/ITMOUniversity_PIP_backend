@@ -40,6 +40,19 @@ public class TestEntity {
     @Basic
     @Column(name = "updatedat", nullable = true)
     private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false)
+    private LessonEntity lesson;
+
+    public LessonEntity getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(LessonEntity lesson) {
+        this.lesson = lesson;
+    }
+
     /**
      * List of questions
      */
@@ -95,12 +108,15 @@ public class TestEntity {
                 threshold == that.threshold &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(createdAt, that.createdAt) &&
-                Objects.equals(updatedAt, that.updatedAt);
+                Objects.equals(updatedAt, that.updatedAt) &&
+                Objects.equals(lesson, that.lesson) &&
+                Objects.equals(questions, that.questions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, threshold, createdAt, updatedAt);
+
+        return Objects.hash(id, title, threshold, createdAt, updatedAt, lesson, questions);
     }
 
     public Collection<QuestionEntity> getQuestions() {
