@@ -27,7 +27,9 @@ public class LessonService extends BaseService implements ILessonService {
             if(courseEntity == null) {
                 throw new BusinessException();
             }
-            return new LessonInfo(createLessonEntity(lesson, courseEntity));
+            LessonEntity lessonEntity = createLessonEntity(lesson, courseEntity);
+            em.persist(lessonEntity);
+            return new LessonInfo(lessonEntity);
         }), ec.current());
     }
 
@@ -42,7 +44,7 @@ public class LessonService extends BaseService implements ILessonService {
             if(lessonEntity == null) {
                 throw new BusinessException();
             }
-            return new LessonInfo(updateLessonEntity(lesson, courseEntity, lessonEntity));
+            return new LessonInfo(em.merge(updateLessonEntity(lesson, courseEntity, lessonEntity)));
         }), ec.current());
     }
 

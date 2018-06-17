@@ -24,6 +24,8 @@ public class LessonInfo {
         this.title = title;
     }
 
+    public LessonInfo() {}
+
     public LessonInfo(int id, String title) {
         this.id = id;
         this.title = title;

@@ -67,13 +67,16 @@ public class CourseService extends BaseService implements ICourseService {
         }), ec.current());
     }
 
+    //todo: Make Unique Period!113113131
     public CompletionStage<CoursePeriod> createPeriod(CoursePeriod coursePeriod, int courseId) {
         return supplyAsync(() -> wrap(em -> {
             CourseEntity courseEntity = em.find(CourseEntity.class, courseId);
             if(courseEntity == null) {
                 throw new BusinessException();
             }
-            return new CoursePeriod(createCoursePeriodEntity(coursePeriod, courseEntity));
+            CoursePeriodEntity coursePeriodEntity = createCoursePeriodEntity(coursePeriod, courseEntity);
+            em.persist(coursePeriodEntity);
+            return new CoursePeriod(coursePeriodEntity);
         }), ec.current());
     }
 
@@ -87,7 +90,8 @@ public class CourseService extends BaseService implements ICourseService {
             if(coursePeriodEntity == null) {
                 throw new BusinessException();
             }
-            return new CoursePeriod(updateCoursePeriodEntity(coursePeriod, courseEntity, coursePeriodEntity));
+            coursePeriodEntity = updateCoursePeriodEntity(coursePeriod, courseEntity, coursePeriodEntity);
+            return new CoursePeriod(em.merge(coursePeriodEntity));
         }), ec.current());
     }
 

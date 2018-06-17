@@ -30,4 +30,20 @@ public class Lesson {
         ((ArrayList<LessonPage>) lessonPages).sort(Comparator.comparing(x -> x.getLessonPageInfo().getCreatedAt()));
         this.lessonPages = lessonPages;
     }
+
+    public LessonInfo getLessonInfo() {
+        return lessonInfo;
+    }
+
+    public void setLessonInfo(LessonInfo lessonInfo) {
+        this.lessonInfo = lessonInfo;
+    }
+
+    public Collection<LessonPage> getLessonPages() {
+        return lessonPages;
+    }
+
+    public void setLessonPages(Collection<LessonPage> lessonPages) {
+        this.lessonPages = lessonPages;
+    }
 }

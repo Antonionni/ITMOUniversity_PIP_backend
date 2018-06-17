@@ -13,6 +13,8 @@ public class CourseInfo {
     private Date createdAt;
     private Date updatedAt;
 
+    public CourseInfo() {}
+
     private CourseInfo(int id, String title, String subject, String imageurl, Date createdAt, Date updatedAt) {
         this.id = id;
         this.title = title;
