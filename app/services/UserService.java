@@ -40,14 +40,16 @@ public class UserService extends BaseService implements IUserService {
     @Override
     public boolean existsByAuthUserIdentity(
             final AuthUserIdentity identity) {
-        final TypedQuery<UserEntity> exp;
-        if (identity instanceof UsernamePasswordAuthUser) {
-            exp = getUsernamePasswordAuthUserFind((UsernamePasswordAuthUser) identity);
-        } else {
-            exp = getAuthUserFind(identity);
-        }
+        return wrap(em -> {
+            final TypedQuery<UserEntity> exp;
+            if (identity instanceof UsernamePasswordAuthUser) {
+                exp = getUsernamePasswordAuthUserFind((UsernamePasswordAuthUser) identity);
+            } else {
+                exp = getAuthUserFind(identity);
+            }
 
-        return exp.setMaxResults(1).getResultList().size() > 0;
+            return exp.setMaxResults(1).getResultList().size() > 0;
+        });
     }
 
     private TypedQuery<UserEntity> getAuthUserFind(
@@ -64,40 +66,42 @@ public class UserService extends BaseService implements IUserService {
 
     @Override
     public UserEntity findByAuthUserIdentity(final AuthUserIdentity identity) {
-        if (identity == null) {
-            return null;
-        }
-        if (identity instanceof UsernamePasswordAuthUser) {
-            return findByUsernamePasswordIdentity((UsernamePasswordAuthUser) identity);
-        } else {
-            try {
-                return getAuthUserFind(identity).getSingleResult();
-            }
-            catch (NoResultException ex) {
+        return wrap(em -> {
+            if (identity == null) {
                 return null;
             }
-        }
+            if (identity instanceof UsernamePasswordAuthUser) {
+                return findByUsernamePasswordIdentity((UsernamePasswordAuthUser) identity);
+            } else {
+                try {
+                    return getAuthUserFind(identity).getSingleResult();
+                } catch (NoResultException ex) {
+                    return null;
+                }
+            }
+        });
     }
 
     @Override
     public UserEntity findByUsernamePasswordIdentity(
             final UsernamePasswordAuthUser identity) {
-        try {
-            return getUsernamePasswordAuthUserFind(identity).getSingleResult();
-        }
-        catch (NoResultException ex) {
-            return null;
-        }
+        return wrap(em -> {
+            try {
+                return getUsernamePasswordAuthUserFind(identity).getSingleResult();
+            } catch (NoResultException ex) {
+                return null;
+            }
+        });
     }
 
     private TypedQuery<UserEntity> getUsernamePasswordAuthUserFind(
             final UsernamePasswordAuthUser identity) {
-        TypedQuery<UserEntity> query = JpaApi.em().createQuery(
-                "select us from UserEntity us join us.linkedAccounts la where us.active = :activeAccount and us.email = :email and la.providerKey = :providerKey", UserEntity.class);
-        query.setParameter("activeAccount", Boolean.TRUE);
-        query.setParameter("email", identity.getEmail());
-        query.setParameter("providerKey", identity.getProvider());
-        return query;
+            TypedQuery<UserEntity> query = JpaApi.em().createQuery(
+                    "select us from UserEntity us join fetch us.linkedAccounts la where us.active = :activeAccount and us.email = :email and la.providerKey = :providerKey", UserEntity.class);
+            query.setParameter("activeAccount", Boolean.TRUE);
+            query.setParameter("email", identity.getEmail());
+            query.setParameter("providerKey", identity.getProvider());
+            return query;
     }
 
     public CompletionStage<Optional<AggregatedUser>> getStudent(int id) {
@@ -289,7 +293,7 @@ public class UserService extends BaseService implements IUserService {
         return user;
     }
 
-    /*private Collection<CourseSubscriptionEntity> updateCourses(UserEntity user, Collection<Course> courses) {
+    /*private Collection<CourseSubscriptionEntity> updateCourses(UserEntity user, Collection<CourseInfo> courses) {
         Collection<CourseSubscriptionEntity> userCourses = user.getStudentCourses();
         Collection<UserHasCourseEntityPK> userCoursesId = userCourses.stream().map(x -> x.)
         courses.stream().filter(x -> !userCourses.contains(x.getId()))

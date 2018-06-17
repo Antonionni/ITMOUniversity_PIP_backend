@@ -33,6 +33,7 @@ public class DependencyInjectionModule extends AbstractModule {
         bind(IUserService.class).to(UserService.class);
         bind(ICourseListService.class).to(CourseListService.class);
         bind(ICourseService.class).to(CourseService.class);
+        bind(ILessonService.class).to(LessonService.class);
 
         bind(Resolver.class).to(MyResolver.class);
 

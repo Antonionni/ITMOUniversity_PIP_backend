@@ -56,10 +56,19 @@ GET         /courselist/randomlist/:size                  controllers.api.Course
 GET         /courselist/find/:keyword/:pageNumber         controllers.api.CourseListController.findCourses(keyword: String, pageNumber: Integer)
 POST        /courselist/subscribe/:id                     controllers.api.CourseListController.subscribeToCourse(id: Integer)
 
-GET         /course/get/:id                               controllers.api.CourseController.get(id: Integer)
-POST        /course/create                                controllers.api.CourseController.create
-POST        /course/update                                controllers.api.CourseController.update
-POST        /course/delete/:id                            controllers.api.CourseController.delete(id: Integer)
+GET         /courses/get/:id                              controllers.api.CourseController.get(id: Integer)
+POST        /courses/create                               controllers.api.CourseController.create
+POST        /courses/update                               controllers.api.CourseController.update
+POST        /courses/delete/:id                           controllers.api.CourseController.delete(id: Integer)
+
+POST        /courses/period/create/:courseId              controllers.api.CourseController.createCoursePeriod(courseId: Integer)
+POST        /courses/period/update/:courseId              controllers.api.CourseController.updateCoursePeriod(courseId: Integer)
+POST        /courses/period/delete/:coursePeriodId        controllers.api.CourseController.deleteCoursePeriod(coursePeriodId: Integer)
+
+GET         /courses/lesson/get/:id                       controllers.api.CourseController.getLesson(id: Integer)
+POST        /courses/lesson/create/:courseId              controllers.api.CourseController.createLesson(courseId: Integer)
+POST        /courses/lesson/update/:courseId              controllers.api.CourseController.updateLesson(courseId: Integer)
+POST        /courses/lesson/delete/:lessonId              controllers.api.CourseController.deleteLesson(lessonId: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -1,17 +1,17 @@
 package models.serviceEntities.UserData;
 
 import models.entities.UserEntity;
-import models.serviceEntities.Course;
+import models.serviceEntities.CourseInfo;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class Student {
-    private Collection<Course> courses;
+    private Collection<CourseInfo> courseInfos;
     private String placeOfStudy;
 
-    public Student(Collection<Course> courses, String placeOfStudy) {
-        this.courses = courses;
+    public Student(Collection<CourseInfo> courseInfos, String placeOfStudy) {
+        this.courseInfos = courseInfos;
         this.placeOfStudy = placeOfStudy;
     }
 
@@ -23,17 +23,17 @@ public class Student {
                 userEntity
                     .getStudentCourses()
                     .stream()
-                    .map(Course::new)
+                    .map(CourseInfo::new)
                     .collect(Collectors.toList()),
                 userEntity.getPlaceOfStudy());
     }
 
-    public Collection<Course> getCourses() {
-        return courses;
+    public Collection<CourseInfo> getCourseInfos() {
+        return courseInfos;
     }
 
-    public void setCourses(Collection<Course> courses) {
-        this.courses = courses;
+    public void setCourseInfos(Collection<CourseInfo> courseInfos) {
+        this.courseInfos = courseInfos;
     }
 
     public String getPlaceOfStudy() {

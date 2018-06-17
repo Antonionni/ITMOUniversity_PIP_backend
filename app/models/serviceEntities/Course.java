@@ -1,86 +1,46 @@
 package models.serviceEntities;
 
 import models.entities.CourseEntity;
-import models.entities.CourseSubscriptionEntity;
+import models.entities.CoursePeriodEntity;
+import models.entities.LessonEntity;
 
-import java.util.Date;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class Course {
-    private int id;
-    private String title;
-    private String subject;
-    private String imageurl;
-    private Date createdAt;
-    private Date updatedAt;
+    private CourseInfo courseInfo;
+    private Collection<CoursePeriod> coursePeriods;
+    private Collection<LessonInfo> lessons;
 
-    private Course(int id, String title, String subject, String imageurl, Date createdAt, Date updatedAt) {
-        this.id = id;
-        this.title = title;
-        this.subject = subject;
-        this.imageurl = imageurl;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public Course() {}
+
+    public Course(CourseEntity courseEntity, Collection<CoursePeriodEntity> coursePeriodEntities, Collection<LessonEntity> lessonEntities) {
+        courseInfo = new CourseInfo(courseEntity);
+        coursePeriods = coursePeriodEntities.stream().map(CoursePeriod::new).collect(Collectors.toList());
+        lessons = lessonEntities.stream().map(LessonInfo::new).collect(Collectors.toList());
     }
 
-    public Course(CourseEntity courseEntity) {
-        this(
-                courseEntity.getId(),
-                courseEntity.getTitle(),
-                courseEntity.getSubject(),
-                courseEntity.getImageurl(),
-                courseEntity.getCreatedAt(),
-                courseEntity.getUpdatedAt());
+    public CourseInfo getCourseInfo() {
+        return courseInfo;
     }
 
-    public Course(CourseSubscriptionEntity courseSubscriptionEntity) {
-        this(courseSubscriptionEntity.getCourse());
+    public void setCourseInfo(CourseInfo courseInfo) {
+        this.courseInfo = courseInfo;
     }
 
-    public int getId() {
-        return id;
+    public Collection<CoursePeriod> getCoursePeriods() {
+        return coursePeriods;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCoursePeriods(Collection<CoursePeriod> coursePeriods) {
+        this.coursePeriods = coursePeriods;
     }
 
-    public String getTitle() {
-        return title;
+    public Collection<LessonInfo> getLessons() {
+        return lessons;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setLessons(Collection<LessonInfo> lessons) {
+        this.lessons = lessons;
     }
 }

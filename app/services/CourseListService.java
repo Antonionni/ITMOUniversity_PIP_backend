@@ -5,7 +5,7 @@ import models.PagedResult;
 import models.entities.CourseEntity;
 import models.entities.UserEntity;
 import models.entities.CourseSubscriptionEntity;
-import models.serviceEntities.Course;
+import models.serviceEntities.CourseInfo;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 
@@ -30,16 +30,16 @@ public class CourseListService extends BaseService implements ICourseListService
 
     // haha so unperformance
     @Override
-    public CompletionStage<List<Course>> listRandomCourses(int size) {
+    public CompletionStage<List<CourseInfo>> listRandomCourses(int size) {
         return supplyAsync(() -> wrap(em -> {
             List<CourseEntity> courses = em.createQuery("select course from CourseEntity course", CourseEntity.class).getResultList();
             Collections.shuffle(courses);
-            return courses.stream().limit(size).map(Course::new).collect(Collectors.toList());
+            return courses.stream().limit(size).map(CourseInfo::new).collect(Collectors.toList());
         }), ec.current());
     }
 
     @Override
-    public CompletionStage<PagedResult<Course>> findCourses(String keyword, int pageNumber, int pageSize) {
+    public CompletionStage<PagedResult<CourseInfo>> findCourses(String keyword, int pageNumber, int pageSize) {
         return supplyAsync(() -> wrap(em -> {
             TypedQuery<CourseEntity> courseQuery =  em.createQuery("select course from CourseEntity course where title like %:keyword%", CourseEntity.class);
             courseQuery.setParameter("keyword", keyword);
@@ -47,7 +47,7 @@ public class CourseListService extends BaseService implements ICourseListService
             courseQuery.setMaxResults(pageSize + 1);
             List<CourseEntity> coursesResult = courseQuery.getResultList();
             int resultSize = coursesResult.size();
-            List<Course> shrinkedResult = courseQuery.getResultList().stream().limit(pageSize).map(Course::new).collect(Collectors.toList());
+            List<CourseInfo> shrinkedResult = courseQuery.getResultList().stream().limit(pageSize).map(CourseInfo::new).collect(Collectors.toList());
             return new PagedResult<>(shrinkedResult, resultSize > pageSize);
         }), ec.current());
     }

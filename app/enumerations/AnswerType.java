@@ -1,5 +1,5 @@
 package enumerations;
 
 public enum AnswerType {
-    Single, Multy
+    CheckBox, RadioButton, TextArea
 }

@@ -1,7 +1,6 @@
 package models.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
@@ -39,7 +38,7 @@ public class MaterialEntity {
      */
     @ManyToOne
     @JoinColumn(name = "lessonid", referencedColumnName = "id", nullable = false)
-    private LessonEntity lessons;
+    private LessonEntity lesson;
     /**
      * List of content which used in this materials
      */
@@ -97,12 +96,12 @@ public class MaterialEntity {
         return Objects.hash(id, title, createdAt, updatedAt);
     }
 
-    public LessonEntity getLessons() {
-        return lessons;
+    public LessonEntity getLesson() {
+        return lesson;
     }
 
-    public void setLessons(LessonEntity lessonByLessonid) {
-        this.lessons = lessonByLessonid;
+    public void setLesson(LessonEntity lessonByLessonid) {
+        this.lesson = lessonByLessonid;
     }
 
     public Collection<ContentEntity> getMaterialContents() {

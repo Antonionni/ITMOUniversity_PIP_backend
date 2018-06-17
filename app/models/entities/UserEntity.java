@@ -68,13 +68,13 @@ public class UserEntity implements Subject {
     /**
      * List of courses which student try to pass
      */
-    @ManyToMany(mappedBy = "courseTeachers", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "courseTeachers")
     private Collection<CourseEntity> teacherCourses;
 
     @OneToMany(mappedBy = "user")
     private Collection<CourseSubscriptionEntity> studentCourses;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<UserRolesHasUsersEntity> userRoles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

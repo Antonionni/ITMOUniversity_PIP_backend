@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-
+/*
 public class CoursePeriodPK implements Serializable {
     private Integer id;
 
@@ -32,3 +32,4 @@ public class CoursePeriodPK implements Serializable {
         return Objects.hash(id, startdate);
     }
 }
+*/

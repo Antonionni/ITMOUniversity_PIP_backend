@@ -39,7 +39,7 @@ public class QuestionEntity {
      * refernce to {@link AnswerEntity}
      */
     @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = true)
     private AnswerEntity rightAnswer;
     /**
      * Enum of answer types

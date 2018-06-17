@@ -31,6 +31,9 @@ public class PassageHasAnswersEntity {
     @MapsId("answerId")
     private AnswerEntity answer;
 
+    @Column(name = "textanswer", nullable = true)
+    private String textAnswer;
+
     public Date getStartdate() {
         return startdate;
     }
@@ -47,6 +50,22 @@ public class PassageHasAnswersEntity {
         return id.equals(that.id) &&
                 answer.getId() == (that.answer.getId()) &&
                 Objects.equals(startdate, that.startdate);
+    }
+
+    public PassageHasAnswersPK getId() {
+        return id;
+    }
+
+    public void setId(PassageHasAnswersPK id) {
+        this.id = id;
+    }
+
+    public String getTextAnswer() {
+        return textAnswer;
+    }
+
+    public void setTextAnswer(String textAnswer) {
+        this.textAnswer = textAnswer;
     }
 
     @Override

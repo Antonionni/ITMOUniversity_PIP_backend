@@ -1,7 +1,6 @@
 package models.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
@@ -54,7 +53,7 @@ public class CourseEntity {
     /**
      * List of course lessons
      */
-    @OneToMany(mappedBy = "courses")
+    @OneToMany(mappedBy = "course")
     private Collection<LessonEntity> lessons;
     /**
      * List of theachers who created course

@@ -25,11 +25,11 @@ public class LessonEntity {
      */
     @ManyToOne
     @JoinColumn(name = "coursesid", referencedColumnName = "id", nullable = false)
-    private CourseEntity courses;
+    private CourseEntity course;
     /**
      * List of materials which used in this course
      */
-    @OneToMany(mappedBy = "lessons")
+    @OneToMany(mappedBy = "lesson")
     private Collection<MaterialEntity> materials;
     /**
      * List of test which used in this course
@@ -71,12 +71,12 @@ public class LessonEntity {
         return Objects.hash(id, title);
     }
 
-    public CourseEntity getCourses() {
-        return courses;
+    public CourseEntity getCourse() {
+        return course;
     }
 
-    public void setCourses(CourseEntity coursesByCoursesid) {
-        this.courses = coursesByCoursesid;
+    public void setCourse(CourseEntity coursesByCoursesid) {
+        this.course = coursesByCoursesid;
     }
 
     public Collection<MaterialEntity> getMaterials() {

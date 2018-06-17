@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "course_period", catalog = "postgres")
-@IdClass(CoursePeriodPK.class)
 public class CoursePeriodEntity {
 
     @Id
@@ -17,7 +16,6 @@ public class CoursePeriodEntity {
     /**
      * date when course started
      */
-    @Id
     @Column(name = "startdate", nullable = true)
     private Date startdate;
 

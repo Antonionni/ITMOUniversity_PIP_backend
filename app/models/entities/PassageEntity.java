@@ -37,8 +37,8 @@ public class PassageEntity {
      * result score
      */
     @Basic
-    @Column(name = "result", nullable = false)
-    private int result;
+    @Column(name = "result", nullable = true)
+    private Integer result;
     /**
      * is student pass the test
      */
@@ -83,11 +83,11 @@ public class PassageEntity {
         this.test = test;
     }
 
-    public int getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 
@@ -105,7 +105,7 @@ public class PassageEntity {
         if (o == null || getClass() != o.getClass()) return false;
         PassageEntity that = (PassageEntity) o;
         return id == that.id &&
-                result == that.result &&
+                result.equals(that.result) &&
                 isRight == that.isRight &&
                 Objects.equals(startdate, that.startdate) &&
                 Objects.equals(enddate, that.enddate);
