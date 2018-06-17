@@ -1,18 +1,17 @@
 package models.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "passages_has_answers", catalog = "postgres")
 public class PassageHasAnswersEntity {
-    /**
-     * uniqe identificator
-     */
-    @EmbeddedId
-    private PassageHasAnswersPK id;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "passagesstartdate", nullable = true)
     private Date startdate;
@@ -23,16 +22,23 @@ public class PassageHasAnswersEntity {
     @JoinColumns({@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "passagesstartdate", referencedColumnName = "startdate", insertable = false, updatable = false)})
     private PassageEntity passage;
 
+    @ManyToOne
+    private QuestionEntity questionEntity;
+
     /**
      * reference to {@link AnswerEntity}
      */
-    @ManyToOne
-    @JoinColumn(name = "answerid", referencedColumnName = "id", nullable = false)
-    @MapsId("answerId")
-    private AnswerEntity answer;
+    @ManyToMany
+    @JoinTable(name = "passage_answers",
+            joinColumns = @JoinColumn(name = "passageId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "answerId", referencedColumnName = "id"))
+    private Collection<AnswerEntity> answers;
 
     @Column(name = "textanswer", nullable = true)
     private String textAnswer;
+
+    @Column(name = "isverified")
+    private Boolean isVerifiedByTeacher;
 
     public Date getStartdate() {
         return startdate;
@@ -42,22 +48,12 @@ public class PassageHasAnswersEntity {
         this.startdate = passagesstartdate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PassageHasAnswersEntity that = (PassageHasAnswersEntity) o;
-        return id.equals(that.id) &&
-                answer.getId() == (that.answer.getId()) &&
-                Objects.equals(startdate, that.startdate);
+    public Boolean getVerifiedByTeacher() {
+        return isVerifiedByTeacher;
     }
 
-    public PassageHasAnswersPK getId() {
-        return id;
-    }
-
-    public void setId(PassageHasAnswersPK id) {
-        this.id = id;
+    public void setVerifiedByTeacher(Boolean verifiedByTeacher) {
+        isVerifiedByTeacher = verifiedByTeacher;
     }
 
     public String getTextAnswer() {
@@ -68,10 +64,20 @@ public class PassageHasAnswersEntity {
         this.textAnswer = textAnswer;
     }
 
-    @Override
-    public int hashCode() {
+    public int getId() {
+        return id;
+    }
 
-        return Objects.hash(id, startdate, answer.getId());
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Collection<AnswerEntity> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Collection<AnswerEntity> answers) {
+        this.answers = answers;
     }
 
     public PassageEntity getPassage() {
@@ -82,11 +88,30 @@ public class PassageHasAnswersEntity {
         this.passage = passages;
     }
 
-    public AnswerEntity getAnswer() {
-        return answer;
+    public QuestionEntity getQuestionEntity() {
+        return questionEntity;
     }
 
-    public void setAnswer(AnswerEntity answersByAnswerid) {
-        this.answer = answersByAnswerid;
+    public void setQuestionEntity(QuestionEntity questionEntity) {
+        this.questionEntity = questionEntity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PassageHasAnswersEntity that = (PassageHasAnswersEntity) o;
+        return id == that.id &&
+                Objects.equals(startdate, that.startdate) &&
+                Objects.equals(passage, that.passage) &&
+                Objects.equals(questionEntity, that.questionEntity) &&
+                Objects.equals(answers, that.answers) &&
+                Objects.equals(textAnswer, that.textAnswer);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, startdate, passage, questionEntity, answers, textAnswer);
     }
 }

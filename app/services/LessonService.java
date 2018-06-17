@@ -1,6 +1,7 @@
 package services;
 
 import Exceptions.BusinessException;
+import Exceptions.WrongThresholdException;
 import enumerations.LessonPageType;
 import models.entities.*;
 import models.serviceEntities.*;
@@ -28,7 +29,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<LessonInfo> create(LessonInfo lesson, int courseId) {
         return supplyAsync(() -> wrap(em -> {
             CourseEntity courseEntity = em.find(CourseEntity.class, courseId);
-            if(courseEntity == null) {
+            if (courseEntity == null) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = createLessonEntity(lesson, courseEntity);
@@ -41,11 +42,11 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<LessonInfo> update(LessonInfo lesson, int courseId) {
         return supplyAsync(() -> wrap(em -> {
             CourseEntity courseEntity = em.find(CourseEntity.class, courseId);
-            if(courseEntity == null) {
+            if (courseEntity == null) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = em.find(LessonEntity.class, lesson.getId());
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             return new LessonInfo(em.merge(updateLessonEntity(lesson, courseEntity, lessonEntity)));
@@ -56,7 +57,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Boolean> delete(int lessonId) {
         return supplyAsync(() -> wrap(em -> {
             LessonEntity lessonEntity = em.find(LessonEntity.class, lessonId);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             em.remove(lessonEntity);
@@ -68,7 +69,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Optional<Lesson>> get(int id) {
         return supplyAsync(() -> wrap(em -> {
             LessonEntity lessonEntity = em.find(LessonEntity.class, id);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 return Optional.empty();
             }
             return Optional.of(new Lesson(lessonEntity, lessonEntity.getLessonTests(), lessonEntity.getMaterials()));
@@ -78,7 +79,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Optional<LessonPage>> getMaterial(int id) {
         return supplyAsync(() -> wrap(em -> {
             MaterialEntity materialEntity = em.find(MaterialEntity.class, id);
-            if(materialEntity == null) {
+            if (materialEntity == null) {
                 return Optional.empty();
             }
             return Optional.of(new LessonPage(materialEntity));
@@ -87,11 +88,11 @@ public class LessonService extends BaseService implements ILessonService {
 
     public CompletionStage<LessonPage> createMaterial(LessonPage page, int lessonId) {
         return supplyAsync(() -> wrap(em -> {
-            if(page.getLessonPageType() != LessonPageType.Material) {
+            if (page.getLessonPageType() != LessonPageType.Material) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = em.find(LessonEntity.class, lessonId);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             MaterialEntity materialEntity = createMaterialEntity(page, lessonEntity);
@@ -102,15 +103,15 @@ public class LessonService extends BaseService implements ILessonService {
 
     public CompletionStage<LessonPage> updateMaterial(LessonPage page, int lessonId) {
         return supplyAsync(() -> wrap(em -> {
-            if(page.getLessonPageType() != LessonPageType.Material) {
+            if (page.getLessonPageType() != LessonPageType.Material) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = em.find(LessonEntity.class, lessonId);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             MaterialEntity materialEntity = em.find(MaterialEntity.class, page.getLessonPageInfo().getId());
-            if(materialEntity == null) {
+            if (materialEntity == null) {
                 throw new BusinessException();
             }
             materialEntity = updateMaterialEntity(page, lessonEntity, materialEntity);
@@ -122,7 +123,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Boolean> deleteMaterial(int materialId) {
         return supplyAsync(() -> wrap(em -> {
             MaterialEntity materialEntity = em.find(MaterialEntity.class, materialId);
-            if(materialEntity == null) {
+            if (materialEntity == null) {
                 throw new BusinessException();
             }
             em.remove(materialEntity);
@@ -132,11 +133,11 @@ public class LessonService extends BaseService implements ILessonService {
 
     public CompletionStage<LessonPage> createTest(LessonPage page, int lessonId) {
         return supplyAsync(() -> wrap(em -> {
-            if(page.getLessonPageType() != LessonPageType.Test) {
+            if (page.getLessonPageType() != LessonPageType.Test) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = em.find(LessonEntity.class, lessonId);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             TestEntity testEntity = createTestEntity(page, lessonEntity);
@@ -147,15 +148,15 @@ public class LessonService extends BaseService implements ILessonService {
 
     public CompletionStage<LessonPage> updateTest(LessonPage page, int lessonId) {
         return supplyAsync(() -> wrap(em -> {
-            if(page.getLessonPageType() != LessonPageType.Test) {
+            if (page.getLessonPageType() != LessonPageType.Test) {
                 throw new BusinessException();
             }
             LessonEntity lessonEntity = em.find(LessonEntity.class, lessonId);
-            if(lessonEntity == null) {
+            if (lessonEntity == null) {
                 throw new BusinessException();
             }
             TestEntity testEntity = em.find(TestEntity.class, page.getLessonPageInfo().getId());
-            if(testEntity == null) {
+            if (testEntity == null) {
                 throw new BusinessException();
             }
             testEntity = updateTestEntity(page, lessonEntity, testEntity);
@@ -167,7 +168,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Boolean> deleteTest(int testId) {
         return supplyAsync(() -> wrap(em -> {
             TestEntity testEntity = em.find(TestEntity.class, testId);
-            if(testEntity == null) {
+            if (testEntity == null) {
                 throw new BusinessException();
             }
             em.remove(testEntity);
@@ -178,7 +179,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Question> createQuestion(Question question, int testId) {
         return supplyAsync(() -> wrap(em -> {
             TestEntity testEntity = em.find(TestEntity.class, testId);
-            if(testEntity == null) {
+            if (testEntity == null) {
                 throw new BusinessException();
             }
             QuestionEntity questionEntity = createQuestionEntity(question, testEntity);
@@ -190,11 +191,11 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Question> updateQuestion(Question question, int testId) {
         return supplyAsync(() -> wrap(em -> {
             TestEntity testEntity = em.find(TestEntity.class, testId);
-            if(testEntity == null) {
+            if (testEntity == null) {
                 throw new BusinessException();
             }
             QuestionEntity questionEntity = em.find(QuestionEntity.class, question.getId());
-            if(questionEntity == null) {
+            if (questionEntity == null) {
                 throw new BusinessException();
             }
             questionEntity = updateQuestionEntity(question, testEntity, questionEntity);
@@ -206,7 +207,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Boolean> deleteQuestion(int questionId) {
         return supplyAsync(() -> wrap(em -> {
             QuestionEntity questionEntity = em.find(QuestionEntity.class, questionId);
-            if(questionEntity == null) {
+            if (questionEntity == null) {
                 throw new BusinessException();
             }
             em.remove(questionEntity);
@@ -217,7 +218,7 @@ public class LessonService extends BaseService implements ILessonService {
     public CompletionStage<Optional<LessonPage>> getTest(int id) {
         return supplyAsync(() -> wrap(em -> {
             TestEntity testEntity = em.find(TestEntity.class, id);
-            if(testEntity == null) {
+            if (testEntity == null) {
                 return Optional.empty();
             }
             return Optional.of(new LessonPage(testEntity));
@@ -262,6 +263,11 @@ public class LessonService extends BaseService implements ILessonService {
         testEntity.setUpdatedAt(new Date());
         testEntity.setLesson(lessonEntity);
         testEntity.setTitle(page.getLessonPageInfo().getTitle());
+        if (testEntity.getQuestions() != null && page.getLessonPageInfo().getTestTreshold() > testEntity.getQuestions().size()) {
+            throw new WrongThresholdException();
+        }
+        testEntity.setThreshold(page.getLessonPageInfo().getTestTreshold());
+        testEntity.setMinutesToGo(page.getLessonPageInfo().getMinutesToGo());
         return testEntity;
     }
 

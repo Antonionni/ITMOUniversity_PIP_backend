@@ -28,6 +28,9 @@ public class TestEntity {
     @Basic
     @Column(name = "threshold", nullable = false)
     private int threshold;
+
+    @Column(nullable = false)
+    private int minutesToGo = 10;
     /**
      * date and time when test created
      */
@@ -125,5 +128,13 @@ public class TestEntity {
 
     public void setQuestions(Collection<QuestionEntity> questionsById) {
         this.questions = questionsById;
+    }
+
+    public int getMinutesToGo() {
+        return minutesToGo;
+    }
+
+    public void setMinutesToGo(int minutesToGo) {
+        this.minutesToGo = minutesToGo;
     }
 }

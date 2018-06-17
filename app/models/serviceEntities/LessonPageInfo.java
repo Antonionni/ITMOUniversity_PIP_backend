@@ -1,6 +1,5 @@
 package models.serviceEntities;
 
-import javafx.scene.paint.Material;
 import models.entities.MaterialEntity;
 import models.entities.TestEntity;
 
@@ -12,21 +11,27 @@ public class LessonPageInfo {
     private Date createdAt;
     private Date updatedAt;
 
+    //bad code because it applies only for test ^_^
+    private int testTreshold;
+    private int minutesToGo;
+
     public LessonPageInfo() {}
 
-    public LessonPageInfo(int id, String title, Date createdAt, Date updatedAt) {
+    public LessonPageInfo(int id, String title, Date createdAt, Date updatedAt, int testTreshold, int minutesToGo) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.testTreshold = testTreshold;
+        this.minutesToGo = minutesToGo;
     }
 
     public LessonPageInfo(TestEntity testEntity) {
-        this(testEntity.getId(), testEntity.getTitle(), testEntity.getCreatedAt(), testEntity.getUpdatedAt());
+        this(testEntity.getId(), testEntity.getTitle(), testEntity.getCreatedAt(), testEntity.getUpdatedAt(), testEntity.getThreshold(), testEntity.getMinutesToGo());
     }
 
     public LessonPageInfo(MaterialEntity materialEntity) {
-        this(materialEntity.getId(), materialEntity.getTitle(), materialEntity.getCreatedAt(), materialEntity.getUpdatedAt());
+        this(materialEntity.getId(), materialEntity.getTitle(), materialEntity.getCreatedAt(), materialEntity.getUpdatedAt(), 0, 0);
     }
 
     public Date getCreatedAt() {
@@ -59,5 +64,21 @@ public class LessonPageInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getTestTreshold() {
+        return testTreshold;
+    }
+
+    public void setTestTreshold(int testTreshold) {
+        this.testTreshold = testTreshold;
+    }
+
+    public int getMinutesToGo() {
+        return minutesToGo;
+    }
+
+    public void setMinutesToGo(int minutesToGo) {
+        this.minutesToGo = minutesToGo;
     }
 }

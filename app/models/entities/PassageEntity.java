@@ -2,6 +2,7 @@ package models.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -50,6 +51,9 @@ public class PassageEntity {
      */
     @ManyToOne
     private UserEntity user;
+
+    @OneToMany(mappedBy = "passage")
+    private Collection<PassageHasAnswersEntity> passage;
 
     public int getId() {
         return id;
@@ -123,5 +127,13 @@ public class PassageEntity {
 
     public void setUser(UserEntity usersById) {
         this.user = usersById;
+    }
+
+    public Collection<PassageHasAnswersEntity> getPassages() {
+        return passage;
+    }
+
+    public void setPassage(Collection<PassageHasAnswersEntity> passage) {
+        this.passage = passage;
     }
 }
