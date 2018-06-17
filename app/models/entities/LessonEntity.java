@@ -34,10 +34,7 @@ public class LessonEntity {
     /**
      * List of test which used in this course
      */
-    @ManyToMany
-    @JoinTable(name = "lesson_has_tests",
-            joinColumns = @JoinColumn(name = "lessonid", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "testsid", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "lesson", orphanRemoval = true)
     private Collection<TestEntity> lessonTests;
 
     public int getId() {

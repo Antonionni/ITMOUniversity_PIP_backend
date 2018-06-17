@@ -8,6 +8,7 @@ import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
@@ -225,6 +226,8 @@ public class LessonService extends BaseService implements ILessonService {
 
     private LessonEntity createLessonEntity(LessonInfo lesson, CourseEntity course) {
         LessonEntity lessonEntity = new LessonEntity();
+        lessonEntity.setLessonTests(new ArrayList<>());
+        lessonEntity.setMaterials(new ArrayList<>());
         return updateLessonEntity(lesson, course, lessonEntity);
     }
 
@@ -237,6 +240,7 @@ public class LessonService extends BaseService implements ILessonService {
     private MaterialEntity createMaterialEntity(LessonPage page, LessonEntity lessonEntity) {
         MaterialEntity materialEntity = new MaterialEntity();
         materialEntity.setCreatedAt(new Date());
+        materialEntity.setMaterialContents(new ArrayList<>());
         return updateMaterialEntity(page, lessonEntity, materialEntity);
     }
 
@@ -250,6 +254,7 @@ public class LessonService extends BaseService implements ILessonService {
     private TestEntity createTestEntity(LessonPage page, LessonEntity lessonEntity) {
         TestEntity testEntity = new TestEntity();
         testEntity.setCreatedAt(new Date());
+        testEntity.setQuestions(new ArrayList<>());
         return updateTestEntity(page, lessonEntity, testEntity);
     }
 
@@ -262,6 +267,7 @@ public class LessonService extends BaseService implements ILessonService {
 
     private QuestionEntity createQuestionEntity(Question question, TestEntity testEntity) {
         QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setAnswers(new ArrayList<>());
         return updateQuestionEntity(question, testEntity, questionEntity);
     }
 
@@ -296,6 +302,7 @@ public class LessonService extends BaseService implements ILessonService {
         answerEntity.setUpdatedat(new Date());
         answerEntity.setQuestion(questionEntity);
         answerEntity.setUseranswer(answer.getText());
+        answerEntity.setRight(answer.getRightAnswer());
         return answerEntity;
     }
 }

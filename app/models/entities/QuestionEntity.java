@@ -26,7 +26,8 @@ public class QuestionEntity {
     /**
      * List of {@link AnswerEntity} which existing at this question
      */
-    @OneToMany(mappedBy = "question", orphanRemoval = true)
+    @OneToMany(mappedBy = "question", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Column(nullable = false)
     private Collection<AnswerEntity> answers;
 
     /**
