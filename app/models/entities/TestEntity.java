@@ -56,7 +56,7 @@ public class TestEntity {
     /**
      * List of questions
      */
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", orphanRemoval = true)
     private Collection<QuestionEntity> questions;
 
     public int getId() {

@@ -29,7 +29,7 @@ public class LessonEntity {
     /**
      * List of materials which used in this course
      */
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", orphanRemoval = true)
     private Collection<MaterialEntity> materials;
     /**
      * List of test which used in this course

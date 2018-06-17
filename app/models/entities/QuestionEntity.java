@@ -26,7 +26,7 @@ public class QuestionEntity {
     /**
      * List of {@link AnswerEntity} which existing at this question
      */
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", orphanRemoval = true)
     private Collection<AnswerEntity> answers;
 
     /**
@@ -35,12 +35,6 @@ public class QuestionEntity {
     @ManyToOne
     @JoinColumn(name = "testid", referencedColumnName = "id", nullable = false)
     private TestEntity test;
-    /**
-     * refernce to {@link AnswerEntity}
-     */
-    @ManyToOne
-    @JoinColumn(name = "rightanswerid", referencedColumnName = "id", nullable = true)
-    private AnswerEntity rightAnswer;
     /**
      * Enum of answer types
      */
@@ -100,13 +94,5 @@ public class QuestionEntity {
 
     public void setTest(TestEntity testsByTestid) {
         this.test = testsByTestid;
-    }
-
-    public AnswerEntity getRightAnswer() {
-        return rightAnswer;
-    }
-
-    public void setRightAnswer(AnswerEntity answersByRightanswerid) {
-        this.rightAnswer = answersByRightanswerid;
     }
 }

@@ -2,20 +2,18 @@ package services;
 
 import Exceptions.BusinessException;
 import enumerations.LessonPageType;
-import models.entities.CourseEntity;
-import models.entities.LessonEntity;
-import models.entities.MaterialEntity;
-import models.entities.TestEntity;
-import models.serviceEntities.Lesson;
-import models.serviceEntities.LessonInfo;
-import models.serviceEntities.LessonPage;
+import models.entities.*;
+import models.serviceEntities.*;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
+
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 public class LessonService extends BaseService implements ILessonService {
@@ -176,6 +174,45 @@ public class LessonService extends BaseService implements ILessonService {
         }), ec.current());
     }
 
+    public CompletionStage<Question> createQuestion(Question question, int testId) {
+        return supplyAsync(() -> wrap(em -> {
+            TestEntity testEntity = em.find(TestEntity.class, testId);
+            if(testEntity == null) {
+                throw new BusinessException();
+            }
+            QuestionEntity questionEntity = createQuestionEntity(question, testEntity);
+            em.persist(questionEntity);
+            return new Question(questionEntity);
+        }), ec.current());
+    }
+
+    public CompletionStage<Question> updateQuestion(Question question, int testId) {
+        return supplyAsync(() -> wrap(em -> {
+            TestEntity testEntity = em.find(TestEntity.class, testId);
+            if(testEntity == null) {
+                throw new BusinessException();
+            }
+            QuestionEntity questionEntity = em.find(QuestionEntity.class, question.getId());
+            if(questionEntity == null) {
+                throw new BusinessException();
+            }
+            questionEntity = updateQuestionEntity(question, testEntity, questionEntity);
+            em.merge(questionEntity);
+            return new Question(questionEntity);
+        }), ec.current());
+    }
+
+    public CompletionStage<Boolean> deleteQuestion(int questionId) {
+        return supplyAsync(() -> wrap(em -> {
+            QuestionEntity questionEntity = em.find(QuestionEntity.class, questionId);
+            if(questionEntity == null) {
+                throw new BusinessException();
+            }
+            em.remove(questionEntity);
+            return true;
+        }), ec.current());
+    }
+
     public CompletionStage<Optional<LessonPage>> getTest(int id) {
         return supplyAsync(() -> wrap(em -> {
             TestEntity testEntity = em.find(TestEntity.class, id);
@@ -221,5 +258,44 @@ public class LessonService extends BaseService implements ILessonService {
         testEntity.setLesson(lessonEntity);
         testEntity.setTitle(page.getLessonPageInfo().getTitle());
         return testEntity;
+    }
+
+    private QuestionEntity createQuestionEntity(Question question, TestEntity testEntity) {
+        QuestionEntity questionEntity = new QuestionEntity();
+        return updateQuestionEntity(question, testEntity, questionEntity);
+    }
+
+    private QuestionEntity updateQuestionEntity(Question question, TestEntity testEntity, QuestionEntity questionEntity) {
+        questionEntity.setTest(testEntity);
+        questionEntity.setTextquestion(question.getTextQuestion());
+        questionEntity.setAnswerType(question.getAnswerType());
+        Collection<AnswerEntity> answerEntities = question.getAnswers()
+                .stream()
+                .map(answer -> {
+                    if (answer.getId() == 0) {
+                        return createAnswerEntity(answer, questionEntity);
+                    } else {
+                        AnswerEntity answerEntity = JpaApi.em().find(AnswerEntity.class, answer.getId());
+                        if (answerEntity == null) {
+                            throw new BusinessException();
+                        }
+                        return updateAnswerEntity(answer, questionEntity, answerEntity);
+                    }
+                }).collect(Collectors.toList());
+        questionEntity.setAnswers(answerEntities);
+        return questionEntity;
+    }
+
+    private AnswerEntity createAnswerEntity(Answer answer, QuestionEntity questionEntity) {
+        AnswerEntity answerEntity = new AnswerEntity();
+        answerEntity.setCreatedat(new Date());
+        return updateAnswerEntity(answer, questionEntity, answerEntity);
+    }
+
+    private AnswerEntity updateAnswerEntity(Answer answer, QuestionEntity questionEntity, AnswerEntity answerEntity) {
+        answerEntity.setUpdatedat(new Date());
+        answerEntity.setQuestion(questionEntity);
+        answerEntity.setUseranswer(answer.getText());
+        return answerEntity;
     }
 }

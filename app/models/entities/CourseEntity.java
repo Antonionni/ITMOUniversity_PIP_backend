@@ -48,12 +48,12 @@ public class CourseEntity {
     /**
      * List of coruses periods
      */
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
     private Collection<CoursePeriodEntity> coursePeriods;
     /**
      * List of course lessons
      */
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
     private Collection<LessonEntity> lessons;
     /**
      * List of theachers who created course

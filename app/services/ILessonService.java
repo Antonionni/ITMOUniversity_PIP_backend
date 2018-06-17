@@ -3,6 +3,7 @@ package services;
 import models.serviceEntities.Lesson;
 import models.serviceEntities.LessonInfo;
 import models.serviceEntities.LessonPage;
+import models.serviceEntities.Question;
 
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
@@ -31,4 +32,10 @@ public interface ILessonService {
     CompletionStage<Boolean> deleteTest(int testId);
 
     CompletionStage<Optional<LessonPage>> getTest(int id);
+
+    CompletionStage<Question> createQuestion(Question question, int testId);
+
+    CompletionStage<Question> updateQuestion(Question question, int testId);
+
+    CompletionStage<Boolean> deleteQuestion(int questionId);
 }

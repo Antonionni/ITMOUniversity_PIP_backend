@@ -1,6 +1,7 @@
 package models.serviceEntities;
 
 import enumerations.AnswerType;
+import models.entities.AnswerEntity;
 import models.entities.QuestionEntity;
 
 import java.util.Collection;

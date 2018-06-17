@@ -40,6 +40,9 @@ public class AnswerEntity {
     @JoinColumn(name = "questionid", referencedColumnName = "id", nullable = false)
     private QuestionEntity question;
 
+    @Column(name = "rightanswer", nullable = false)
+    private boolean isRight = false;
+
     public int getId() {
         return id;
     }
@@ -72,21 +75,31 @@ public class AnswerEntity {
         this.updatedat = updatedat;
     }
 
+    public boolean isRight() {
+        return isRight;
+    }
+
+    public void setRight(boolean right) {
+        isRight = right;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AnswerEntity that = (AnswerEntity) o;
         return id == that.id &&
+                isRight == that.isRight &&
                 Objects.equals(useranswer, that.useranswer) &&
                 Objects.equals(createdat, that.createdat) &&
-                Objects.equals(updatedat, that.updatedat);
+                Objects.equals(updatedat, that.updatedat) &&
+                Objects.equals(question, that.question);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, useranswer, createdat, updatedat);
+        return Objects.hash(id, useranswer, createdat, updatedat, question, isRight);
     }
 
     public QuestionEntity getQuestion() {

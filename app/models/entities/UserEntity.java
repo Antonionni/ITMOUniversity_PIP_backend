@@ -71,13 +71,13 @@ public class UserEntity implements Subject {
     @ManyToMany(mappedBy = "courseTeachers")
     private Collection<CourseEntity> teacherCourses;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Collection<CourseSubscriptionEntity> studentCourses;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<UserRolesHasUsersEntity> userRoles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<LinkedAccount> linkedAccounts;
 
     @Column(name = "emailValidated")

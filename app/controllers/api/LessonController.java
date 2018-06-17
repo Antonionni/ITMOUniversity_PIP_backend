@@ -4,6 +4,7 @@ import enumerations.ErrorCode;
 import models.ApiResponse;
 import models.serviceEntities.LessonInfo;
 import models.serviceEntities.LessonPage;
+import models.serviceEntities.Question;
 import play.libs.Json;
 import play.mvc.Result;
 import services.ICourseService;
@@ -81,5 +82,19 @@ public class LessonController extends BaseController {
 
     public CompletionStage<Result> deleteTest(int testId) {
         return LessonService.deleteTest(testId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
+    }
+
+    public CompletionStage<Result> createQuestion(int testId) {
+        Question question = getModelFromJson(Question.class);
+        return LessonService.createQuestion(question,testId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
+    }
+
+    public CompletionStage<Result> updateQuestion(int testId) {
+        Question question = getModelFromJson(Question.class);
+        return LessonService.updateQuestion(question, testId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
+    }
+
+    public CompletionStage<Result> deleteQuestion(int questionId) {
+        return LessonService.deleteQuestion(questionId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 }
