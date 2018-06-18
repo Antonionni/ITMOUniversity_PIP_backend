@@ -245,6 +245,7 @@ public class UserService extends BaseService implements IUserService {
         user.setLastLogin(new Date());
         user.setCreatedat(new Date());
         user.setUpdatedat(new Date());
+        user.setPassages(new ArrayList<>());
         LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
         linkedAccount.setUser(user);
         ArrayList<LinkedAccount> linkedAccounts = new ArrayList<>();

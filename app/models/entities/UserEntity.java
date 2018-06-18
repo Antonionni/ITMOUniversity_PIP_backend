@@ -98,11 +98,12 @@ public class UserEntity implements Subject {
     @Column(name = "placeOfStudy")
     private String placeOfStudy;
 
+    @OneToMany(mappedBy = "passage")
+    private Collection<PassageEntity> passages;
+
     public String getPlaceOfStudy() {
         return placeOfStudy;
     }
-
-
 
     public void setPlaceOfStudy(String placeOfStudy) {
         this.placeOfStudy = placeOfStudy;
@@ -272,5 +273,11 @@ public class UserEntity implements Subject {
                 : Collections.emptyList());
     }
 
+    public Collection<PassageEntity> getPassages() {
+        return passages;
+    }
 
+    public void setPassages(Collection<PassageEntity> passages) {
+        this.passages = passages;
+    }
 }

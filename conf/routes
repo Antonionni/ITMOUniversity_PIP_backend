@@ -84,6 +84,10 @@ POST        /courses/lesson/test/question/create/:testId            controllers.
 POST        /courses/lesson/test/question/update/:testId            controllers.api.LessonController.updateQuestion(testId: Integer)
 POST        /courses/lesson/test/question/delete/:questionId        controllers.api.LessonController.deleteQuestion(questionId: Integer)
 
+POST        /courses/lesson/test/passage/start/:testId              controllers.api.PassageController.startPassage(testId: Integer)
+POST        /courses/lesson/test/passage/close                      controllers.api.PassageController.submitPassageItems
+POST        /courses/lesson/test/passage/verifyItem                 controllers.api.PassageController.verifyPassageItem
+POST        /courses/lesson/test/passage/listItems                  controllers.api.PassageController.listNeedToVerifiedPassages
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                           controllers.Assets.versioned(path="/public", file: Asset)

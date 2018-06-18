@@ -1,10 +1,13 @@
 package models.serviceEntities;
 
 import models.entities.PassageEntity;
+import models.entities.PassageEntityPK;
 
 import java.util.Date;
 
 public class Passage {
+
+    private int id;
 
     private Date startdate;
 
@@ -17,7 +20,8 @@ public class Passage {
 
     public Passage() {}
 
-    public Passage(Date startdate, Date enddate, Integer correctAnswers, Integer totalAnswers, boolean isRight) {
+    public Passage(int id, Date startdate, Date enddate, Integer correctAnswers, Integer totalAnswers, boolean isRight) {
+        this.id = id;
         this.startdate = startdate;
         this.enddate = enddate;
         this.correctAnswers = correctAnswers;
@@ -26,7 +30,7 @@ public class Passage {
     }
 
     public Passage(PassageEntity passageEntity) {
-        this(passageEntity.getStartdate(), passageEntity.getEnddate(), passageEntity.getResult(), passageEntity.getTest().getQuestions().size(), passageEntity.isRight());
+        this(passageEntity.getId(), passageEntity.getStartdate(), passageEntity.getEnddate(), passageEntity.getResult(), passageEntity.getTest().getQuestions().size(), passageEntity.isRight());
     }
 
     public Date getStartdate() {
@@ -67,5 +71,13 @@ public class Passage {
 
     public void setRight(boolean right) {
         isRight = right;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

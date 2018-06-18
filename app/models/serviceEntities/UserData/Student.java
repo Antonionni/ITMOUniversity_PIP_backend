@@ -2,16 +2,19 @@ package models.serviceEntities.UserData;
 
 import models.entities.UserEntity;
 import models.serviceEntities.CourseInfo;
+import models.serviceEntities.Passage;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class Student {
     private Collection<CourseInfo> courseInfos;
+    private Collection<Passage> passages;
     private String placeOfStudy;
 
-    public Student(Collection<CourseInfo> courseInfos, String placeOfStudy) {
+    public Student(Collection<CourseInfo> courseInfos, Collection<Passage> passages, String placeOfStudy) {
         this.courseInfos = courseInfos;
+        this.passages = passages;
         this.placeOfStudy = placeOfStudy;
     }
 
@@ -25,6 +28,10 @@ public class Student {
                     .stream()
                     .map(CourseInfo::new)
                     .collect(Collectors.toList()),
+                userEntity.getPassages()
+                .stream()
+                .map(Passage::new)
+                .collect(Collectors.toList()),
                 userEntity.getPlaceOfStudy());
     }
 
@@ -42,6 +49,14 @@ public class Student {
 
     public void setPlaceOfStudy(String placeOfStudy) {
         this.placeOfStudy = placeOfStudy;
+    }
+
+    public Collection<Passage> getPassages() {
+        return passages;
+    }
+
+    public void setPassages(Collection<Passage> passages) {
+        this.passages = passages;
     }
 }
 
