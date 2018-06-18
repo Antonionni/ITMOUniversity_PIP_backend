@@ -219,11 +219,10 @@ public class UserService extends BaseService implements IUserService {
         userEntity.setName(user.getName());
         userEntity.setFirstname(user.getFirstName());
         userEntity.setSecondname(user.getLastName());
-        userEntity.setCreatedat(user.getCreatedAt());
         userEntity.setUpdatedat(new Date());
         userEntity.setEmailValidated(user.isEmailValidated());
         userEntity.setActive(user.isActive());
-        userEntity.setLastLogin(user.getLastLogin());
+        userEntity.setLastLogin(new Date());
         userEntity.setBirthDate(user.getBirthDate());
         updateRoles(userEntity, user.getRoles());
         return userEntity;
