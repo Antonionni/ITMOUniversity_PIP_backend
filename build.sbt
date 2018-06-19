@@ -32,7 +32,8 @@ libraryDependencies ++= Seq(
   "org.immutables" % "value" % "2.6.1" % "provided",
   "com.fasterxml.jackson.datatype" % "jackson-datatype-guava" % "2.8.5",
   "com.rabbitmq" % "amqp-client" % "2.8.1",
-  "org.telegram" % "telegrambots" % "3.6.1"
+  "org.telegram" % "telegrambots" % "3.6.1",
+  "org.igniterealtime.smack" % "smack" % "3.2.1"
 )
 
 // add resolver for deadbolt and easymail snapshots

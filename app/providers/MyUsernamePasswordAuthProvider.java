@@ -7,6 +7,7 @@ import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 
 import com.google.common.base.Strings;
+import config.RolesConst;
 import controllers.routes;
 import enumerations.RoleType;
 import models.entities.LinkedAccount;
@@ -118,7 +119,6 @@ public class MyUsernamePasswordAuthProvider
 
 		private String lastName;
 
-		@Required
 		private Date birthDate;
 
 		private String placeOfStudy;
@@ -129,11 +129,14 @@ public class MyUsernamePasswordAuthProvider
 			}
 			if(
 					Strings.isNullOrEmpty(name)
-					|| (Strings.isNullOrEmpty(firstName) && Strings.isNullOrEmpty(lastName))) {
+					&& (Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName))) {
 				return "enter name or firstname + lastname";
 			}
+
 			if(roles == null || roles.isEmpty()) {
-				return "enter the roles";
+				//return "enter the roles";
+				//todo: remove this
+				roles = RolesConst.AuthenticatedUser;
 			}
 			try {
 				parsedRoles = Arrays.stream(roles.split(",")).map(RoleType::valueOf).collect(Collectors.toList());

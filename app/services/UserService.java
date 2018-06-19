@@ -187,13 +187,15 @@ public class UserService extends BaseService implements IUserService {
 
     @Override
     public void merge(final UserEntity mainUser, final UserEntity otherUser) {
-        for (final LinkedAccount acc : otherUser.getLinkedAccounts()) {
-            mainUser.getLinkedAccounts().add(LinkedAccountService.create(acc));
-        }
-        otherUser.setActive(false);
-        EntityManager em = JpaApi.em();
-        em.merge(mainUser);
-        em.merge(otherUser);
+        wrap(em -> {
+            for (final LinkedAccount acc : otherUser.getLinkedAccounts()) {
+                mainUser.getLinkedAccounts().add(LinkedAccountService.create(acc));
+            }
+            otherUser.setActive(false);
+            em.merge(mainUser);
+            em.merge(otherUser);
+            return mainUser;
+        });
     }
 
     public CompletionStage<Boolean> update(AggregatedUser aggregatedUser) {
@@ -239,58 +241,59 @@ public class UserService extends BaseService implements IUserService {
     }
     @Override
     public UserEntity create(final AuthUser authUser) {
-        final UserEntity user = new UserEntity();
-        user.setActive(true);
-        user.setLastLogin(new Date());
-        user.setCreatedat(new Date());
-        user.setUpdatedat(new Date());
-        user.setPassages(new ArrayList<>());
-        LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
-        linkedAccount.setUser(user);
-        ArrayList<LinkedAccount> linkedAccounts = new ArrayList<>();
-        linkedAccounts.add(linkedAccount);
-        user.setLinkedAccounts(linkedAccounts);
-        Collection<RoleType> roles = new ArrayList<>();
-        roles.add(RoleType.AuthenticatedUser);
+        return wrap(em -> {
+            final UserEntity user = new UserEntity();
+            user.setActive(true);
+            user.setLastLogin(new Date());
+            user.setCreatedat(new Date());
+            user.setUpdatedat(new Date());
+            user.setPassages(new ArrayList<>());
+            LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
+            linkedAccount.setUser(user);
+            ArrayList<LinkedAccount> linkedAccounts = new ArrayList<>();
+            linkedAccounts.add(linkedAccount);
+            user.setLinkedAccounts(linkedAccounts);
+            Collection<RoleType> roles = new ArrayList<>();
+            roles.add(RoleType.AuthenticatedUser);
 
-        if (authUser instanceof EmailIdentity) {
-            final EmailIdentity identity = (EmailIdentity) authUser;
-            user.setEmail(identity.getEmail());
-            user.setEmailValidated(false);
-        }
-
-        if (authUser instanceof NameIdentity) {
-            final NameIdentity identity = (NameIdentity) authUser;
-            final String name = identity.getName();
-            if (name != null) {
-                user.setName(name);
+            if (authUser instanceof EmailIdentity) {
+                final EmailIdentity identity = (EmailIdentity) authUser;
+                user.setEmail(identity.getEmail());
+                user.setEmailValidated(false);
             }
-        }
 
-        if (authUser instanceof FirstLastNameIdentity) {
-            final FirstLastNameIdentity identity = (FirstLastNameIdentity) authUser;
-            final String firstName = identity.getFirstName();
-            final String lastName = identity.getLastName();
-            if (firstName != null) {
-                user.setFirstname(firstName);
+            if (authUser instanceof NameIdentity) {
+                final NameIdentity identity = (NameIdentity) authUser;
+                final String name = identity.getName();
+                if (name != null) {
+                    user.setName(name);
+                }
             }
-            if (lastName != null) {
-                user.setSecondname(lastName);
-            }
-        }
-        if(authUser instanceof MyUsernamePasswordAuthUser) {
-            final MyUsernamePasswordAuthUser identity = (MyUsernamePasswordAuthUser) authUser;
-            user.setBirthDate(identity.getBirthDate());
-            user.setPlaceOfStudy(identity.getPlaceOfStudy());
-            roles.addAll(identity.getRoles());
-        }
 
-        EntityManager em = JpaApi.em();
-        em.persist(user);
-        Collection<UserRolesHasUsersEntity> roleEntities = updateRoles(user, roles);
-        roleEntities.forEach(em::persist);
-        em.merge(linkedAccount);
-        return user;
+            if (authUser instanceof FirstLastNameIdentity) {
+                final FirstLastNameIdentity identity = (FirstLastNameIdentity) authUser;
+                final String firstName = identity.getFirstName();
+                final String lastName = identity.getLastName();
+                if (firstName != null) {
+                    user.setFirstname(firstName);
+                }
+                if (lastName != null) {
+                    user.setSecondname(lastName);
+                }
+            }
+            if (authUser instanceof MyUsernamePasswordAuthUser) {
+                final MyUsernamePasswordAuthUser identity = (MyUsernamePasswordAuthUser) authUser;
+                user.setBirthDate(identity.getBirthDate());
+                user.setPlaceOfStudy(identity.getPlaceOfStudy());
+                roles.addAll(identity.getRoles());
+            }
+
+            em.persist(user);
+            Collection<UserRolesHasUsersEntity> roleEntities = updateRoles(user, roles);
+            roleEntities.forEach(em::persist);
+            em.merge(linkedAccount);
+            return user;
+        });
     }
 
     /*private Collection<CourseSubscriptionEntity> updateCourses(UserEntity user, Collection<CourseInfo> courses) {
@@ -323,47 +326,58 @@ public class UserService extends BaseService implements IUserService {
 
     @Override
     public void merge(final AuthUser oldUser, final AuthUser newUser) {
-        merge(findByAuthUserIdentity(oldUser),
-                findByAuthUserIdentity(newUser));
+        wrap(em -> {
+            merge(findByAuthUserIdentity(oldUser),
+                    findByAuthUserIdentity(newUser));
+            return newUser;
+        });
     }
 
     @Override
     public Set<String> getProviders(UserEntity userEntity) {
-        final Set<String> providerKeys = new HashSet<String>(
-                userEntity.getLinkedAccounts().size());
-        for (final LinkedAccount acc : userEntity.getLinkedAccounts()) {
-            providerKeys.add(acc.getProviderKey());
-        }
-        return providerKeys;
+        return wrap(em -> {
+            final Set<String> providerKeys = new HashSet<String>(
+                    userEntity.getLinkedAccounts().size());
+            for (final LinkedAccount acc : userEntity.getLinkedAccounts()) {
+                providerKeys.add(acc.getProviderKey());
+            }
+            return providerKeys;
+        });
     }
 
     @Override
     public void addLinkedAccount(final AuthUser oldUser,
                                  final AuthUser newUser) {
-        final UserEntity u = findByAuthUserIdentity(oldUser);
-        LinkedAccount newLinkAccount = LinkedAccountService.create(newUser);
-        newLinkAccount.setUser(u);
-        u.getLinkedAccounts().add(newLinkAccount);
-        JpaApi.em().merge(u);
+        wrap(em -> {
+            final UserEntity u = findByAuthUserIdentity(oldUser);
+            LinkedAccount newLinkAccount = LinkedAccountService.create(newUser);
+            newLinkAccount.setUser(u);
+            u.getLinkedAccounts().add(newLinkAccount);
+            return JpaApi.em().merge(u);
+        });
     }
 
     @Override
     public void setLastLoginDate(final AuthUser knownUser) {
-        final UserEntity u = findByAuthUserIdentity(knownUser);
-        if(u != null) {
-            u.setLastLogin(new Date());
-            JpaApi.em().merge(u);
-        }
+        wrap(em -> {
+            final UserEntity u = findByAuthUserIdentity(knownUser);
+            if (u != null) {
+                u.setLastLogin(new Date());
+                JpaApi.em().merge(u);
+            }
+            return u;
+        });
     }
 
     @Override
     public UserEntity findByEmail(final String email) {
-        try {
-            return getEmailUserFind(email).getSingleResult();
-        }
-        catch (NoResultException ex) {
-            return null;
-        }
+        return wrap(em -> {
+            try {
+                return getEmailUserFind(email).getSingleResult();
+            } catch (NoResultException ex) {
+                return null;
+            }
+        });
     }
 
     private TypedQuery<UserEntity> getEmailUserFind(final String email) {
@@ -375,74 +389,89 @@ public class UserService extends BaseService implements IUserService {
 
     @Override
     public LinkedAccount getAccountByProvider(UserEntity userEntity, final String providerKey) {
-        return LinkedAccountService.findByProviderKey(userEntity, providerKey);
+        return wrap(em -> LinkedAccountService.findByProviderKey(userEntity, providerKey));
     }
 
     @Override
     public void verify(final UserEntity unverified) {
-        // You might want to wrap this into a transaction
-        unverified.setEmailValidated(true);
-        JpaApi.em().merge(unverified);
-        TokenActionService.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
+        wrap(em -> {
+            unverified.setEmailValidated(true);
+            em.merge(unverified);
+            TokenActionService.deleteByUser(unverified, TokenAction.Type.EMAIL_VERIFICATION);
+            return unverified;
+        });
     }
 
     @Override
     public void changePassword(UserEntity userEntity, final UsernamePasswordAuthUser authUser,
                                final boolean create) {
-        LinkedAccount a = getAccountByProvider(userEntity, authUser.getProvider());
-        if (a == null) {
-            if (create) {
-                a = LinkedAccountService.create(authUser);
-                a.setUser(userEntity);
-            } else {
-                throw new RuntimeException(
-                        "Account not enabled for password usage");
+        wrap(em -> {
+            LinkedAccount a = getAccountByProvider(userEntity, authUser.getProvider());
+            if (a == null) {
+                if (create) {
+                    a = LinkedAccountService.create(authUser);
+                    a.setUser(userEntity);
+                } else {
+                    throw new RuntimeException(
+                            "Account not enabled for password usage");
+                }
             }
-        }
-        a.setProviderUserId(authUser.getHashedPassword());
-        JpaApi.em().persist(a);
+            a.setProviderUserId(authUser.getHashedPassword());
+            em.persist(a);
+            return a;
+        });
     }
 
     @Override
     public void resetPassword(UserEntity userEntity, final UsernamePasswordAuthUser authUser,
                               final boolean create) {
-        // You might want to wrap this into a transaction
-        this.changePassword(userEntity, authUser, create);
-        TokenActionService.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
+        wrap(em -> {
+            this.changePassword(userEntity, authUser, create);
+            TokenActionService.deleteByUser(userEntity, TokenAction.Type.PASSWORD_RESET);
+            return userEntity;
+        });
     }
 
     public UserEntity getCurrentUser() {
-        if(Http.Context.current.get() == null) {
-            return null;
-        }
-        AuthUser user = AuthService.getUser(Http.Context.current());
-        if(user == null) {
-            return null;
-        }
-        return findByAuthUserIdentity(user);
+        return wrap(em -> {
+            if (Http.Context.current.get() == null) {
+                return null;
+            }
+            AuthUser user = AuthService.getUser(Http.Context.current());
+            if (user == null) {
+                return null;
+            }
+            return findByAuthUserIdentity(user);
+        });
     }
     public Collection<RoleType> getCurrentUserRoles() {
-        UserEntity userEntity = getCurrentUser();
-        if(userEntity == null) {
-            return Collections.emptyList();
-        }
-        return userEntity.getRoleTypes();
+        return wrap(em -> {
+            UserEntity userEntity = getCurrentUser();
+            if (userEntity == null) {
+                return Collections.emptyList();
+            }
+            return userEntity.getRoleTypes();
+        });
     }
 
     private Collection<RoleType> getUserRoles(UserEntity userEntity) {
-        if(userEntity == null) {
-            return Collections.emptyList();
-        }
-        return userEntity.getRoleTypes();
+        return wrap(em -> {
+            if (userEntity == null) {
+                return Collections.emptyList();
+            }
+            return userEntity.getRoleTypes();
+        });
     }
 
     public boolean currentUserOrAdmin(int userId) {
-        UserEntity userEntity = getCurrentUser();
-        if(userEntity == null) {
-            return false;
-        }
+        return wrap(em -> {
+            UserEntity userEntity = getCurrentUser();
+            if (userEntity == null) {
+                return false;
+            }
 
-        boolean isCurrentUser = userEntity.getId() == userId;
-        return isCurrentUser || getUserRoles(userEntity).contains(RoleType.Admin);
+            boolean isCurrentUser = userEntity.getId() == userId;
+            return isCurrentUser || getUserRoles(userEntity).contains(RoleType.Admin);
+        });
     }
 }

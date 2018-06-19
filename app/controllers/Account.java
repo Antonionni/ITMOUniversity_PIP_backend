@@ -100,14 +100,12 @@ public class Account extends Controller {
 		this.msg = msg;
 	}
 
-	@Transactional
 	@SubjectPresent
 	public Result link() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(link.render(this.userProvider, this.auth));
 	}
 
-	@Transactional
 	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result verifyEmail() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -129,7 +127,6 @@ public class Account extends Controller {
 		return redirect(routes.Application.profile());
 	}
 
-	@Transactional
 	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result changePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -142,7 +139,6 @@ public class Account extends Controller {
 		}
 	}
 
-	@Transactional
 	@Restrict(@Group(RolesConst.AuthenticatedUser))
 	public Result doChangePassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -162,7 +158,6 @@ public class Account extends Controller {
 		}
 	}
 
-	@Transactional
 	@SubjectPresent
 	public Result askLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -174,7 +169,6 @@ public class Account extends Controller {
 		return ok(views.html.account.ask_link.render(this.userProvider, ACCEPT_FORM, u));
 	}
 
-	@Transactional
 	@SubjectPresent
 	public Result doLink() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -199,7 +193,6 @@ public class Account extends Controller {
 		}
 	}
 
-	@Transactional
 	@SubjectPresent
 	public Result askMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
@@ -218,7 +211,6 @@ public class Account extends Controller {
 		return ok(views.html.account.ask_merge.render(this.userProvider, ACCEPT_FORM, aUser, bUser));
 	}
 
-	@Transactional
 	@SubjectPresent
 	public Result doMerge() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());

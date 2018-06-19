@@ -16,6 +16,7 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 //import providers.MyUsernamePasswordAuthProvider;
 import com.google.inject.name.Names;
 import com.google.inject.util.Providers;
+import jabber.XmppManager;
 import play.libs.Akka;
 import play.libs.Json;
 import play.libs.akka.AkkaGuiceSupport;
@@ -68,6 +69,25 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(GithubAuthProvider.class).asEagerSingleton();
         //bind(SpnegoAuthProvider.class).asEagerSingleton();
         //bind(EventBriteAuthProvider.class).asEagerSingleton();
+        try {
+            String username = "Coursach";
+            String password = "hello";
 
+            XmppManager xmppManager = new XmppManager("007jabber.com", 5222);
+
+            xmppManager.init();
+            xmppManager.performLogin(username, password);
+            xmppManager.setStatus(true, "Hello everyone");
+
+            String buddyJID = "coursachtest";
+            String buddyName = "coursachtest";
+            xmppManager.createEntry(buddyJID, buddyName);
+
+            xmppManager.sendMessage("Hello mate", "coursachtest@007jabber.com");
+            xmppManager.destroy();
+        }
+        catch (Exception e) {
+
+        }
     }
 }

@@ -74,13 +74,11 @@ public class Signup extends Controller {
 		this.msg = msg;
 	}
 
-	@Transactional
 	public Result unverified() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(views.html.account.signup.unverified.render(this.userProvider));
 	}
 
-	@Transactional
 	public Result forgotPassword(final String email) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		Form<MyIdentity> form = FORGOT_PASSWORD_FORM;
@@ -90,7 +88,6 @@ public class Signup extends Controller {
 		return ok(views.html.account.signup.password_forgot.render(this.userProvider, form));
 	}
 
-	@Transactional
 	public Result doForgotPassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<MyIdentity> filledForm = FORGOT_PASSWORD_FORM
@@ -162,7 +159,6 @@ public class Signup extends Controller {
 		return ret;
 	}
 
-	@Transactional
 	public Result resetPassword(final String token) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final TokenAction ta = tokenIsValid(token, TokenAction.Type.PASSWORD_RESET);
@@ -175,7 +171,6 @@ public class Signup extends Controller {
 		);
 	}
 
-	@Transactional
 	public Result doResetPassword() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<PasswordReset> filledForm = PASSWORD_RESET_FORM
@@ -218,19 +213,16 @@ public class Signup extends Controller {
 		}
 	}
 
-	@Transactional
 	public Result oAuthDenied(final String getProviderKey) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(views.html.account.signup.oAuthDenied.render(this.userProvider, getProviderKey));
 	}
 
-	@Transactional
 	public Result exists() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		return ok(exists.render(this.userProvider));
 	}
 
-	@Transactional
 	public Result verify(final String token) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final TokenAction ta = tokenIsValid(token, TokenAction.Type.EMAIL_VERIFICATION);

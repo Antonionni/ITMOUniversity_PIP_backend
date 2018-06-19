@@ -4,45 +4,53 @@ import com.feth.play.module.pa.user.AuthUser;
 import models.entities.LinkedAccount;
 import models.entities.UserEntity;
 import play.db.jpa.JPAApi;
+import play.libs.concurrent.HttpExecutionContext;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
-public class LinkedAccountService implements ILinkedAccountService {
-    private final JPAApi JpAApi;
-
+public class LinkedAccountService extends BaseService implements ILinkedAccountService {
     @Inject
-    public LinkedAccountService(JPAApi jpaApi) {
-        JpAApi = jpaApi;
+    public LinkedAccountService(JPAApi jpaApi, HttpExecutionContext ec) {
+        super(jpaApi, ec);
     }
 
     @Override
     public LinkedAccount findByProviderKey(final UserEntity user, String key) {
-        TypedQuery<LinkedAccount> query = JpAApi.em()
-                .createQuery("from LinkedAccount where user=:user and providerKey=:key", LinkedAccount.class);
-        query.setParameter("user", user);
-        query.setParameter("key", key);
-        return query.getSingleResult();
+        return wrap(em -> {
+            TypedQuery<LinkedAccount> query = em
+                    .createQuery("from LinkedAccount where user=:user and providerKey=:key", LinkedAccount.class);
+            query.setParameter("user", user);
+            query.setParameter("key", key);
+            return query.getSingleResult();
+        });
     }
 
     @Override
     public LinkedAccount create(final AuthUser authUser) {
-        final LinkedAccount ret = new LinkedAccount();
-        update(ret, authUser);
-        return ret;
+        return wrap(em -> {
+            final LinkedAccount ret = new LinkedAccount();
+            update(ret, authUser);
+            return ret;
+        });
     }
 
     @Override
     public void update(LinkedAccount linkedAccount, final AuthUser authUser) {
-        linkedAccount.setProviderKey(authUser.getProvider());
-        linkedAccount.setProviderUserId(authUser.getId());
+        wrap(em -> {
+            linkedAccount.setProviderKey(authUser.getProvider());
+            linkedAccount.setProviderUserId(authUser.getId());
+            return linkedAccount;
+        });
     }
 
     @Override
     public LinkedAccount create(final LinkedAccount acc) {
-        final LinkedAccount ret = new LinkedAccount();
-        ret.setProviderKey(acc.getProviderKey());
-        ret.setProviderUserId(acc.getProviderUserId());
-        return ret;
+        return wrap(em -> {
+            final LinkedAccount ret = new LinkedAccount();
+            ret.setProviderKey(acc.getProviderKey());
+            ret.setProviderUserId(acc.getProviderUserId());
+            return ret;
+        });
     }
 }
