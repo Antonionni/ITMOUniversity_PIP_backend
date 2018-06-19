@@ -1,5 +1,6 @@
 package services;
 
+import models.entities.PassageEntity;
 import models.entities.PassageEntityPK;
 import models.serviceEntities.LessonPage;
 import models.serviceEntities.Passage;
@@ -20,4 +21,6 @@ public interface IPassageService {
     CompletionStage<LessonPage> startPassage(int testId);
 
     CompletableFuture<Passage> closePassage();
+
+    PassageEntity closePassage(PassageEntity passageEntity);
 }

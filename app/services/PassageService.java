@@ -4,6 +4,9 @@ import Exceptions.BusinessException;
 import Exceptions.NoCurrentPassageException;
 import Exceptions.UserHasAlreadyInPassageException;
 import Exceptions.WrongAmountOfAnswersException;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
 import enumerations.AnswerType;
 import models.entities.*;
 import models.serviceEntities.LessonPage;
@@ -13,6 +16,9 @@ import models.serviceEntities.VerifyPassageItemModel;
 import org.jetbrains.annotations.NotNull;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
+import scala.concurrent.duration.FiniteDuration;
+import telegram_rabbit.PassageActor;
+import telegram_rabbit.PassageActorCreator;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -24,17 +30,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static akka.pattern.Patterns.*;
 
 public class PassageService extends BaseService implements IPassageService {
     private final IUserService UserService;
+    private final ActorSystem system;
+    private final PassageActorCreator creator;
 
     @Inject
-    public PassageService(JPAApi jpaApi, HttpExecutionContext ec, IUserService userService) {
+    public PassageService(JPAApi jpaApi, HttpExecutionContext ec, IUserService userService, ActorSystem system, PassageActorCreator creator) {
         super(jpaApi, ec);
         this.UserService = userService;
+        this.system = system;
+        this.creator = creator;
     }
 
     @Override
@@ -113,7 +125,17 @@ public class PassageService extends BaseService implements IPassageService {
             if (testEntity == null) {
                 throw new BusinessException();
             }
-            em.persist(startPassage(testEntity, userEntity));
+            PassageEntity passageEntity = startPassage(testEntity, userEntity);
+            em.persist(passageEntity);
+            ActorRef passageActor = system.actorOf(Props.create(creator));
+            system
+                    .scheduler()
+                    .scheduleOnce(
+                            FiniteDuration.apply(testEntity.getMinutesToGo(), TimeUnit.MINUTES),
+                            passageActor,
+                            passageEntity,
+                            system.dispatcher(),
+                            null);
             return new LessonPage(testEntity);
         }), ec.current());
     }
@@ -138,7 +160,7 @@ public class PassageService extends BaseService implements IPassageService {
         return passageEntity;
     }
 
-    private PassageEntity closePassage(PassageEntity passageEntity) {
+    public PassageEntity closePassage(PassageEntity passageEntity) {
         passageEntity.setEnddate(new Date());
         Collection<PassageHasAnswersEntity> passages = passageEntity.getPassages();
         TestEntity testEntity = passageEntity.getTest();

@@ -1,5 +1,6 @@
 package modules;
 
+import akka.actor.ActorRef;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.feth.play.module.mail.IMailer;
@@ -13,9 +14,15 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
+import com.google.inject.name.Names;
+import com.google.inject.util.Providers;
+import play.libs.Akka;
 import play.libs.Json;
+import play.libs.akka.AkkaGuiceSupport;
 import providers.MyUsernamePasswordAuthProvider;
 import services.*;
+import telegram_rabbit.PassageActor;
+import telegram_rabbit.PassageActorCreator;
 //import service.DataInitializer;
 //import service.MyResolver;
 //import service.MyUserService;
@@ -51,6 +58,7 @@ public class DependencyInjectionModule extends AbstractModule {
 
         Json.mapper().registerModule(new GuavaModule());
         Json.mapper().registerModule(new Jdk8Module());
+        //bindActor(PassageActor.class, "passageaaaa-actor");
         //bind(TwitterAuthProvider.class).asEagerSingleton();
         //bind(LinkedinAuthProvider.class).asEagerSingleton();
         //bind(VkAuthProvider.class).asEagerSingleton();
