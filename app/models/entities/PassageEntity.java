@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "passages", catalog = "postgres")
-@IdClass(PassageEntityPK.class)
 public class PassageEntity {
     /**
      * unique identificator
@@ -19,7 +18,6 @@ public class PassageEntity {
     /**
      * date and time when student start pass the test
      */
-    @Id
     @Column(name = "startdate", nullable = false)
     private Date startdate;
     /**

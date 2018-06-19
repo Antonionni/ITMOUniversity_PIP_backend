@@ -19,7 +19,6 @@ public class PassageHasAnswersEntity {
      * reference to {@link PassageEntity}
      */
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "passagesstartdate", referencedColumnName = "startdate", insertable = false, updatable = false)})
     private PassageEntity passage;
 
     @ManyToOne

@@ -43,8 +43,7 @@ public class PassageController extends BaseController {
         return PassageService.verifyPassageItem(passageItem).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 
-    public CompletionStage<Result> listNeedToVerifiedPassages() {
-        PassageEntityPK passageId = getModelFromJson(PassageEntityPK.class);
+    public CompletionStage<Result> listNeedToVerifiedPassages(int passageId) {
         return PassageService.listNeedToVerifiedPassageItems(passageId).thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 }

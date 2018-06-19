@@ -17,6 +17,7 @@ import play.libs.concurrent.HttpExecutionContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class PassageService extends BaseService implements IPassageService {
     }
 
     @Override
-    public CompletionStage<Collection<PassageItem>> listNeedToVerifiedPassageItems(PassageEntityPK id) {
+    public CompletionStage<Collection<PassageItem>> listNeedToVerifiedPassageItems(int id) {
         return supplyAsync(() -> wrap(em -> {
             PassageEntity passageEntity = em.find(PassageEntity.class, id);
             if (passageEntity == null) {
@@ -144,6 +145,7 @@ public class PassageService extends BaseService implements IPassageService {
         int threshold = testEntity.getThreshold();
         int result = (int) passages.stream().map(this::CalculateResult).count();
         passageEntity.setRight(result >= threshold);
+        passageEntity.setResult(result);
         return passageEntity;
     }
 
@@ -172,11 +174,18 @@ public class PassageService extends BaseService implements IPassageService {
 
     private PassageEntity getUserCurrentPassage(UserEntity userEntity) {
         try {
-            TypedQuery<PassageEntity> query = JpaApi
+            Query query = JpaApi
                     .em()
-                    .createQuery("select pas from PassageEntity pas join pas.test tst where pas.user = :user and pas.startdate < current_time and (pas.startdate + tst.minutesToGo) > current_time ", PassageEntity.class);
-            query.setParameter("user", userEntity);
-            return query.getSingleResult();
+                    .createNativeQuery("select * " +
+                            "from {h-schema}passages pas " +
+                                "inner join {h-schema}tests tst " +
+                                "on tst.id=pas.testid " +
+                            "where pas.user_id = :userId " +
+                                "and (pas.startdate) < current_timestamp AT TIME ZONE 'UTC' " +
+                                "and (pas.startdate +  make_interval(0,0,0,0,0,tst.minutestogo,0)) > current_timestamp AT TIME ZONE 'UTC'",
+                            PassageEntity.class);
+            query.setParameter("userId", userEntity.getId());
+            return (PassageEntity)query.getSingleResult();
         } catch (NoResultException ex) {
             // that's ok
             return null;

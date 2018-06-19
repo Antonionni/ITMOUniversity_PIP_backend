@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public interface IPassageService {
-    CompletionStage<Collection<PassageItem>> listNeedToVerifiedPassageItems(PassageEntityPK id);
+    CompletionStage<Collection<PassageItem>> listNeedToVerifiedPassageItems(int id);
 
     CompletionStage<Collection<PassageItem>> savePassageItem(Collection<PassageItem> items);
 
