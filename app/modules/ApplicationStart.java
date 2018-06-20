@@ -21,27 +21,25 @@ import java.util.concurrent.CompletableFuture;
 @Singleton
 public class ApplicationStart {
     private final String adminEmail = "admin@domain.com";
+
     @Inject
     public ApplicationStart(ApplicationLifecycle lifecycle, Environment environment, IUserService userService, JPAApi jpaApi, CoursachelloBot bot) {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
             telegramBotsApi.registerBot(bot);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Logger.error("heh", e);
         }
-        jpaApi.withTransaction(() -> {
-            if (userService.findByEmail(adminEmail) != null) {
-                return;
-            }
+        if (userService.findByEmail(adminEmail) != null) {
+            return;
+        }
 
-            MyUsernamePasswordAuthProvider.MySignup signupForm = new MyUsernamePasswordAuthProvider.MySignup();
-            signupForm.setName("ADMIN");
-            signupForm.setRoles(RolesConst.Admin);
-            signupForm.setEmail(adminEmail);
-            signupForm.setPassword("admin");
-            UserEntity adminUser = userService.create(new MyUsernamePasswordAuthUser(signupForm));
-            userService.verify(adminUser);
-        });
+        MyUsernamePasswordAuthProvider.MySignup signupForm = new MyUsernamePasswordAuthProvider.MySignup();
+        signupForm.setName("ADMIN");
+        signupForm.setRoles(RolesConst.Admin);
+        signupForm.setEmail(adminEmail);
+        signupForm.setPassword("admin");
+        UserEntity adminUser = userService.create(new MyUsernamePasswordAuthUser(signupForm));
+        userService.verify(adminUser);
     }
 }

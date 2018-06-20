@@ -37,7 +37,8 @@ libraryDependencies ++= Seq(
   "com.google.guava" % "guava" % "23.0",
   "org.telegram" % "telegrambotsextensions" % "3.6.1"
 )
-
+sources in doc in Compile := List()
+PlayKeys.externalizeResources := false
 // add resolver for deadbolt and easymail snapshots
 
 
