@@ -5,3 +5,4 @@ sampleDrop.ddl
 sampleCreate.ddl
 logs/application.log
 conf/application.conf
+conf/play-authenticate/smtp.conf
