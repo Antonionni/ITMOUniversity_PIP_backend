@@ -1,10 +1,19 @@
 package telegram_rabbit;
 
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import models.TelegramIdentity;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.telegram.telegrambots.ApiContext;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.User;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import play.api.Configuration;
@@ -20,10 +29,40 @@ public class CoursachelloBot extends TelegramLongPollingBot {
 
     @Inject
     public CoursachelloBot(IPassageService passageService, Configuration configuration, IUserService userService) {
+        super(getDefaultBotOptions(configuration));
         this.PassageService = passageService;
         this.Configuration = configuration;
         this.UserService = userService;
 
+    }
+
+    private static DefaultBotOptions getDefaultBotOptions(Configuration configuration) {
+        DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
+        String proxyHost = configuration.underlying().getString("telegrambot.proxy.host");
+        if (Strings.isNullOrEmpty(proxyHost)) {
+            return botOptions;
+        }
+
+        int port = Integer.parseInt(configuration.underlying().getString("telegrambot.proxy.port"));
+        HttpHost httpHost = new HttpHost(proxyHost, port);
+        botOptions.setHttpProxy(httpHost);
+
+        RequestConfig.Builder requestConfigBuilder = RequestConfig.custom().setProxy(httpHost);
+
+        String proxyUser = configuration.underlying().getString("telegrambot.proxy.user");
+
+        if (!Strings.isNullOrEmpty(proxyUser)) {
+            String proxyPassword = configuration.underlying().getString("telegrambot.proxy.pass");
+            CredentialsProvider credsProvider = new BasicCredentialsProvider();
+            credsProvider.setCredentials(
+                    new AuthScope(proxyHost, port),
+                    new UsernamePasswordCredentials(proxyUser, proxyPassword));
+            botOptions.setCredentialsProvider(credsProvider);
+            requestConfigBuilder.setAuthenticationEnabled(true);
+        }
+
+        botOptions.setRequestConfig(requestConfigBuilder.build());
+        return botOptions;
     }
 
     @Override
