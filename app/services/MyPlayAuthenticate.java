@@ -5,7 +5,9 @@ import com.feth.play.module.pa.Resolver;
 import com.feth.play.module.pa.exceptions.AuthException;
 import com.feth.play.module.pa.providers.AuthProvider;
 import com.feth.play.module.pa.user.AuthUser;
+import enumerations.ErrorCode;
 import models.ApiResponse;
+import org.jetbrains.annotations.NotNull;
 import play.Configuration;
 import play.Logger;
 import play.i18n.Messages;
@@ -16,6 +18,8 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+
+import java.util.Collection;
 
 import static play.mvc.Results.ok;
 
@@ -32,6 +36,15 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
         super(config, resolver);
     }
 
+    @NotNull
+    private Collection<String> getFlash(Http.Context context) {
+        return context.flash().values();
+    }
+
+    private ApiResponse<Collection<String>> getErrorResult(Http.Context context) {
+        return new ApiResponse<>(ErrorCode.UndefinedError, getFlash(context));
+    }
+
     @Override
     public Result handleAuthentication(final String provider,
                                        final Http.Context context, final Object payload) {
@@ -46,12 +59,16 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
         try {
             final Object o = ap.authenticate(context, payload);
             if (o instanceof String) {
-                return Controller.ok(Json.toJson(ApiResponse.withReturnUrl((String)o)));
-                //return Controller.redirect((String) o);
+                if(((String) o).startsWith("/")) {
+                    return Controller.forbidden(Json.toJson(getErrorResult(context)));
+                }
+                else {
+                    return Controller.redirect((String) o);
+                }
             } else if (o instanceof Result) {
                 String resultText = Json.toJson(o).asText();
                 Logger.debug("wow auth return result " + context.request().uri());
-                return Controller.ok(Json.toJson(new ApiResponse<String>(resultText)));
+                return Controller.ok(Json.toJson(new ApiResponse<>(getFlash(context))));
             } else if (o instanceof AuthUser) {
 
                 final AuthUser newUser = (AuthUser) o;
@@ -131,7 +148,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
                                                 SETTING_KEY_ACCOUNT_AUTO_MERGE));
                             }
                             storeMergeUser(newUser, session);
-                            return Controller.ok(Json.toJson(ApiResponse.withReturnUrl(c.url())));
+                            return Controller.ok(Json.toJson(new ApiResponse<>(getFlash(context))));
                         }
                     } else {
                         // the currently logged in user and the new login belong
@@ -163,7 +180,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
                                             SETTING_KEY_ACCOUNT_AUTO_LINK));
                         }
                         storeLinkUser(newUser, session);
-                        return Controller.ok(Json.toJson(ApiResponse.withReturnUrl(c.url())));
+                        return Controller.ok(Json.toJson(new ApiResponse<>(context)));
                     }
 
                 }
@@ -178,7 +195,7 @@ public class MyPlayAuthenticate extends PlayAuthenticate {
                 if (message != null) {
                     return Controller.internalServerError(Json.toJson(new ApiResponse<String>(message)));
                 } else {
-                    return Controller.internalServerError();
+                    return Controller.internalServerError(Json.toJson(new ApiResponse<>(getFlash(context))));
                 }
         }
     }

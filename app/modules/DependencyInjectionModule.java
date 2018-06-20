@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.feth.play.module.mail.IMailer;
 import com.feth.play.module.mail.Mailer;
 import com.feth.play.module.mail.Mailer.MailerFactory;
+import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.Resolver;
 import com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider;
 import com.feth.play.module.pa.providers.openid.OpenIdAuthProvider;
@@ -58,7 +59,7 @@ public class DependencyInjectionModule extends AbstractModule {
 
         bind(Resolver.class).to(MyResolver.class);
 
-        // bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();
+        bind(PlayAuthenticate.class).to(MyPlayAuthenticate.class).asEagerSingleton();
         bind(UserIdentityService.class).asEagerSingleton();
 
         bind(GoogleAuthProvider.class).asEagerSingleton();

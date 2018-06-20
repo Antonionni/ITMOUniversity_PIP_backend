@@ -3,13 +3,15 @@ package models;
 import enumerations.ErrorCode;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+
 public class ApiResponse<T> {
 
     @Nullable
     private ErrorCode ErrorCode = null;
 
     @Nullable
-    private String ErrorMessage = null;
+    private Collection<String> ErrorMessage = null;
 
     @Nullable
     private T Data = null;
@@ -17,7 +19,7 @@ public class ApiResponse<T> {
     @Nullable
     private String ReturnUrl = null;
 
-    public ApiResponse(@Nullable ErrorCode errorCode, @Nullable String errorMessage, @Nullable T data, @Nullable String returnUrl) {
+    public ApiResponse(@Nullable ErrorCode errorCode, @Nullable Collection<String> errorMessage, @Nullable T data, @Nullable String returnUrl) {
         this.ErrorCode = errorCode;
         this.Data = data;
         this.ReturnUrl = returnUrl;
@@ -32,7 +34,7 @@ public class ApiResponse<T> {
         return new ApiResponse<>(null, null, null, returnUrl);
     }
 
-    public ApiResponse(ErrorCode errorCode, String errorMessage) {
+    public ApiResponse(ErrorCode errorCode, Collection<String> errorMessage) {
         this.ErrorCode = errorCode;
         this.ErrorMessage = errorMessage;
     }
@@ -51,7 +53,7 @@ public class ApiResponse<T> {
         return ErrorCode;
     }
 
-    public String getErrorMessage() {
+    public Collection<String> getErrorMessage() {
         return ErrorMessage;
     }
 
