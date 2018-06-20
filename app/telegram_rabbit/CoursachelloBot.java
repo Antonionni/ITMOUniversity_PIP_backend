@@ -45,9 +45,12 @@ public class CoursachelloBot extends TelegramLongPollingCommandBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             Integer userId = update.getMessage().getFrom().getId();
             UserEntity userEntity = UserService.findByAuthUserIdentity(new TelegramIdentity(userId.toString()));
+            String messageText = userEntity != null
+                    ? "Что тебе надо от меня, заключенный №" + userEntity.getId() + "?"
+                    : "Я тебя не знаю :c";
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(update.getMessage().getChatId())
-                    .setText("Что тебе надо от меня, заключенный №" + userEntity.getId() + "?");
+                    .setText(messageText);
             try {
                 execute(message); // Call method to send the message
             } catch (TelegramApiException e) {
