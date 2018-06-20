@@ -3,6 +3,7 @@ package telegram_rabbit;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import models.TelegramIdentity;
+import models.entities.UserEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -15,13 +16,15 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import play.api.Configuration;
 import services.IPassageService;
 import services.IUserService;
 import services.PassageService;
 
-public class CoursachelloBot extends TelegramLongPollingBot {
+public class CoursachelloBot extends TelegramLongPollingCommandBot {
 
     private final IPassageService PassageService;
     private final Configuration Configuration;
@@ -29,11 +32,33 @@ public class CoursachelloBot extends TelegramLongPollingBot {
 
     @Inject
     public CoursachelloBot(IPassageService passageService, Configuration configuration, IUserService userService) {
-        super(getDefaultBotOptions(configuration));
+        super(getDefaultBotOptions(configuration), configuration.underlying().getString("telegrambot.username"));
         this.PassageService = passageService;
         this.Configuration = configuration;
         this.UserService = userService;
+        this.register(new SacredDeerCommand());
+        this.register(new HelpCommand());
+    }
 
+    @Override
+    public void processNonCommandUpdate(Update update) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            Integer userId = update.getMessage().getFrom().getId();
+            UserEntity userEntity = UserService.findByAuthUserIdentity(new TelegramIdentity(userId.toString()));
+            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+                    .setChatId(update.getMessage().getChatId())
+                    .setText("Что тебе надо от меня, заключенный №" + userEntity.getId() + "?");
+            try {
+                execute(message); // Call method to send the message
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public String getBotToken() {
+        return Configuration.underlying().getString("telegrambot.token");
     }
 
     private static DefaultBotOptions getDefaultBotOptions(Configuration configuration) {
@@ -63,31 +88,5 @@ public class CoursachelloBot extends TelegramLongPollingBot {
 
         botOptions.setRequestConfig(requestConfigBuilder.build());
         return botOptions;
-    }
-
-    @Override
-    public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            Integer userId = update.getMessage().getFrom().getId();
-            UserService.findByAuthUserIdentity(new TelegramIdentity(userId.toString()));
-            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-                    .setChatId(update.getMessage().getChatId())
-                    .setText(update.getMessage().getText());
-            try {
-                execute(message); // Call method to send the message
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public String getBotUsername() {
-        return Configuration.underlying().getString("telegrambot.username");
-    }
-
-    @Override
-    public String getBotToken() {
-        return Configuration.underlying().getString("telegrambot.token");
     }
 }

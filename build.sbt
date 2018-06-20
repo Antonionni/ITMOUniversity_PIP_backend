@@ -34,7 +34,8 @@ libraryDependencies ++= Seq(
   "com.rabbitmq" % "amqp-client" % "2.8.1",
   "org.telegram" % "telegrambots" % "3.6.1",
   "org.igniterealtime.smack" % "smack" % "3.2.1",
-  "com.google.guava" % "guava" % "23.0"
+  "com.google.guava" % "guava" % "23.0",
+  "org.telegram" % "telegrambotsextensions" % "3.6.1"
 )
 
 // add resolver for deadbolt and easymail snapshots
