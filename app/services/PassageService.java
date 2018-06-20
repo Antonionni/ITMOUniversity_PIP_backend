@@ -7,7 +7,9 @@ import Exceptions.WrongAmountOfAnswersException;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import com.google.common.base.Strings;
 import enumerations.AnswerType;
+import jabber.JabberBot;
 import models.entities.*;
 import models.serviceEntities.LessonPage;
 import models.serviceEntities.Passage;
@@ -40,13 +42,15 @@ public class PassageService extends BaseService implements IPassageService {
     private final IUserService UserService;
     private final ActorSystem system;
     private final PassageActorCreator creator;
+    private final JabberBot JabberBot;
 
     @Inject
-    public PassageService(JPAApi jpaApi, HttpExecutionContext ec, IUserService userService, ActorSystem system, PassageActorCreator creator) {
+    public PassageService(JPAApi jpaApi, HttpExecutionContext ec, IUserService userService, ActorSystem system, PassageActorCreator creator, JabberBot jabberBot) {
         super(jpaApi, ec);
         this.UserService = userService;
         this.system = system;
         this.creator = creator;
+        this.JabberBot = jabberBot;
     }
 
     @Override
@@ -148,7 +152,12 @@ public class PassageService extends BaseService implements IPassageService {
             if (passageEntity == null) {
                 throw new NoCurrentPassageException();
             }
-            return new Passage(closePassage(passageEntity));
+            Passage passage = new Passage(closePassage(passageEntity));
+            if(!Strings.isNullOrEmpty(userEntity.getJabberId())) {
+                String message = "Hi! You just completed " + passageEntity.getTest().getTitle() + " test. You " + (passage.isRight() ? "passed" : "didn't passed") + " it. ";
+                JabberBot.sendMessage("message", userEntity.getJabberId());
+            }
+            return passage;
         }), ec.current());
     }
 

@@ -32,7 +32,7 @@ public class PassageActor extends UntypedActor {
                 passageEntity = em.find(PassageEntity.class, passageEntity.getId());
                 if(passageEntity.getEnddate() != null) {
                     Logger.error("passage already closed" + passageEntity.getId());
-                    throw new PassageAlreadyClosedException();
+                    //throw new PassageAlreadyClosedException();
                 }
                 return PassageService.closePassage(passageEntity);
             });

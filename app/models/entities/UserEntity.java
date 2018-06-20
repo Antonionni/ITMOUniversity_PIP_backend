@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users", catalog = "postgres", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users", catalog = "postgres")
 public class UserEntity implements Subject {
     @Transient
     public final IUserService UserService;
@@ -35,7 +35,7 @@ public class UserEntity implements Subject {
      * user Email
      */
     @Basic
-    @Column(name = "email", nullable = false, length = 400)
+    @Column(name = "email", nullable = true, length = 400)
     private String email;
 //    /**
 //     * secret password
@@ -100,6 +100,9 @@ public class UserEntity implements Subject {
 
     @OneToMany(mappedBy = "passage")
     private Collection<PassageEntity> passages;
+
+    @Column(name = "jabberid")
+    private String jabberId;
 
     public String getPlaceOfStudy() {
         return placeOfStudy;
@@ -279,5 +282,13 @@ public class UserEntity implements Subject {
 
     public void setPassages(Collection<PassageEntity> passages) {
         this.passages = passages;
+    }
+
+    public String getJabberId() {
+        return jabberId;
+    }
+
+    public void setJabberId(String jabberId) {
+        this.jabberId = jabberId;
     }
 }

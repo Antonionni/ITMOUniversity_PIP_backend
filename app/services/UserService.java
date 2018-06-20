@@ -56,7 +56,7 @@ public class UserService extends BaseService implements IUserService {
             final AuthUserIdentity identity) {
         TypedQuery<UserEntity> query = JpaApi.em().createQuery(
                 "SELECT la.user " +
-                        "from LinkedAccount la " +
+                        "from LinkedAccount la join fetch la.user.linkedAccounts " +
                         "where la.providerUserId = :IdentityId and la.providerKey = :IdentityProvider and la.user.active = true"
                 , UserEntity.class);
         query.setParameter("IdentityId", identity.getId());

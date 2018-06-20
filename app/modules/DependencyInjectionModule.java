@@ -10,20 +10,29 @@ import com.feth.play.module.pa.Resolver;
 import com.feth.play.module.pa.providers.oauth2.google.GoogleAuthProvider;
 import com.feth.play.module.pa.providers.openid.OpenIdAuthProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
+import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 //import providers.MyStupidBasicAuthProvider;
 //import providers.MyUsernamePasswordAuthProvider;
 import com.google.inject.name.Names;
 import com.google.inject.util.Providers;
+import jabber.JabberBot;
 import jabber.XmppManager;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
+import play.Logger;
 import play.libs.Akka;
 import play.libs.Json;
 import play.libs.akka.AkkaGuiceSupport;
 import providers.MyUsernamePasswordAuthProvider;
 import services.*;
+import telegram_rabbit.CoursachelloBot;
 import telegram_rabbit.PassageActor;
 import telegram_rabbit.PassageActorCreator;
+import telegram_rabbit.TelegramAuthProvider;
 //import service.DataInitializer;
 //import service.MyResolver;
 //import service.MyUserService;
@@ -32,6 +41,9 @@ import telegram_rabbit.PassageActorCreator;
  * Initial DI module.
  */
 public class DependencyInjectionModule extends AbstractModule {
+    static {
+        ApiContextInitializer.init();
+    }
 
     @Override
     protected void configure() {
@@ -59,6 +71,9 @@ public class DependencyInjectionModule extends AbstractModule {
 
         Json.mapper().registerModule(new GuavaModule());
         Json.mapper().registerModule(new Jdk8Module());
+        bind(JabberBot.class);
+        bind(TelegramAuthProvider.class).asEagerSingleton();
+        bind(CoursachelloBot.class);
         //bindActor(PassageActor.class, "passageaaaa-actor");
         //bind(TwitterAuthProvider.class).asEagerSingleton();
         //bind(LinkedinAuthProvider.class).asEagerSingleton();
@@ -69,25 +84,5 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(GithubAuthProvider.class).asEagerSingleton();
         //bind(SpnegoAuthProvider.class).asEagerSingleton();
         //bind(EventBriteAuthProvider.class).asEagerSingleton();
-        try {
-            String username = "Coursach";
-            String password = "hello";
-
-            XmppManager xmppManager = new XmppManager("007jabber.com", 5222);
-
-            xmppManager.init();
-            xmppManager.performLogin(username, password);
-            xmppManager.setStatus(true, "Hello everyone");
-
-            String buddyJID = "coursachtest";
-            String buddyName = "coursachtest";
-            xmppManager.createEntry(buddyJID, buddyName);
-
-            xmppManager.sendMessage("Hello mate", "coursachtest@007jabber.com");
-            xmppManager.destroy();
-        }
-        catch (Exception e) {
-
-        }
     }
 }

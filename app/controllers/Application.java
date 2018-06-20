@@ -56,6 +56,7 @@ public class Application extends Controller {
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public Result profile() {
+
         final UserEntity localUser = userProvider.getUser(session());
         return ok(profile.render(this.auth, this.userProvider, localUser, UserService));
     }
