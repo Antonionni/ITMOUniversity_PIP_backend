@@ -104,6 +104,9 @@ public class UserEntity implements Subject {
     @Column(name = "jabberid")
     private String jabberId;
 
+    @Column(name = "photourl")
+    private String photoUrl;
+
     public String getPlaceOfStudy() {
         return placeOfStudy;
     }
@@ -290,5 +293,13 @@ public class UserEntity implements Subject {
 
     public void setJabberId(String jabberId) {
         this.jabberId = jabberId;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

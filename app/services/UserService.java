@@ -238,6 +238,7 @@ public class UserService extends BaseService implements IUserService {
         userEntity.setActive(user.isActive());
         userEntity.setLastLogin(new Date());
         userEntity.setBirthDate(user.getBirthDate());
+        userEntity.setPhotoUrl(user.getPhotoUrl());
         updateRoles(userEntity, user.getRoles());
         return userEntity;
     }

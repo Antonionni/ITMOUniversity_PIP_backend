@@ -23,8 +23,9 @@ public class BaseUser {
     private boolean active;
     private Date lastLogin;
     private Date birthDate;
+    private String photoUrl;
 
-    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, List<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin, Date birthDate) {
+    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, List<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin, Date birthDate, String photoUrl) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -37,6 +38,7 @@ public class BaseUser {
         this.active = active;
         this.lastLogin = lastLogin;
         this.birthDate = birthDate;
+        this.photoUrl = photoUrl;
     }
 
     public BaseUser(UserEntity userEntity) {
@@ -51,7 +53,8 @@ public class BaseUser {
                 userEntity.isEmailValidated(),
                 userEntity.isActive(),
                 userEntity.getLastLogin(),
-                userEntity.getBirthDate());
+                userEntity.getBirthDate(),
+                userEntity.getPhotoUrl());
     }
 
     public BaseUser() {}
@@ -152,5 +155,13 @@ public class BaseUser {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }
