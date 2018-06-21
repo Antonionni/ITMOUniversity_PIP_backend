@@ -10,7 +10,9 @@ public interface ICourseListService {
     // haha so unperformance
     CompletionStage<List<CourseInfo>> listRandomCourses(int size);
 
-    CompletionStage<PagedResult<CourseInfo>> findCourses(String keyword, int pageNumber, int pageSize);
+    CompletionStage<List<CourseInfo>> findCourses(String keyword);
 
     CompletionStage<Boolean> subscribeToCourse(int courseId);
+
+    CompletionStage<List<CourseInfo>> listAllCourses();
 }

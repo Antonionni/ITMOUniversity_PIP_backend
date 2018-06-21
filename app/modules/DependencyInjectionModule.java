@@ -30,10 +30,7 @@ import play.libs.Json;
 import play.libs.akka.AkkaGuiceSupport;
 import providers.MyUsernamePasswordAuthProvider;
 import services.*;
-import telegram_rabbit.CoursachelloBot;
-import telegram_rabbit.PassageActor;
-import telegram_rabbit.PassageActorCreator;
-import telegram_rabbit.TelegramAuthProvider;
+import telegram_rabbit.*;
 //import service.DataInitializer;
 //import service.MyResolver;
 //import service.MyUserService;
@@ -68,13 +65,15 @@ public class DependencyInjectionModule extends AbstractModule {
         //bind(FoursquareAuthProvider.class).asEagerSingleton();
         bind(MyUsernamePasswordAuthProvider.class).asEagerSingleton();
         bind(OpenIdAuthProvider.class).asEagerSingleton();
-        bind(ApplicationStart.class).asEagerSingleton();
+
 
         Json.mapper().registerModule(new GuavaModule());
         Json.mapper().registerModule(new Jdk8Module());
         bind(JabberBot.class);
         bind(TelegramAuthProvider.class).asEagerSingleton();
         bind(CoursachelloBot.class);
+        bind(TelegramInitialization.class).asEagerSingleton();
+        bind(ApplicationStart.class).asEagerSingleton();
         //bindActor(PassageActor.class, "passageaaaa-actor");
         //bind(TwitterAuthProvider.class).asEagerSingleton();
         //bind(LinkedinAuthProvider.class).asEagerSingleton();

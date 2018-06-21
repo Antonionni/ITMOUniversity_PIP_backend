@@ -38,17 +38,24 @@ public class CourseListService extends BaseService implements ICourseListService
         }), ec.current());
     }
 
+    public CompletionStage<List<CourseInfo>> listAllCourses() {
+        return supplyAsync(() -> wrap(em -> {
+            List<CourseEntity> courses = em.createQuery("select course from CourseEntity course", CourseEntity.class).getResultList();
+            return courses.stream().map(CourseInfo::new).collect(Collectors.toList());
+        }), ec.current());
+    }
+
     @Override
-    public CompletionStage<PagedResult<CourseInfo>> findCourses(String keyword, int pageNumber, int pageSize) {
+    public CompletionStage<List<CourseInfo>> findCourses(String keyword) {
         return supplyAsync(() -> wrap(em -> {
             TypedQuery<CourseEntity> courseQuery =  em.createQuery("select course from CourseEntity course where title like %:keyword%", CourseEntity.class);
             courseQuery.setParameter("keyword", keyword);
-            courseQuery.setFirstResult(pageNumber * pageSize);
-            courseQuery.setMaxResults(pageSize + 1);
+            /*courseQuery.setFirstResult(pageNumber * pageSize);
+            courseQuery.setMaxResults(pageSize + 1);*/
             List<CourseEntity> coursesResult = courseQuery.getResultList();
-            int resultSize = coursesResult.size();
-            List<CourseInfo> shrinkedResult = courseQuery.getResultList().stream().limit(pageSize).map(CourseInfo::new).collect(Collectors.toList());
-            return new PagedResult<>(shrinkedResult, resultSize > pageSize);
+            //int resultSize = coursesResult.size();
+            //return new PagedResult<>(shrinkedResult, resultSize > pageSize);
+            return courseQuery.getResultList().stream()/*.limit(pageSize)*/.map(CourseInfo::new).collect(Collectors.toList());
         }), ec.current());
     }
 

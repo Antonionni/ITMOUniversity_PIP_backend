@@ -8,12 +8,10 @@ import enumerations.RoleType;
 import models.ApiResponse;
 import models.serviceEntities.UserData.AggregatedUser;
 import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
 import services.IUserService;
 
 import javax.inject.Inject;
-import javax.management.relation.Role;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -92,12 +90,17 @@ public class UserController extends BaseController {
         return getUserList(parsedRole);
     }
 
+    public CompletionStage<Result> getAllUsers() {
+        return this.UserService.getUsersList()
+                .thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
+    }
+
     public CompletionStage<Result> getRequestForTeacherUserList() {
         return getUserList(RoleType.Teacher);
     }
 
     private CompletionStage<Result> getUserList(RoleType parsedRole) {
-        return this.UserService.getUserList(parsedRole)
+        return this.UserService.getUsersList(parsedRole)
                 .thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 }

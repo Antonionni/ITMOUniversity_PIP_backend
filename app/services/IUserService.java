@@ -63,5 +63,7 @@ public interface IUserService {
 
     boolean currentUserOrAdmin(int userId);
 
-    CompletionStage<Collection<AggregatedUser>> getUserList(RoleType roleType);
+    CompletionStage<Collection<AggregatedUser>> getUsersList(RoleType roleType);
+
+    CompletionStage<Collection<AggregatedUser>> getUsersList();
 }

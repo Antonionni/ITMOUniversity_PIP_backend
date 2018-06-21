@@ -21,8 +21,12 @@ public class CourseListController extends BaseController {
         return CourseListService.listRandomCourses(size).thenApplyAsync(x -> ok(Json.toJson(x)));
     }
 
-    public CompletionStage<Result> findCourses(String keyword, int pageNumber) {
-        return CourseListService.findCourses(keyword, pageNumber, ApiConst.DEFAULT_PAGE_SIZE).thenApplyAsync(x -> ok(Json.toJson(x)));
+    public CompletionStage<Result> listAllCourses() {
+        return CourseListService.listAllCourses().thenApplyAsync(x -> ok(Json.toJson(x)));
+    }
+
+    public CompletionStage<Result> findCourses(String keyword) {
+        return CourseListService.findCourses(keyword).thenApplyAsync(x -> ok(Json.toJson(x)));
     }
 
     public CompletionStage<Result> subscribeToCourse(int id) {
