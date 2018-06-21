@@ -131,6 +131,18 @@ public class UserService extends BaseService implements IUserService {
                 })), ec.current());
     }
 
+    public CompletionStage<Collection<AggregatedUser>> getUserList(RoleType roleType) {
+        return supplyAsync(() -> wrap(em -> {
+            TypedQuery<UserEntity> query = em.createQuery("select user from UserEntity user join user.userRoles roles where roles.roleType = :userRole", UserEntity.class);
+            query.setParameter("userRole", roleType);
+            return query.getResultList().stream().map(x -> {
+                AggregatedUser aggregatedUser = ToAggregatedUser(x);
+                AddDataForRoles(Arrays.asList(RoleType.values()), x, aggregatedUser);
+                return aggregatedUser;
+            }).collect(Collectors.toList());
+        }));
+    }
+
     public CompletionStage<Optional<AggregatedUser>> getProfileData() {
         return supplyAsync(() -> wrap(em -> {
             UserEntity userEntity = getCurrentUser();

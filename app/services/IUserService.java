@@ -62,4 +62,6 @@ public interface IUserService {
     UserEntity getCurrentUser();
 
     boolean currentUserOrAdmin(int userId);
+
+    CompletionStage<Collection<AggregatedUser>> getUserList(RoleType roleType);
 }

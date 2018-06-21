@@ -49,8 +49,12 @@ GET         /users/student/:id                                      controllers.
 GET         /users/teacher/:id                                      controllers.api.UserController.getTeacher(id: Integer)
 GET         /users/user/:id                                         controllers.api.UserController.getUser(id: Integer, role: String ?= "")
 GET         /users/user/:id/:role                                   controllers.api.UserController.getUser(id: Integer, role: String)
+GET         /users/fullUser/:id                                     controllers.api.UserController.getFullUser(id: Integer)
 GET         /users/userWithSeveralRoles/:id/:roles                  controllers.api.UserController.getUserWithSeveralRoles(id: Integer, roles: String)
+GET         /users/teachers                                         controllers.api.UserController.getRequestForTeacherUserList
+GET         /users/list/:role                                       controllers.api.UserController.getUsersByRole(role: String)
 POST        /users/update                                           controllers.api.UserController.update
+
 GET         /profile/new                                            controllers.api.UserController.getProfile
 
 GET         /courselist/randomlist/:size                            controllers.api.CourseListController.listRandomCourses(size: Integer)

@@ -13,6 +13,7 @@ import play.mvc.Result;
 import services.IUserService;
 
 import javax.inject.Inject;
+import javax.management.relation.Role;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -77,5 +78,26 @@ public class UserController extends BaseController {
                 profile
                         .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
                         .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
+    }
+
+    public CompletionStage<Result> getFullUser(int id) {
+        return this.UserService.getUserAndGatherDataForRoles(id, Arrays.asList(RoleType.values()))
+                .thenApplyAsync(x -> x
+                        .map(user -> ok(Json.toJson(new ApiResponse<>(user))))
+                        .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
+    }
+
+    public CompletionStage<Result> getUsersByRole(String role) {
+        RoleType parsedRole = RoleType.valueOf(role);
+        return getUserList(parsedRole);
+    }
+
+    public CompletionStage<Result> getRequestForTeacherUserList() {
+        return getUserList(RoleType.Teacher);
+    }
+
+    private CompletionStage<Result> getUserList(RoleType parsedRole) {
+        return this.UserService.getUserList(parsedRole)
+                .thenApplyAsync(x -> ok(Json.toJson(new ApiResponse<>(x))));
     }
 }
