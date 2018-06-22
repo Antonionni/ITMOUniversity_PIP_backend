@@ -69,8 +69,7 @@ public class UserController extends BaseController {
                                 .map(x -> ok((Json.toJson(new ApiResponse<>(x)))))
                                 .orElseGet(() -> notFound(Json.toJson(new ApiResponse<>(ErrorCode.EntityNotFound)))));
     }
-
-    @Restrict(@Group(RolesConst.AuthenticatedUser))
+    
     public CompletionStage<Result> getProfile() {
         return this.UserService.getProfileData().thenApplyAsync(profile ->
                 profile
