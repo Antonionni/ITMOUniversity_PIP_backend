@@ -1,5 +1,6 @@
 package controllers;
 
+import akka.actor.ActorSystem;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import com.feth.play.module.pa.PlayAuthenticate;
@@ -7,9 +8,12 @@ import config.RolesConst;
 import models.entities.UserEntity;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.libs.ws.WS;
 import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
+import scala.concurrent.ExecutionContext;
+import scala.concurrent.duration.Duration;
 import services.IUserService;
 import services.UserProvider;
 import views.html.*;
@@ -17,6 +21,7 @@ import views.html.*;
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class Application extends Controller {
 
@@ -29,6 +34,8 @@ public class Application extends Controller {
 
     private final UserProvider userProvider;
     private final IUserService UserService;
+    private final ActorSystem ActorSystem;
+    private final ExecutionContext ExecutionContext;
 
     public static String formatTimestamp(final long t) {
         return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
@@ -36,17 +43,22 @@ public class Application extends Controller {
 
     @Inject
     public Application(final PlayAuthenticate auth, final MyUsernamePasswordAuthProvider provider,
-                       final UserProvider userProvider, final IUserService UserService) {
+                       final UserProvider userProvider, final IUserService UserService, ActorSystem actorSystem, ExecutionContext executionContext) {
         this.auth = auth;
         this.provider = provider;
         this.userProvider = userProvider;
         this.UserService = UserService;
+        this.ActorSystem = actorSystem;
+        this.ExecutionContext = executionContext;
     }
 
     public Result index() {
         return redirect("/");
     }
 
+    public Result oldindex() {
+        return ok(index.render(this.userProvider));
+    }
 
     @Restrict(@Group(RolesConst.AuthenticatedUser))
     public Result restricted() {

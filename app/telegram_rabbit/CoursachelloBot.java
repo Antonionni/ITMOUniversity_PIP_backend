@@ -77,16 +77,15 @@ public class CoursachelloBot extends TelegramLongPollingCommandBot {
 
         RequestConfig.Builder requestConfigBuilder = RequestConfig.custom().setProxy(httpHost);
 
-        String proxyUser = configuration.underlying().getString("telegrambot.proxy.user");
-
-        if (!Strings.isNullOrEmpty(proxyUser)) {
-            String proxyPassword = configuration.underlying().getString("telegrambot.proxy.pass");
-            CredentialsProvider credsProvider = new BasicCredentialsProvider();
-            credsProvider.setCredentials(
-                    new AuthScope(proxyHost, port),
-                    new UsernamePasswordCredentials(proxyUser, proxyPassword));
-            botOptions.setCredentialsProvider(credsProvider);
-            requestConfigBuilder.setAuthenticationEnabled(true);
+        if(configuration.underlying().hasPath("telegrambot.proxy.user")) {
+            String proxyUser = configuration.underlying().getString("telegrambot.proxy.user");
+                String proxyPassword = configuration.underlying().getString("telegrambot.proxy.pass");
+                CredentialsProvider credsProvider = new BasicCredentialsProvider();
+                credsProvider.setCredentials(
+                        new AuthScope(proxyHost, port),
+                        new UsernamePasswordCredentials(proxyUser, proxyPassword));
+                botOptions.setCredentialsProvider(credsProvider);
+                requestConfigBuilder.setAuthenticationEnabled(true);
         }
 
         botOptions.setRequestConfig(requestConfigBuilder.build());

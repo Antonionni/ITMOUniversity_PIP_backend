@@ -34,7 +34,7 @@ public class TelegramInitialization {
                 }
             };
             channel.basicConsume(Const.RABBITMQ_QUEUE, consumer);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.error("something wrong with rabbit", ex);
         }
     }

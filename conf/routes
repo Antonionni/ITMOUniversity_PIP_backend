@@ -4,6 +4,7 @@
 
 # Home page
 GET         /azaza                                                   controllers.Application.index
+GET         /oldindex                                                controllers.Application.oldindex
 GET         /                                                        controllers.Assets.at(path="/public", file = "index.html")
 GET         /restricted                                              controllers.Application.restricted
 GET         /assets/javascript/routes.js                             controllers.Application.jsRoutes
