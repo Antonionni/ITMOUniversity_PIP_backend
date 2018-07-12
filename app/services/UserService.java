@@ -167,8 +167,10 @@ public class UserService extends BaseService implements IUserService {
     }
 
     private void AddDataForRoles(Collection<RoleType> roles, UserEntity x, AggregatedUser aggregatedUser) {
-        roles.forEach(role -> {
-            switch (role) {
+        ArrayList<RoleType> roless = new ArrayList<>(roles);
+        x.getStudentCourses();
+        for(int i = 0; i < roles.size(); i++) {
+            switch (roless.get(i)) {
                 case Student:
                     AddStudentInfo(x, aggregatedUser);
                 case Teacher:
@@ -179,7 +181,7 @@ public class UserService extends BaseService implements IUserService {
                 case AuthenticatedUser:
                     break;
             }
-        });
+        }
     }
 
     private Optional<UserEntity> getUserById(int id) {
