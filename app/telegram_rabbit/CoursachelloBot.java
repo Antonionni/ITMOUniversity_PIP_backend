@@ -68,6 +68,9 @@ public class CoursachelloBot extends TelegramLongPollingCommandBot {
     private static DefaultBotOptions getDefaultBotOptions(Configuration configuration) {
         Logger.info("getdefaultbotooptions");
         DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
+        if(!configuration.underlying().hasPath("telegrambot.proxy")) {
+            return botOptions;
+        }
         String proxyHost = configuration.underlying().getString("telegrambot.proxy.host");
         if (Strings.isNullOrEmpty(proxyHost)) {
             return botOptions;
