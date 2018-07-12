@@ -19,6 +19,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import play.Logger;
 import play.api.Configuration;
 import services.IPassageService;
 import services.IUserService;
@@ -65,6 +66,7 @@ public class CoursachelloBot extends TelegramLongPollingCommandBot {
     }
 
     private static DefaultBotOptions getDefaultBotOptions(Configuration configuration) {
+        Logger.info("getdefaultbotooptions");
         DefaultBotOptions botOptions = ApiContext.getInstance(DefaultBotOptions.class);
         String proxyHost = configuration.underlying().getString("telegrambot.proxy.host");
         if (Strings.isNullOrEmpty(proxyHost)) {

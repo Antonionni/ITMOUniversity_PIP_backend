@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 public class Course {
     private CourseInfo courseInfo;
     private Collection<CoursePeriod> coursePeriods;
-    private Collection<LessonInfo> lessons;
+    private Collection<Lesson> lessons;
 
     public Course() {}
 
     public Course(CourseEntity courseEntity, Collection<CoursePeriodEntity> coursePeriodEntities, Collection<LessonEntity> lessonEntities) {
         courseInfo = new CourseInfo(courseEntity);
         coursePeriods = coursePeriodEntities.stream().map(CoursePeriod::new).collect(Collectors.toList());
-        lessons = lessonEntities.stream().map(LessonInfo::new).collect(Collectors.toList());
+        lessons = lessonEntities.stream().map(x -> new Lesson(x, x.getLessonTests(), x.getMaterials())).collect(Collectors.toList());
     }
 
     public CourseInfo getCourseInfo() {
@@ -36,11 +36,11 @@ public class Course {
         this.coursePeriods = coursePeriods;
     }
 
-    public Collection<LessonInfo> getLessons() {
+    public Collection<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(Collection<LessonInfo> lessons) {
+    public void setLessons(Collection<Lesson> lessons) {
         this.lessons = lessons;
     }
 }

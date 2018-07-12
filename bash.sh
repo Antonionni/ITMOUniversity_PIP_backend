@@ -20,5 +20,5 @@ which java
 cd $packageProdPath
 kill -s 9 `cat ./RUNNING_PID`
 rm -f ./RUNNING_PID
-./bin/$prjName -DsocksProxyHost=5.188.232.39 -DsocksProxyPort=443 -DsocksNonProxyHosts=pg\|localhost -Dhttp.port=1237 -Dhttp.address=127.0.0.1
+./bin/$prjName -DsocksProxyHost=5.188.232.39 -DsocksProxyPort=443 -DsocksNonProxyHosts=pg\|localhost -Dhttp.port=1238 -Dhttp.address=127.0.0.1
 EOF

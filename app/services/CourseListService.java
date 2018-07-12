@@ -1,11 +1,10 @@
 package services;
 
 import Exceptions.BusinessException;
-import models.PagedResult;
 import models.entities.CourseEntity;
 import models.entities.UserEntity;
 import models.entities.CourseSubscriptionEntity;
-import models.serviceEntities.CourseInfo;
+import models.serviceEntities.Course;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 
@@ -30,23 +29,23 @@ public class CourseListService extends BaseService implements ICourseListService
 
     // haha so unperformance
     @Override
-    public CompletionStage<List<CourseInfo>> listRandomCourses(int size) {
+    public CompletionStage<List<Course>> listRandomCourses(int size) {
         return supplyAsync(() -> wrap(em -> {
             List<CourseEntity> courses = em.createQuery("select course from CourseEntity course", CourseEntity.class).getResultList();
             Collections.shuffle(courses);
-            return courses.stream().limit(size).map(CourseInfo::new).collect(Collectors.toList());
+            return courses.stream().limit(size).map(x -> new Course( x, x.getCoursePeriods(), x.getLessons())).collect(Collectors.toList());
         }), ec.current());
     }
 
-    public CompletionStage<List<CourseInfo>> listAllCourses() {
+    public CompletionStage<List<Course>> listAllCourses() {
         return supplyAsync(() -> wrap(em -> {
             List<CourseEntity> courses = em.createQuery("select course from CourseEntity course", CourseEntity.class).getResultList();
-            return courses.stream().map(CourseInfo::new).collect(Collectors.toList());
+            return courses.stream().map(x -> new Course( x, x.getCoursePeriods(), x.getLessons())).collect(Collectors.toList());
         }), ec.current());
     }
 
     @Override
-    public CompletionStage<List<CourseInfo>> findCourses(String keyword) {
+    public CompletionStage<List<Course>> findCourses(String keyword) {
         return supplyAsync(() -> wrap(em -> {
             TypedQuery<CourseEntity> courseQuery =  em.createQuery("select course from CourseEntity course where title like %:keyword%", CourseEntity.class);
             courseQuery.setParameter("keyword", keyword);
@@ -55,7 +54,7 @@ public class CourseListService extends BaseService implements ICourseListService
             List<CourseEntity> coursesResult = courseQuery.getResultList();
             //int resultSize = coursesResult.size();
             //return new PagedResult<>(shrinkedResult, resultSize > pageSize);
-            return courseQuery.getResultList().stream()/*.limit(pageSize)*/.map(CourseInfo::new).collect(Collectors.toList());
+            return courseQuery.getResultList().stream()/*.limit(pageSize)*/.map(x -> new Course( x, x.getCoursePeriods(), x.getLessons())).collect(Collectors.toList());
         }), ec.current());
     }
 

@@ -44,11 +44,11 @@ public class ApplicationStart {
         actorSystem.scheduler().scheduleOnce(FiniteDuration.apply(0, TimeUnit.SECONDS), () -> {
             if(configuration.underlying().getBoolean("telegrambot.enabled")) {
                 try {
+                    Logger.info("rabbituem start");
                     Connection connection = RabbitMqConnection.getConnection();
                     Channel channel = connection.createChannel();
                     channel.queueDeclare(Const.RABBITMQ_QUEUE, false, false, false, null);
                     channel.basicPublish("", Const.RABBITMQ_QUEUE, null, "registerBot".getBytes());
-                    channel.close();
                 } catch (IOException ex) {
                     Logger.error("something wrong with app start in rabbit mq kek", ex);
                 }
