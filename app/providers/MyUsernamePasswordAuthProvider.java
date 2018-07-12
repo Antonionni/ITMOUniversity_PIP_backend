@@ -267,7 +267,7 @@ public class MyUsernamePasswordAuthProvider
 		// if you return
 		// return SignupResult.USER_CREATED;
 		// then the user gets logged in directly
-		return SignupResult.USER_CREATED_UNVERIFIED;
+		return SignupResult.USER_CREATED;
 	}
 
 	@Override

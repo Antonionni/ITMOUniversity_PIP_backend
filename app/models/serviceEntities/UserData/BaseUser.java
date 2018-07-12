@@ -24,8 +24,9 @@ public class BaseUser {
     private Date lastLogin;
     private Date birthDate;
     private String photoUrl;
+    private String placeOfStudy;
 
-    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, List<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin, Date birthDate, String photoUrl) {
+    public BaseUser(int id, String email, String name, String firstName, String lastName, Date createdAt, Date updatedAt, List<RoleType> roles, boolean emailValidated, boolean active, Date lastLogin, Date birthDate, String photoUrl, String placeOfStudy) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -39,6 +40,7 @@ public class BaseUser {
         this.lastLogin = lastLogin;
         this.birthDate = birthDate;
         this.photoUrl = photoUrl;
+        this.placeOfStudy = placeOfStudy;
     }
 
     public BaseUser(UserEntity userEntity) {
@@ -54,7 +56,8 @@ public class BaseUser {
                 userEntity.isActive(),
                 userEntity.getLastLogin(),
                 userEntity.getBirthDate(),
-                userEntity.getPhotoUrl());
+                userEntity.getPhotoUrl(),
+                userEntity.getPlaceOfStudy());
     }
 
     public BaseUser() {}
@@ -163,5 +166,13 @@ public class BaseUser {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getPlaceOfStudy() {
+        return placeOfStudy;
+    }
+
+    public void setPlaceOfStudy(String placeOfStudy) {
+        this.placeOfStudy = placeOfStudy;
     }
 }

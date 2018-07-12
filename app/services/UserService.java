@@ -250,12 +250,12 @@ public class UserService extends BaseService implements IUserService {
         userEntity.setLastLogin(new Date());
         userEntity.setBirthDate(user.getBirthDate());
         userEntity.setPhotoUrl(user.getPhotoUrl());
+        userEntity.setPlaceOfStudy(user.getPlaceOfStudy());
         updateRoles(userEntity, user.getRoles());
         return userEntity;
     }
 
     private UserEntity UpdateWithStudentData(UserEntity userEntity, Student studentData) {
-        userEntity.setPlaceOfStudy(studentData.getPlaceOfStudy());
         //userEntity.setStudentCourses(studentData.);
         return userEntity;
     }
@@ -270,6 +270,7 @@ public class UserService extends BaseService implements IUserService {
             user.setActive(true);
             user.setLastLogin(new Date());
             user.setCreatedat(new Date());
+            user.setEmailValidated(true);
             user.setUpdatedat(new Date());
             LinkedAccount linkedAccount = LinkedAccountService.create(authUser);
             linkedAccount.setUser(user);
@@ -282,7 +283,6 @@ public class UserService extends BaseService implements IUserService {
             if (authUser instanceof EmailIdentity) {
                 final EmailIdentity identity = (EmailIdentity) authUser;
                 user.setEmail(identity.getEmail());
-                user.setEmailValidated(false);
             }
 
             if (authUser instanceof NameIdentity) {
@@ -435,13 +435,16 @@ public class UserService extends BaseService implements IUserService {
                 if (create) {
                     a = LinkedAccountService.create(authUser);
                     a.setUser(userEntity);
+                    a.setProviderUserId(authUser.getHashedPassword());
+                    em.persist(a);
+                    return a;
                 } else {
                     throw new RuntimeException(
                             "Account not enabled for password usage");
                 }
             }
             a.setProviderUserId(authUser.getHashedPassword());
-            em.persist(a);
+            em.merge(a);
             return a;
         });
     }
