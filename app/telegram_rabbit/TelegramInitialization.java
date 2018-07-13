@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.rabbitmq.client.*;
 import config.Const;
 import org.telegram.telegrambots.TelegramBotsApi;
+import play.Configuration;
 import play.Logger;
 
 import java.io.IOException;
@@ -12,8 +13,11 @@ public class TelegramInitialization {
     private boolean initialized = false;
 
     @Inject
-    public TelegramInitialization(CoursachelloBot bot) {
+    public TelegramInitialization(CoursachelloBot bot, Configuration configuration) {
         try {
+            if(!configuration.underlying().getBoolean("telegrambot.enabled")) {
+                return;
+            }
             Logger.info("rabbit consumer start");
             Connection connection = RabbitMqConnection.getConnection();
             Channel channel = connection.createChannel();
