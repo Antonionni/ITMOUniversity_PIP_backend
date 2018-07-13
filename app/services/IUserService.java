@@ -66,4 +66,6 @@ public interface IUserService {
     CompletionStage<Collection<AggregatedUser>> getUsersList(RoleType roleType);
 
     CompletionStage<Collection<AggregatedUser>> getUsersList();
+
+    Collection<AggregatedUser> ConvertAggregatedUsers(Collection<UserEntity> userEntities);
 }

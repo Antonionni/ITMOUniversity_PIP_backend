@@ -4,6 +4,7 @@ import Exceptions.BusinessException;
 import models.PagedResult;
 import models.entities.CourseEntity;
 import models.entities.CoursePeriodEntity;
+import models.entities.UserEntity;
 import models.serviceEntities.Course;
 import models.serviceEntities.CourseInfo;
 import models.serviceEntities.CoursePeriod;
@@ -11,6 +12,7 @@ import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
@@ -19,9 +21,12 @@ import java.util.concurrent.CompletionStage;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 public class CourseService extends BaseService implements ICourseService {
+    private final IUserService UserService;
+
     @Inject
-    public CourseService(JPAApi jpaApi, HttpExecutionContext ec) {
+    public CourseService(JPAApi jpaApi, HttpExecutionContext ec, IUserService userService) {
         super(jpaApi, ec);
+        UserService = userService;
     }
 
     public CompletionStage<Optional<Course>> get(int courseId) {
@@ -121,6 +126,12 @@ public class CourseService extends BaseService implements ICourseService {
     private CourseEntity createCourseEntity(CourseInfo courseInfo) {
         CourseEntity courseEntity = new CourseEntity();
         courseEntity.setCreatedAt(new Date());
+        UserEntity currentUser = UserService.getCurrentUser();
+        ArrayList<UserEntity> teachers = new ArrayList<>();
+        teachers.add(currentUser);
+        courseEntity.setCourseTeachers(teachers);
+        courseEntity.setCoursePeriods(new ArrayList<>());
+        courseEntity.setLessons(new ArrayList<>());
         return updateCourseEntity(courseInfo, courseEntity);
     }
 

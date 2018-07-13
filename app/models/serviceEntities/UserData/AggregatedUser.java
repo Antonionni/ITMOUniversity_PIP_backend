@@ -1,5 +1,7 @@
 package models.serviceEntities.UserData;
 
+import models.entities.UserEntity;
+
 import java.util.Optional;
 
 public class AggregatedUser {

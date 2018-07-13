@@ -2,8 +2,14 @@ package models.serviceEntities;
 
 import models.entities.CourseEntity;
 import models.entities.CourseSubscriptionEntity;
+import models.serviceEntities.UserData.AggregatedUser;
+import models.serviceEntities.UserData.Teacher;
+import services.IUserService;
+import services.UserService;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class CourseInfo {
     private int id;
@@ -12,16 +18,18 @@ public class CourseInfo {
     private String imageurl;
     private Date createdAt;
     private Date updatedAt;
+    private Collection<AggregatedUser> teachers;
 
     public CourseInfo() {}
 
-    private CourseInfo(int id, String title, String subject, String imageurl, Date createdAt, Date updatedAt) {
+    private CourseInfo(int id, String title, String subject, String imageurl, Date createdAt, Date updatedAt, Collection<AggregatedUser> teachers) {
         this.id = id;
         this.title = title;
         this.subject = subject;
         this.imageurl = imageurl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.teachers = teachers;
     }
 
     public CourseInfo(CourseEntity courseEntity) {
@@ -31,7 +39,8 @@ public class CourseInfo {
                 courseEntity.getSubject(),
                 courseEntity.getImageurl(),
                 courseEntity.getCreatedAt(),
-                courseEntity.getUpdatedAt());
+                courseEntity.getUpdatedAt(),
+                courseEntity.getCourseTeachers().stream().map(UserService::ToAggregatedUser).collect(Collectors.toList()));
     }
 
     public CourseInfo(CourseSubscriptionEntity courseSubscriptionEntity) {
@@ -84,5 +93,13 @@ public class CourseInfo {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Collection<AggregatedUser> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Collection<AggregatedUser> teachers) {
+        this.teachers = teachers;
     }
 }

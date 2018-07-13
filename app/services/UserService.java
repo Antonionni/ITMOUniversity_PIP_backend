@@ -147,11 +147,17 @@ public class UserService extends BaseService implements IUserService {
     }
 
     private Collection<AggregatedUser> collectUsers(TypedQuery<UserEntity> query) {
-        return query.getResultList().stream().map(x -> {
-            AggregatedUser aggregatedUser = ToAggregatedUser(x);
-            AddDataForRoles(Arrays.asList(RoleType.values()), x, aggregatedUser);
-            return aggregatedUser;
-        }).collect(Collectors.toList());
+        return ConvertAggregatedUsers(query.getResultList());
+    }
+
+    public Collection<AggregatedUser> ConvertAggregatedUsers(Collection<UserEntity> userEntities) {
+        return userEntities.stream().map(UserService::ToAggregsatedUser).collect(Collectors.toList());
+    }
+
+    public static AggregatedUser ToAggregsatedUser(UserEntity userEntity) {
+        AggregatedUser aggregatedUser = ToAggregatedUser(userEntity);
+        AddDataForRoles(Arrays.asList(RoleType.values()), userEntity, aggregatedUser);
+        return aggregatedUser;
     }
 
     public CompletionStage<Optional<AggregatedUser>> getProfileData() {
@@ -166,9 +172,8 @@ public class UserService extends BaseService implements IUserService {
         }), ec.current());
     }
 
-    private void AddDataForRoles(Collection<RoleType> roles, UserEntity x, AggregatedUser aggregatedUser) {
+    private static void AddDataForRoles(Collection<RoleType> roles, UserEntity x, AggregatedUser aggregatedUser) {
         ArrayList<RoleType> roless = new ArrayList<>(roles);
-        x.getStudentCourses();
         for(int i = 0; i < roles.size(); i++) {
             switch (roless.get(i)) {
                 case Student:
@@ -195,17 +200,17 @@ public class UserService extends BaseService implements IUserService {
         return user.filter(x -> x.getRoleTypes().contains(role));
     }
 
-    private AggregatedUser ToAggregatedUser(@NotNull UserEntity user) {
+    public static AggregatedUser ToAggregatedUser(@NotNull UserEntity user) {
         return new AggregatedUser(new BaseUser(user));
 
     }
 
-    private AggregatedUser AddStudentInfo(@NotNull UserEntity userEntity, @NotNull AggregatedUser user) {
+    private static AggregatedUser AddStudentInfo(@NotNull UserEntity userEntity, @NotNull AggregatedUser user) {
         user.setStudent(new Student(userEntity));
         return user;
     }
 
-    private AggregatedUser AddTeacherInfo(UserEntity userEntity, AggregatedUser user) {
+    private static AggregatedUser AddTeacherInfo(UserEntity userEntity, AggregatedUser user) {
         user.setTeacher(new Teacher(userEntity));
         return user;
     }
